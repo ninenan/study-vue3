@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-03 10:05:31
- * @LastEditTime: 2021-05-06 23:29:53
+ * @LastEditTime: 2021-05-07 22:09:56
  * @LastEditors: Please set LastEditors
  * @Description: study vue03
  * @FilePath: /study_vue03/src/views/About.vue
@@ -16,11 +16,10 @@
       <span>x: {{ x }}</span>
       <span>y: {{ y }}</span>
     </p>
-    <a-spin tip="Loading..." :spinning="isShowLoading">
-      <div class="image-box">
-        <img :src="result.message" alt="" />
-      </div>
-    </a-spin>
+    <div v-if="isShowLoading">loading...</div>
+    <div class="image-box" v-else>
+      <img :src="result.message" alt="" />
+    </div>
     <a-button type="primary" @click="addCount">+1</a-button>
   </div>
 </template>
@@ -33,6 +32,11 @@ interface INewCountObj {
   double: number;
   addCount: () => void;
 }
+interface IDogResult {
+  message: string;
+  status: string;
+}
+
 export default {
   setup() {
     const name = ref("NineNan");
@@ -46,7 +50,7 @@ export default {
       },
     });
     const { x, y } = useMousePosition();
-    const { result, isShowLoading, error } = useURLLoader(
+    const { result, isShowLoading, error } = useURLLoader<IDogResult>(
       "https://dog.ceo/api/breeds/image/random"
     );
     watch(
@@ -57,7 +61,7 @@ export default {
         }
       }
     );
-    console.log("isShowLoading :>> ", isShowLoading.value);
+
     return {
       ...toRefs(newCountObj),
       name,
@@ -79,6 +83,7 @@ span {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
   img {
     width: 200px;
     height: 200px;
