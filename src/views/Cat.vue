@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 21:47:18
- * @LastEditTime: 2021-05-07 22:09:02
+ * @LastEditTime: 2021-05-08 11:42:38
  * @LastEditors: Please set LastEditors
  * @Description: Cat
  * @FilePath: /study_vue03/src/views/Cat.vue
@@ -14,7 +14,7 @@
 </template>
 <script lang="ts">
 import useURLLoader from "@/hooks/useURLLoader";
-import { watch, ref } from "@vue/runtime-core";
+import { watch, ref, Ref } from "@vue/runtime-core";
 
 interface ICatResult {
   breeds: [];
@@ -23,8 +23,15 @@ interface ICatResult {
   width: number;
   height: number;
 }
+
+interface ICat {
+  imageSrc: Ref<string>;
+  isShowLoading: Ref<boolean>;
+  error: Ref<null>;
+}
+
 export default {
-  setup() {
+  setup(): ICat {
     const { result, isShowLoading, error } = useURLLoader<ICatResult[]>(
       "https://api.thecatapi.com/v1/images/search?limit=1&size=full&sub_id=demo-2b4916"
     );

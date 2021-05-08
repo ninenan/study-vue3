@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-05-08 09:38:21
+ * @LastEditTime: 2021-05-08 13:36:07
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \study-vue3\src\App.vue
+-->
 <template>
   <div id="nav">
     <router-link
@@ -12,15 +20,21 @@
   <router-view />
 </template>
 <script lang="ts">
-import { ref } from "vue";
+// 52
+import { ref, Ref } from "vue";
+
 interface IRouterLink {
   name: string;
   path: string;
 }
 
+interface IRouterListListObj {
+  routerLinkList: Ref<IRouterLink[]>;
+}
+
 export default {
-  setup() {
-    const routerLinkList: IRouterLink[] = [
+  setup(): IRouterListListObj {
+    const routerLinkList: Ref<IRouterLink[]> = ref([
       {
         name: "Home",
         path: "/",
@@ -37,10 +51,10 @@ export default {
         name: "Modal",
         path: "/modal",
       },
-    ];
+    ]);
 
     return {
-      routerLinkList: ref(routerLinkList),
+      routerLinkList,
     };
   },
 };

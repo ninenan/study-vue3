@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-03 10:05:31
- * @LastEditTime: 2021-05-07 22:09:56
+ * @LastEditTime: 2021-05-08 13:56:37
  * @LastEditors: Please set LastEditors
  * @Description: study vue03
  * @FilePath: /study_vue03/src/views/About.vue
@@ -24,7 +24,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, reactive, toRefs, ref, watch } from "vue";
+import { computed, reactive, toRefs, ref, watch, Ref } from "vue";
 import useMousePosition from "@/hooks/useMousePosition";
 import useURLLoader from "@/hooks/useURLLoader";
 interface INewCountObj {
@@ -37,8 +37,20 @@ interface IDogResult {
   status: string;
 }
 
+interface IAbout<T> {
+  count: Ref<number>;
+  double: Ref<number>;
+  addCount: Ref<() => void>;
+  x: Ref<number>;
+  y: Ref<number>;
+  name: Ref<string>;
+  result: Ref<T | null>;
+  isShowLoading: Ref<boolean>;
+  error: Ref<null>;
+}
+
 export default {
-  setup() {
+  setup(): IAbout<IDogResult> {
     const name = ref("NineNan");
     const newCountObj: INewCountObj = reactive({
       count: 0,

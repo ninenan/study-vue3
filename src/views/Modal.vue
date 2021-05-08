@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:33:16
- * @LastEditTime: 2021-05-07 23:01:18
+ * @LastEditTime: 2021-05-08 11:43:51
  * @LastEditors: Please set LastEditors
  * @Description: Modal teleport
  * @FilePath: /study_vue03/src/views/Modal.vue
@@ -17,12 +17,19 @@
 </template>
 <script lang="ts">
 import MyModal from "@/components/MyModal.vue";
-import { ref } from "vue";
+import { ref, Ref } from "vue";
+
+interface IModal {
+  isShow: Ref<boolean>;
+  open: () => void;
+  closeModal: () => void;
+}
+
 export default {
   components: {
     MyModal,
   },
-  setup() {
+  setup(): IModal {
     const isShow = ref(false);
     const open = () => {
       isShow.value = true;

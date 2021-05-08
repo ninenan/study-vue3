@@ -1,20 +1,20 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-06 21:55:57
- * @LastEditTime: 2021-05-06 22:26:48
+ * @LastEditTime: 2021-05-08 10:03:03
  * @LastEditors: Please set LastEditors
  * @Description: useMousePosition
  * @FilePath: /study_vue03/src/hooks/useMousePosition.ts
  */
-import { reactive, onMounted, onUnmounted, toRefs } from "vue";
+import { reactive, onMounted, onUnmounted, toRefs, Ref } from "vue";
 
-interface IPosition {
-  x: number;
-  y: number;
+interface IPosition<T> {
+  x: T;
+  y: T;
 }
 
-export default function useMousePosition() {
-  const position: IPosition = reactive({
+export default function useMousePosition(): IPosition<Ref<number>> {
+  const position: IPosition<number> = reactive({
     x: 0,
     y: 0,
   });
