@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:33:16
- * @LastEditTime: 2021-05-08 11:43:51
+ * @LastEditTime: 2021-05-08 15:51:14
  * @LastEditors: Please set LastEditors
  * @Description: Modal teleport
  * @FilePath: /study_vue03/src/views/Modal.vue
@@ -22,7 +22,7 @@ import { ref, Ref } from "vue";
 interface IModal {
   isShow: Ref<boolean>;
   open: () => void;
-  closeModal: () => void;
+  closeModal: (val: number) => void;
 }
 
 export default {
@@ -34,7 +34,8 @@ export default {
     const open = () => {
       isShow.value = true;
     };
-    const closeModal = () => {
+    const closeModal = (val: number) => {
+      console.log(val);
       isShow.value = false;
     };
 

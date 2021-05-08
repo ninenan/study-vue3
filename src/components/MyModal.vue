@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:42:02
- * @LastEditTime: 2021-05-07 22:52:04
+ * @LastEditTime: 2021-05-08 15:57:51
  * @LastEditors: Please set LastEditors
  * @Description: MyModal
  * @FilePath: /study_vue03/src/components/MyModal.vue
@@ -16,7 +16,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, watch } from "vue";
 export default defineComponent({
   props: {
     isShow: {
@@ -24,11 +24,19 @@ export default defineComponent({
     },
   },
   emits: {
-    closeModal: null,
+    closeModal: (val: number) => {
+      return val;
+    },
   },
   setup(props, context) {
+    watch(
+      () => props.isShow,
+      (newVal) => {
+        console.log("newVal :>> ", newVal);
+      }
+    );
     const closeModal = () => {
-      context.emit("closeModal");
+      context.emit("closeModal", 123);
     };
 
     return {

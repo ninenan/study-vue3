@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 14:38:13
- * @LastEditTime: 2021-05-08 14:53:30
+ * @LastEditTime: 2021-05-08 15:01:49
  * @LastEditors: Please set LastEditors
  * @Description: DogShow
  * @FilePath: \study-vue3\src\components\DogShow.vue
@@ -23,7 +23,6 @@ interface IRawData {
 export default defineComponent({
   async setup() {
     const { data } = await axios.get("https://dog.ceo/api/breeds/image/random");
-    console.log("data :>> ", data);
     const rawData: IRawData = data;
     return {
       rawData,
