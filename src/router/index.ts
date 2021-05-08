@@ -26,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Modal",
     component: () => import("@/views/Modal.vue"),
   },
+  {
+    path: "/suspense",
+    name: "Suspense",
+    component: () => import("@/views/Suspense.vue"),
+  },
 ];
 
 const router = createRouter({

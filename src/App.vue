@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-08 13:36:07
+ * @LastEditTime: 2021-05-08 14:26:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -20,7 +20,6 @@
   <router-view />
 </template>
 <script lang="ts">
-// 52
 import { ref, Ref } from "vue";
 
 interface IRouterLink {
@@ -50,6 +49,10 @@ export default {
       {
         name: "Modal",
         path: "/modal",
+      },
+      {
+        name: "Suspense",
+        path: "/suspense",
       },
     ]);
 
