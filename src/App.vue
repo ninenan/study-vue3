@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-08 14:26:00
+ * @LastEditTime: 2021-05-08 17:26:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -53,6 +53,10 @@ export default {
       {
         name: "Suspense",
         path: "/suspense",
+      },
+      {
+        name: "StudyWatch",
+        path: "/studyWatch",
       },
     ]);
 

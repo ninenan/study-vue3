@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:33:16
- * @LastEditTime: 2021-05-08 15:51:14
+ * @LastEditTime: 2021-05-08 16:09:40
  * @LastEditors: Please set LastEditors
  * @Description: Modal teleport
  * @FilePath: /study_vue03/src/views/Modal.vue
@@ -35,7 +35,7 @@ export default {
       isShow.value = true;
     };
     const closeModal = (val: number) => {
-      console.log(val);
+      console.log("closeModal :>> ", val);
       isShow.value = false;
     };
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:42:02
- * @LastEditTime: 2021-05-08 15:57:51
+ * @LastEditTime: 2021-05-08 16:39:40
  * @LastEditors: Please set LastEditors
  * @Description: MyModal
  * @FilePath: /study_vue03/src/components/MyModal.vue
@@ -24,9 +24,7 @@ export default defineComponent({
     },
   },
   emits: {
-    closeModal: (val: number) => {
-      return val;
-    },
+    closeModal: (val: number) => val,
   },
   setup(props, context) {
     watch(
@@ -36,7 +34,7 @@ export default defineComponent({
       }
     );
     const closeModal = () => {
-      context.emit("closeModal", 123);
+      context.emit("closeModal", 333);
     };
 
     return {
