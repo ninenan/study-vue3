@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-06 22:11:36
- * @LastEditTime: 2021-05-10 14:37:36
+ * @LastEditTime: 2021-05-10 16:14:58
  * @LastEditors: Please set LastEditors
  * @Description: 配置文件
  * @FilePath: /study_vue03/vue.config.js
@@ -29,6 +29,7 @@ module.exports = {
 
   chainWebpack: (config) => {
     config.resolve.alias
+      .set("@", resolve("src"))
       .set("@assets", resolve("src/assets"))
       .set("@components", resolve("src/components"))
       .set("@views", resolve("src/views"))

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-10 15:05:11
+ * @LastEditTime: 2021-05-10 17:18:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -62,6 +62,10 @@ export default {
         name: "Dropdown",
         path: "/dropdown",
       },
+      {
+        name: "ValidateForm",
+        path: "/validateForm",
+      },
     ]);
 
     return {
@@ -70,13 +74,15 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  @include FlexCenter();
+  flex-direction: column;
 }
 
 #nav {

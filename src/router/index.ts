@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-10 15:04:12
+ * @LastEditTime: 2021-05-10 17:10:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
@@ -48,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dropdown",
     name: "Dropdown",
     component: () => import("@/views/Dropdown.vue"),
+  },
+  {
+    path: "/validateForm",
+    name: "ValidateForm",
+    component: () => import("@/views/ValidateForm.vue"),
   },
 ];
 
