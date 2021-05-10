@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-10 16:52:52
- * @LastEditTime: 2021-05-10 17:36:54
+ * @LastEditTime: 2021-05-10 18:03:38
  * @LastEditors: Please set LastEditors
  * @Description: validate form
  * @FilePath: \study-vue3\src\views\validateForm.vue
@@ -26,9 +26,16 @@ interface IUser {
   name: string;
 }
 
+interface IErrorInfo {
+  message: string;
+  error: boolean;
+  val: string;
+}
+
 interface IValidateForm {
   user: IUser;
   validateEmail: () => void;
+  errorInfo: IErrorInfo;
 }
 
 export default {
