@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-06 22:11:36
- * @LastEditTime: 2021-05-10 11:49:17
+ * @LastEditTime: 2021-05-10 14:37:36
  * @LastEditors: Please set LastEditors
  * @Description: 配置文件
  * @FilePath: /study_vue03/vue.config.js
@@ -19,9 +19,9 @@ module.exports = {
       sass: {
         implementation: require("sass"), // This line must in sass option
         additionalData: `
-          @import "@/assets/style/common.scss";
-          @import "@/assets/style/variable.scss";
-          @import "@/assets/style/transition.scss";
+          @import "@assets/style/common.scss";
+          @import "@assets/style/variable.scss";
+          @import "@assets/style/transition.scss";
         `,
       },
     },
@@ -30,11 +30,11 @@ module.exports = {
   chainWebpack: (config) => {
     config.resolve.alias
       .set("@assets", resolve("src/assets"))
-      .set("@components", "src/components")
-      .set("@views", "src/views")
-      .set("@hooks", "src/hooks")
-      .set("@router", "src/router")
-      .set("@store", "src/store")
-      .set("@helpers", "src/helpers");
+      .set("@components", resolve("src/components"))
+      .set("@views", resolve("src/views"))
+      .set("@hooks", resolve("src/hooks"))
+      .set("@router", resolve("src/router"))
+      .set("@store", resolve("src/store"))
+      .set("@helpers", resolve("src/helpers"));
   },
 };

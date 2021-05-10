@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-10 13:52:13
+ * @LastEditTime: 2021-05-10 14:37:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\views\Home.vue
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { IEnv } from "@/types/index";
+import { IEnv } from "@/types";
 
 interface IHome {
   imgSrc: string;
@@ -23,7 +23,7 @@ interface IHome {
 export default {
   setup(): IHome {
     const env: IEnv = process.env;
-    /* eslint-disable @typescript-eslint/no-var-requires */
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const imgSrc = require("@assets/img/logo.png");
     return {
       imgSrc,

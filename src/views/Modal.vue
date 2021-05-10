@@ -16,7 +16,7 @@
   </div>
 </template>
 <script lang="ts">
-import MyModal from "@/components/MyModal.vue";
+import MyModal from "@components/MyModal.vue";
 import { ref, Ref } from "vue";
 
 interface IModal {

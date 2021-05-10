@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-10 10:08:10
+ * @LastEditTime: 2021-05-10 15:04:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
@@ -44,11 +44,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "StudyWatch",
     component: () => import("@/views/StudyWatch.vue"),
   },
-  // {
-  //   path: "/studyAnt",
-  //   name: "StudyAnt",
-  //   component: () => import("@/views/StudyAnt.vue"),
-  // },
+  {
+    path: "/dropdown",
+    name: "Dropdown",
+    component: () => import("@/views/Dropdown.vue"),
+  },
 ];
 
 const router = createRouter({
