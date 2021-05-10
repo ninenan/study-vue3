@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-03 10:05:31
- * @LastEditTime: 2021-05-08 13:56:37
+ * @LastEditTime: 2021-05-10 09:35:57
  * @LastEditors: Please set LastEditors
  * @Description: study vue03
  * @FilePath: /study_vue03/src/views/About.vue
@@ -18,7 +18,7 @@
     </p>
     <div v-if="isShowLoading">loading...</div>
     <div class="image-box" v-else>
-      <img :src="result.message" alt="" />
+      <img :src="result?.message" alt="" />
     </div>
     <a-button type="primary" @click="addCount">+1</a-button>
   </div>

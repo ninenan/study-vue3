@@ -1,16 +1,39 @@
+<!--
+ * @Author: NineNan
+ * @Date: 2021-05-08 09:38:21
+ * @LastEditTime: 2021-05-10 13:52:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \study-vue3\src\views\Home.vue
+-->
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <img alt="Vue logo" :src="imgSrc" />
+    <p>{{ env.NODE_ENV }}</p>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-// import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-@Options({
-  components: {
-    // HelloWorld,
+import { IEnv } from "@/types/index";
+
+interface IHome {
+  imgSrc: string;
+  env: IEnv;
+}
+export default {
+  setup(): IHome {
+    const env: IEnv = process.env;
+    /* eslint-disable @typescript-eslint/no-var-requires */
+    const imgSrc = require("@assets/img/logo.png");
+    return {
+      imgSrc,
+      env,
+    };
   },
-})
-export default class Home extends Vue {}
+};
 </script>
+<style lang="scss">
+.home {
+  color: $themeColor;
+}
+</style>
