@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-11 21:21:49
- * @LastEditTime: 2021-05-11 22:51:17
+ * @LastEditTime: 2021-05-11 23:00:26
  * @LastEditors: Please set LastEditors
  * @Description: study vuex
  * @FilePath: /study_vue03/src/views/StudyVuex.vue
@@ -49,7 +49,7 @@ export default {
 
     const asyncAddCount = () => {
       setTimeout(() => {
-        store.dispatch("addCount", 20);
+        store.dispatch("addCount", 0);
       }, 1000);
     };
 
