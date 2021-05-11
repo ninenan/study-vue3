@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-10 16:52:52
- * @LastEditTime: 2021-05-10 22:36:13
+ * @LastEditTime: 2021-05-11 09:26:31
  * @LastEditors: Please set LastEditors
  * @Description: validate form
  * @FilePath: \study-vue3\src\views\validateForm.vue

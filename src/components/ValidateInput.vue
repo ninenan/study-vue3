@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-05-10 20:54:23
- * @LastEditTime: 2021-05-10 22:48:55
+ * @LastEditTime: 2021-05-11 09:51:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/components/ValidateInput.vue
@@ -35,24 +35,21 @@ interface IInputRef {
 export default defineComponent({
   props: {
     rules: Array as PropType<IRules[]>,
-    modalValue: String,
+    modelValue: String,
   },
 
-  emits: ["update:modalValue"],
+  emits: ["update:modelValue"],
 
   setup(props, context) {
-    console.log("modalValue :>> ", props.modalValue);
-    console.log("rules :>> ", props.rules);
     const inputRef: IInputRef = reactive({
-      val: props.modalValue || "",
+      val: props.modelValue || "",
       isError: false,
       message: "",
     });
     const updateValue = (event: KeyboardEvent) => {
       const targetValue = (event.target as HTMLInputElement).value;
-      // console.log("targetValue :>> ", targetValue);
       inputRef.val = targetValue;
-      context.emit("update:modalValue", targetValue);
+      context.emit("update:modelValue", targetValue);
     };
     const validateInput = () => {
       if (props.rules) {
