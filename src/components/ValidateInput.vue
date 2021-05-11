@@ -1,7 +1,7 @@
 <!--
- * @Author: your name
+ * @Author: NineNan
  * @Date: 2021-05-10 20:54:23
- * @LastEditTime: 2021-05-11 16:28:41
+ * @LastEditTime: 2021-05-11 20:54:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/components/ValidateInput.vue

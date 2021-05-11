@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-05-11 10:46:26
+ * @LastEditTime: 2021-05-11 21:46:01
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -21,4 +21,13 @@ export interface IRules {
 export interface IRouterLink {
   name: string;
   path: string;
+}
+
+export interface IUser {
+  name: string;
+  height: number;
+  address: string;
+  pet: string[];
+  isLogin: boolean;
+  id: number;
 }

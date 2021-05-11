@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-11 10:48:13
+ * @LastEditTime: 2021-05-11 21:23:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -61,6 +61,10 @@ export default {
       {
         name: "StudyValidate",
         path: "/studyValidate",
+      },
+      {
+        name: "StudyVuex",
+        path: "/studyVuex",
       },
     ]);
 
