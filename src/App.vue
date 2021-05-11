@@ -1,7 +1,7 @@
 <!--
- * @Author: your name
+ * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-10 17:18:24
+ * @LastEditTime: 2021-05-11 10:48:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -21,11 +21,7 @@
 </template>
 <script lang="ts">
 import { ref, Ref } from "vue";
-
-interface IRouterLink {
-  name: string;
-  path: string;
-}
+import { IRouterLink } from "@/types/index.ts";
 
 interface IRouterListListObj {
   routerLinkList: Ref<IRouterLink[]>;
@@ -63,8 +59,8 @@ export default {
         path: "/dropdown",
       },
       {
-        name: "ValidateForm",
-        path: "/validateForm",
+        name: "StudyValidate",
+        path: "/studyValidate",
       },
     ]);
 

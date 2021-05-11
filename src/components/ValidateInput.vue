@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-05-10 20:54:23
- * @LastEditTime: 2021-05-11 09:51:51
+ * @LastEditTime: 2021-05-11 16:28:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/components/ValidateInput.vue
@@ -14,6 +14,7 @@
         :value="inputRef.val"
         @blur="validateInput"
         @input="updateValue"
+        v-bind="$attrs"
       />
     </div>
     <div class="form-explain" v-if="inputRef.isError">
@@ -25,6 +26,7 @@
 import { defineComponent, PropType, reactive } from "vue";
 import { IRules } from "@/types/index";
 import { verifyCondition } from "@/helpers/utils";
+import { emitter } from "./ValidateForm.vue";
 
 interface IInputRef {
   val: string;
@@ -32,11 +34,15 @@ interface IInputRef {
   message: string;
 }
 
+type IValidateInput = () => boolean;
+
 export default defineComponent({
   props: {
     rules: Array as PropType<IRules[]>,
     modelValue: String,
   },
+
+  inheritAttrs: false,
 
   emits: ["update:modelValue"],
 
@@ -51,7 +57,7 @@ export default defineComponent({
       inputRef.val = targetValue;
       context.emit("update:modelValue", targetValue);
     };
-    const validateInput = () => {
+    const validateInput: IValidateInput = () => {
       if (props.rules) {
         const allPassed = props.rules.every((rule: IRules) => {
           let passed = true;
@@ -64,6 +70,8 @@ export default defineComponent({
       }
       return true;
     };
+
+    emitter.emit("form-input-emit", validateInput);
 
     return {
       inputRef,
