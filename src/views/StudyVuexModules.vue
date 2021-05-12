@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-12 11:04:37
- * @LastEditTime: 2021-05-12 14:48:25
+ * @LastEditTime: 2021-05-12 21:47:50
  * @LastEditors: Please set LastEditors
  * @Description: Study Vuex Modules
  * @FilePath: \study-vue3\src\views\StudyVuexModules.vue
@@ -32,13 +32,18 @@
         <a-button @click="asyncEditPet">asyncEditPet</a-button>
       </div>
     </div>
+    <pre
+      >{{ route }}
+      </pre
+    >
   </div>
 </template>
 <script lang="ts">
 import { ADD_COUNT, EDIT_PET } from "@/helpers/constant";
-import { computed, ComputedRef } from "vue";
+import { computed, ComputedRef, ref } from "vue";
 import { IUser } from "@/types";
 import { useStore } from "@/store/index";
+import { useRoute, RouteLocationNormalizedLoaded } from "vue-router";
 
 interface IStudyVuexModules {
   addCount: () => void;
@@ -47,11 +52,13 @@ interface IStudyVuexModules {
   user: ComputedRef<IUser>;
   syncEditPet: () => void;
   asyncEditPet: () => void;
+  route: RouteLocationNormalizedLoaded;
 }
 
 export default {
   setup(): IStudyVuexModules {
     const store = useStore();
+    const route = useRoute();
     const count = computed(() => {
       return store.state.test.count;
     });
@@ -64,6 +71,7 @@ export default {
     const user = computed(() => {
       return store.state.user;
     });
+    console.log("route :>> ", route.params);
 
     return {
       addCount,
@@ -80,6 +88,7 @@ export default {
           "tortoise",
         ]);
       },
+      route,
     };
   },
 };

@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-12 11:22:10
+ * @LastEditTime: 2021-05-12 21:36:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
@@ -60,7 +60,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/StudyVuex.vue"),
   },
   {
-    path: "/studyVuexModules",
+    path: "/studyVuexModules/:id",
     name: "StudyVuexModules",
     component: () => import("@/views/StudyVuexModules.vue"),
   },
@@ -69,6 +69,18 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name === "StudyVuexModules") {
+    if (sessionStorage.getItem("token")) {
+      next();
+    } else {
+      next("/studyVuex");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

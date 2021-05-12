@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-12 11:22:24
+ * @LastEditTime: 2021-05-12 21:39:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -68,7 +68,7 @@ export default {
       },
       {
         name: "StudyVuexModules",
-        path: "/studyVuexModules",
+        path: "/studyVuexModules/333",
       },
     ]);
 
