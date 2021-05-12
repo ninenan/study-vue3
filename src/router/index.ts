@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-11 21:23:11
+ * @LastEditTime: 2021-05-12 11:22:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
@@ -58,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/studyVuex",
     name: "StudyVuex",
     component: () => import("@/views/StudyVuex.vue"),
+  },
+  {
+    path: "/studyVuexModules",
+    name: "StudyVuexModules",
+    component: () => import("@/views/StudyVuexModules.vue"),
   },
 ];
 

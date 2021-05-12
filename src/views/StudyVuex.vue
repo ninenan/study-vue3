@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-11 21:21:49
- * @LastEditTime: 2021-05-11 23:00:26
+ * @LastEditTime: 2021-05-12 11:17:50
  * @LastEditors: Please set LastEditors
  * @Description: study vuex
  * @FilePath: /study_vue03/src/views/StudyVuex.vue
@@ -36,7 +36,7 @@ export default {
     const store = useStore();
 
     const count = computed(() => {
-      return store.state.count;
+      return store.state.test.count;
     });
 
     const isGreaterTen = computed(() => {

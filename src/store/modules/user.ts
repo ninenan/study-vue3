@@ -1,13 +1,14 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-11 21:29:29
- * @LastEditTime: 2021-05-11 21:46:16
+ * @LastEditTime: 2021-05-12 11:38:15
  * @LastEditors: Please set LastEditors
  * @Description: user
  * @FilePath: /study_vue03/src/store/modules/user.ts
  */
 import { IUser } from "@/types";
-
+import { ActionContext } from "vuex";
+import { EDIT_PET } from "@/helpers/constant";
 const state: IUser = {
   name: "NineNan",
   height: 180,
@@ -18,15 +19,14 @@ const state: IUser = {
 };
 
 const mutations = {
-  EDIT_PET: (state: IUser, payload: string[]): void => {
+  [EDIT_PET]: (state: IUser, payload: string[]): void => {
     state.pet = payload;
   },
 };
 
 const actions = {
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  editPet: (context: any, payload: string[]): void => {
-    context.commit("EDIT_PET", payload);
+  editPet: (context: ActionContext<IUser, IUser>, payload: string[]): void => {
+    context.commit(EDIT_PET, payload);
   },
 };
 
