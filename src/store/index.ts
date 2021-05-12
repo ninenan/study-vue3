@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-07 20:58:58
- * @LastEditTime: 2021-05-12 14:47:17
+ * @LastEditTime: 2021-05-12 15:15:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/index.ts
@@ -28,6 +28,7 @@ const store = createStore<IStore>({
 
 export const useStore = (): Store<IStore> => {
   return baseUseStore(storeKey);
+  // return baseUseStore<IStore>();
 };
 
 export default store;
