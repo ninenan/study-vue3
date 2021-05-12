@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-12 11:04:37
- * @LastEditTime: 2021-05-12 11:41:46
+ * @LastEditTime: 2021-05-12 14:48:25
  * @LastEditors: Please set LastEditors
  * @Description: Study Vuex Modules
  * @FilePath: \study-vue3\src\views\StudyVuexModules.vue
@@ -35,12 +35,22 @@
   </div>
 </template>
 <script lang="ts">
-import { useStore } from "vuex";
 import { ADD_COUNT, EDIT_PET } from "@/helpers/constant";
-import { computed } from "vue";
+import { computed, ComputedRef } from "vue";
+import { IUser } from "@/types";
+import { useStore } from "@/store/index";
+
+interface IStudyVuexModules {
+  addCount: () => void;
+  count: ComputedRef<number>;
+  asyncAddCount: () => void;
+  user: ComputedRef<IUser>;
+  syncEditPet: () => void;
+  asyncEditPet: () => void;
+}
 
 export default {
-  setup() {
+  setup(): IStudyVuexModules {
     const store = useStore();
     const count = computed(() => {
       return store.state.test.count;
@@ -54,25 +64,22 @@ export default {
     const user = computed(() => {
       return store.state.user;
     });
-    const syncEditPet = () => {
-      return store.commit(EDIT_PET, ["cat", "dog"]);
-    };
-    const asyncEditPet = () => {
-      return store.dispatch("editPet", [
-        "dog",
-        "bird",
-        "cat",
-        "fish",
-        "tortoise",
-      ]);
-    };
+
     return {
       addCount,
       count,
       asyncAddCount,
       user,
-      syncEditPet,
-      asyncEditPet,
+      syncEditPet: () => store.commit(EDIT_PET, ["cat", "dog"]),
+      asyncEditPet: () => {
+        return store.dispatch("editPet", [
+          "dog",
+          "bird",
+          "cat",
+          "fish",
+          "tortoise",
+        ]);
+      },
     };
   },
 };

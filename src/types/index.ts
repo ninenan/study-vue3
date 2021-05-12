@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-05-12 10:16:38
+ * @LastEditTime: 2021-05-12 14:38:41
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -34,4 +34,9 @@ export interface IUser {
 
 export interface ITestSore {
   count: number;
+}
+
+export interface IStore {
+  test: ITestSore;
+  user: IUser;
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-11 21:21:49
- * @LastEditTime: 2021-05-12 11:17:50
+ * @LastEditTime: 2021-05-12 14:48:12
  * @LastEditors: Please set LastEditors
  * @Description: study vuex
  * @FilePath: /study_vue03/src/views/StudyVuex.vue
@@ -20,9 +20,9 @@
   </div>
 </template>
 <script lang="ts">
-import { useStore } from "vuex";
 import { computed, ComputedRef } from "vue";
 import { ADD_COUNT } from "@/helpers/constant";
+import { useStore } from "@/store/index";
 
 interface IStudyVuex {
   count: ComputedRef<number>;
