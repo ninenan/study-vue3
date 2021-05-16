@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-12 21:39:58
+ * @LastEditTime: 2021-05-16 22:33:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -21,7 +21,7 @@
 </template>
 <script lang="ts">
 import { ref, Ref } from "vue";
-import { IRouterLink } from "@/types/index.ts";
+import { IRouterLink } from "@/types/index";
 
 interface IRouterListListObj {
   routerLinkList: Ref<IRouterLink[]>;
@@ -79,23 +79,14 @@ export default {
 };
 </script>
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  @include FlexCenter();
-  flex-direction: column;
-}
-
 #nav {
   padding: 30px;
+  @include FlexCenter();
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: $color-text;
 }
 
 #nav a.router-link-exact-active {

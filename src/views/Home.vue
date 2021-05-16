@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-10 14:37:17
+ * @LastEditTime: 2021-05-16 22:33:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\views\Home.vue
@@ -35,5 +35,7 @@ export default {
 <style lang="scss">
 .home {
   color: $themeColor;
+  @include FlexCenter();
+  flex-direction: column;
 }
 </style>

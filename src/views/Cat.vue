@@ -1,13 +1,13 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 21:47:18
- * @LastEditTime: 2021-05-10 15:48:38
+ * @LastEditTime: 2021-05-16 22:37:30
  * @LastEditors: Please set LastEditors
  * @Description: Cat
  * @FilePath: /study_vue03/src/views/Cat.vue
 -->
 <template>
-  <div>
+  <div class="cat">
     <div class="loading" v-if="isShowLoading">loading...</div>
     <img v-else :src="imageSrc" alt="" />
   </div>
@@ -52,6 +52,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.cat {
+  @include FlexCenter();
+  flex-direction: column;
+}
 .loading {
   color: black;
   font-size: 14px;

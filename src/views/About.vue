@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-03 10:05:31
- * @LastEditTime: 2021-05-10 09:35:57
+ * @LastEditTime: 2021-05-16 22:34:30
  * @LastEditors: Please set LastEditors
  * @Description: study vue03
  * @FilePath: /study_vue03/src/views/About.vue
@@ -87,6 +87,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.about {
+  @include FlexCenter();
+  flex-direction: column;
+  color: $color-text;
+}
 span {
   color: blue;
 }

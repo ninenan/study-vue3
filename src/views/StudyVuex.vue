@@ -1,24 +1,26 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-11 21:21:49
- * @LastEditTime: 2021-05-12 21:35:31
+ * @LastEditTime: 2021-05-16 22:53:54
  * @LastEditors: Please set LastEditors
  * @Description: study vuex
  * @FilePath: /study_vue03/src/views/StudyVuex.vue
 -->
 <template>
-  <div>
+  <div class="study-vuex">
     <h1>Study Vuex</h1>
     <p>count: {{ count }}</p>
     <p>isGreaterTen: {{ isGreaterTen }}</p>
     <div class="mb-20">
-      <a-button @click.prevent="addCount">addCount</a-button>
+      <a-button @click.prevent="addCount" type="primary">addCount</a-button>
     </div>
     <div class="mb-20">
-      <a-button @click.prevent="asyncAddCount">asyncAddCount</a-button>
+      <a-button @click.prevent="asyncAddCount" type="primary"
+        >asyncAddCount</a-button
+      >
     </div>
     <div>
-      <a-button @click="goModules">goModules</a-button>
+      <a-button @click="goModules" type="primary">goModules</a-button>
     </div>
   </div>
 </template>
@@ -81,5 +83,9 @@ export default {
 <style lang="scss" scoped>
 h1 {
   color: $themeColor;
+}
+.study-vuex {
+  @include FlexCenter();
+  flex-direction: column;
 }
 </style>

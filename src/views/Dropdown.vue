@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-10 14:38:28
- * @LastEditTime: 2021-05-10 16:28:48
+ * @LastEditTime: 2021-05-16 22:49:21
  * @LastEditors: Please set LastEditors
  * @Description: study dropdown
  * @FilePath: \study-vue3\src\views\DropDown.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="dropdown">
     <div ref="dropdownRef">
-      <a-button @click="operationBox"> showBox </a-button>
+      <a-button @click="operationBox" type="primary"> showBox </a-button>
       <div class="box" v-if="isShowBox">我是盒子</div>
     </div>
   </div>

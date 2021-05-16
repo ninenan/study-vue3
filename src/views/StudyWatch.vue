@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 17:19:50
- * @LastEditTime: 2021-05-08 17:44:53
+ * @LastEditTime: 2021-05-16 22:52:44
  * @LastEditors: Please set LastEditors
  * @Description: study watch
  * @FilePath: \study-vue3\src\views\StudyWatch.vue
@@ -14,14 +14,14 @@
       <p>
         {{ count }}
       </p>
-      <a-button @click="addCount">addCount</a-button>
+      <a-button @click="addCount" type="primary">addCount</a-button>
     </div>
     <div class="two">
       <p>监听对象中的属性</p>
       <p>
         {{ stateCount }}
       </p>
-      <a-button @click="addStateCount">addStateCount</a-button>
+      <a-button @click="addStateCount" type="primary">addStateCount</a-button>
     </div>
     <div class="three">
       <p>监听多个属性</p>
@@ -31,7 +31,7 @@
       <p>
         {{ count }}
       </p>
-      <a-button @click="addStateCount">addStateCount</a-button>
+      <a-button @click="addStateCount" type="primary">addStateCount</a-button>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-12 11:04:37
- * @LastEditTime: 2021-05-12 21:47:50
+ * @LastEditTime: 2021-05-16 22:58:25
  * @LastEditors: Please set LastEditors
  * @Description: Study Vuex Modules
  * @FilePath: \study-vue3\src\views\StudyVuexModules.vue
@@ -13,10 +13,10 @@
       <p>test module</p>
       <p>count: {{ count }}</p>
       <div class="mb-20">
-        <a-button @click="addCount">addCount</a-button>
+        <a-button @click="addCount" type="primary">addCount</a-button>
       </div>
       <div>
-        <a-button @click="asyncAddCount">asyncAddCount</a-button>
+        <a-button @click="asyncAddCount" type="primary">asyncAddCount</a-button>
       </div>
     </div>
     <div class="user">
@@ -26,21 +26,17 @@
       <p>address: {{ user.address }}</p>
       <p>pet: {{ user.pet.join() }}</p>
       <div class="mb-20">
-        <a-button @click="syncEditPet">syncEditPet</a-button>
+        <a-button @click="syncEditPet" type="primary">syncEditPet</a-button>
       </div>
       <div class="mb-20">
-        <a-button @click="asyncEditPet">asyncEditPet</a-button>
+        <a-button @click="asyncEditPet" type="primary">asyncEditPet</a-button>
       </div>
     </div>
-    <pre
-      >{{ route }}
-      </pre
-    >
   </div>
 </template>
 <script lang="ts">
 import { ADD_COUNT, EDIT_PET } from "@/helpers/constant";
-import { computed, ComputedRef, ref } from "vue";
+import { computed, ComputedRef } from "vue";
 import { IUser } from "@/types";
 import { useStore } from "@/store/index";
 import { useRoute, RouteLocationNormalizedLoaded } from "vue-router";
@@ -72,6 +68,7 @@ export default {
       return store.state.user;
     });
     console.log("route :>> ", route.params);
+    console.log("route :>> ", route);
 
     return {
       addCount,
@@ -96,6 +93,8 @@ export default {
 <style lang="scss" scoped>
 .vuex-modules {
   color: $themeColor;
+  flex-direction: column;
+  @include FlexCenter();
 }
 .test,
 .user {

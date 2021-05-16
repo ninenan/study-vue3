@@ -11,11 +11,11 @@ module.exports = {
       sass: {
         implementation: require("sass"), // This line must in sass option
         additionalData: `
-          @import "@assets/style/common.scss";
           @import "@assets/style/variable.scss";
-          @import "@assets/style/transition.scss";
-          @import "@assets/style/mixin.scss";
           @import "@assets/style/reset.scss";
+          @import "@assets/style/mixin.scss";
+          @import "@assets/style/transition.scss";
+          @import "@assets/style/common.scss";
         `,
       },
     },
