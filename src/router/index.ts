@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-12 21:36:22
+ * @LastEditTime: 2021-05-12 22:35:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
@@ -63,6 +63,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/studyVuexModules/:id",
     name: "StudyVuexModules",
     component: () => import("@/views/StudyVuexModules.vue"),
+    meta: {
+      redirectLogin: true,
+    },
   },
 ];
 
@@ -73,7 +76,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name === "StudyVuexModules") {
-    if (sessionStorage.getItem("token")) {
+    if (sessionStorage.getItem("token") && to.meta.redirectLogin) {
       next();
     } else {
       next("/studyVuex");

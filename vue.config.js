@@ -1,11 +1,3 @@
-/*
- * @Author: NineNan
- * @Date: 2021-05-06 22:11:36
- * @LastEditTime: 2021-05-10 16:14:58
- * @LastEditors: Please set LastEditors
- * @Description: 配置文件
- * @FilePath: /study_vue03/vue.config.js
- */
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
@@ -22,6 +14,8 @@ module.exports = {
           @import "@assets/style/common.scss";
           @import "@assets/style/variable.scss";
           @import "@assets/style/transition.scss";
+          @import "@assets/style/mixin.scss";
+          @import "@assets/style/reset.scss";
         `,
       },
     },
