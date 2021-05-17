@@ -1,13 +1,13 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-16 22:33:06
+ * @LastEditTime: 2021-05-17 22:24:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
 -->
 <template>
-  <div id="nav">
+  <!-- <div id="nav">
     <router-link
       :to="item.path"
       v-for="(item, index) in routerLinkList"
@@ -16,18 +16,23 @@
       <a-divider type="vertical" v-if="index" />
       {{ item.name }}</router-link
     >
-  </div>
+  </div> -->
+  <Tab />
   <router-view />
 </template>
 <script lang="ts">
 import { ref, Ref } from "vue";
 import { IRouterLink } from "@/types/index";
+import Tab from "@components/tab/index.vue";
 
 interface IRouterListListObj {
   routerLinkList: Ref<IRouterLink[]>;
 }
 
 export default {
+  components: {
+    Tab,
+  },
   setup(): IRouterListListObj {
     const routerLinkList: Ref<IRouterLink[]> = ref([
       {

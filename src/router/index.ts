@@ -1,73 +1,16 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-12 22:35:39
+ * @LastEditTime: 2021-05-17 23:07:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
+import study from "./modules/study";
+import music from "./modules/music";
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-  {
-    path: "/cat",
-    name: "Cat",
-    component: () => import("@/views/Cat.vue"),
-  },
-  {
-    path: "/modal",
-    name: "Modal",
-    component: () => import("@/views/Modal.vue"),
-  },
-  {
-    path: "/suspense",
-    name: "Suspense",
-    component: () => import("@/views/Suspense.vue"),
-  },
-  {
-    path: "/studyWatch",
-    name: "StudyWatch",
-    component: () => import("@/views/StudyWatch.vue"),
-  },
-  {
-    path: "/dropdown",
-    name: "Dropdown",
-    component: () => import("@/views/Dropdown.vue"),
-  },
-  {
-    path: "/studyValidate",
-    name: "StudyValidate",
-    component: () => import("@/views/StudyValidate.vue"),
-  },
-  {
-    path: "/studyVuex",
-    name: "StudyVuex",
-    component: () => import("@/views/StudyVuex.vue"),
-  },
-  {
-    path: "/studyVuexModules/:id",
-    name: "StudyVuexModules",
-    component: () => import("@/views/StudyVuexModules.vue"),
-    meta: {
-      redirectLogin: true,
-    },
-  },
-];
+const routes: Array<RouteRecordRaw> = [study, music];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
