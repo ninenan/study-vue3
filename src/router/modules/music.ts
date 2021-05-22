@@ -1,14 +1,16 @@
 /*
- * @Author: your name
+ * @Author: NineNan
  * @Date: 2021-05-17 22:55:24
- * @LastEditTime: 2021-05-17 23:10:12
+ * @LastEditTime: 2021-05-22 12:51:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/router/modules/music.ts
  */
-const music = {
+import { RouteRecordRaw } from "vue-router";
+const music: RouteRecordRaw = {
   path: "/music",
   name: "music",
+  redirect: "/music/recommend",
   component: () => import("@/components/base/Layout.vue"),
   children: [
     {

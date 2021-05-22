@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-17 23:07:55
+ * @LastEditTime: 2021-05-22 12:49:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
@@ -10,7 +10,15 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import study from "./modules/study";
 import music from "./modules/music";
 
-const routes: Array<RouteRecordRaw> = [study, music];
+// 公共路由
+const baseRouter: Array<RouteRecordRaw> = [
+  {
+    path: "/",
+    redirect: "/music",
+  },
+];
+
+const routes: Array<RouteRecordRaw> = [study, music, ...baseRouter];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

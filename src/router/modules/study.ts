@@ -1,14 +1,14 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:31:15
- * @LastEditTime: 2021-05-17 22:54:17
+ * @LastEditTime: 2021-05-22 14:18:31
  * @LastEditors: Please set LastEditors
  * @Description: study demo router
  * @FilePath: /study_vue03/src/router/modules/study.ts
  */
-// import { _RouteRecordBase } from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 
-const study = {
+const study: RouteRecordRaw = {
   path: "/study",
   name: "study",
   redirect: "/abort",
