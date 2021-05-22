@@ -1,9 +1,9 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 14:08:03
- * @LastEditTime: 2021-05-08 14:52:48
+ * @LastEditTime: 2021-05-22 22:40:16
  * @LastEditors: Please set LastEditors
- * @Description: study Suspense
+ * @Description: study Suspense 如果是异步组件的话 外层需要使用 Suspense
  * @FilePath: \study-vue3\src\views\Suspense.vue
 -->
 <template>

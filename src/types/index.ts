@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-05-17 22:17:45
+ * @LastEditTime: 2021-05-22 23:30:50
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -39,4 +39,25 @@ export interface ITestSore {
 export interface IStore {
   test: ITestSore;
   user: IUser;
+}
+
+export interface IResponseData<T = any> {
+  code: number;
+  result: T;
+}
+
+export interface IRecommendSliders {
+  id: string;
+  link: string;
+  pic: string;
+}
+
+export interface IRecommend {
+  albums: Array<{
+    id: number;
+    pic: string;
+    title: string;
+    username: string;
+  }>;
+  sliders: IRecommendSliders[];
 }

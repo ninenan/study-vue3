@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const registerRouter = require("./backend/router");
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
 const resolve = (dir) => path.join(__dirname, dir);
 
@@ -29,5 +30,11 @@ module.exports = {
       .set("@router", resolve("src/router"))
       .set("@store", resolve("src/store"))
       .set("@helpers", resolve("src/helpers"));
+  },
+
+  devServer: {
+    before(app) {
+      registerRouter(app);
+    },
   },
 };

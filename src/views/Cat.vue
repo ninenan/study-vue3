@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 21:47:18
- * @LastEditTime: 2021-05-16 22:37:30
+ * @LastEditTime: 2021-05-22 17:47:55
  * @LastEditors: Please set LastEditors
  * @Description: Cat
  * @FilePath: /study_vue03/src/views/Cat.vue
@@ -16,7 +16,7 @@
 import useURLLoader from "@/hooks/useURLLoader";
 import { watch, ref, Ref } from "@vue/runtime-core";
 
-interface ICatResult {
+export interface ICatResult {
   breeds: [];
   id: string;
   url: string;
