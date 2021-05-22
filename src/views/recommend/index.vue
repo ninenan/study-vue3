@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:56:26
- * @LastEditTime: 2021-05-22 23:31:27
+ * @LastEditTime: 2021-05-22 23:38:36
  * @LastEditors: Please set LastEditors
  * @Description: Recommend
  * @FilePath: /study_vue03/src/views/recommend/index.vue
@@ -20,7 +20,7 @@
 <script lang="ts">
 import { getRecommend } from "@/api/recommend";
 import { IRecommend, IRecommendSliders } from "@/types/index";
-import Slider from "@/components/base/slider/Slider.vue";
+import Slider from "@/components/base/slider/index.vue";
 import { Ref, ref } from "vue";
 
 interface IRecommendVue {
