@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-05-22 23:30:50
+ * @LastEditTime: 2021-05-23 13:15:04
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -52,12 +52,14 @@ export interface IRecommendSliders {
   pic: string;
 }
 
+export interface IRecommendAlbums {
+  id: number;
+  pic: string;
+  title: string;
+  username: string;
+}
+
 export interface IRecommend {
-  albums: Array<{
-    id: number;
-    pic: string;
-    title: string;
-    username: string;
-  }>;
+  albums: IRecommendAlbums[];
   sliders: IRecommendSliders[];
 }

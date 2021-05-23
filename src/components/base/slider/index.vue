@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-22 21:29:55
- * @LastEditTime: 2021-05-22 23:30:57
+ * @LastEditTime: 2021-05-22 23:50:47
  * @LastEditors: Please set LastEditors
  * @Description: Slider
  * @FilePath: /study_vue03/src/components/base/slider/Slider.vue
@@ -93,11 +93,14 @@ export default {
       height: 8px;
       border-radius: 50%;
       background: $color-text-l;
+      transition: all 1 linear;
       &.active {
         width: 20px;
         border-radius: 5px;
         backgroud: $color-text-ll;
+        transition: all 1 linear;
       }
+      transition: all 1 linear;
     }
   }
 }

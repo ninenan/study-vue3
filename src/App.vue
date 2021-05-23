@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-22 23:19:52
+ * @LastEditTime: 2021-05-23 13:35:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\App.vue
@@ -19,18 +19,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-#nav {
-  padding: 30px;
-  @include FlexCenter();
-}
-
-#nav a {
-  font-weight: bold;
-  color: $color-text;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

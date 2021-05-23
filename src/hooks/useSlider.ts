@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-22 21:37:55
- * @LastEditTime: 2021-05-22 23:27:36
+ * @LastEditTime: 2021-05-22 23:42:08
  * @LastEditors: Please set LastEditors
  * @Description: useSlider
  * @FilePath: /study_vue03/src/hooks/useSlider.ts
@@ -19,7 +19,7 @@ BScroll.use(Slide);
 
 export const useSlider = (wrapperRef: Ref): IUseSlider => {
   const currentPageIndex = ref(0);
-  const slider = ref(null) as Ref;
+  const slider = ref();
 
   onMounted(() => {
     const sliderValue = (slider.value = new BScroll(wrapperRef.value, {
