@@ -1,13 +1,13 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-05-25 22:41:33
+ * @LastEditTime: 2021-05-25 23:55:18
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
 -->
 <template>
-  <Scroll class="singer-list" :probeType="3" @scroll="onScroll">
+  <Scroll class="singer-list" :probeType="3" @scroll="onScroll" ref="scrollRef">
     <ul ref="groupRef">
       <li v-for="group in singersList" :key="group.title" class="group">
         <h2 class="title">{{ group.title }}</h2>
@@ -27,13 +27,27 @@
     <div class="fixed" v-show="fixedTitle" :style="fixedStyle">
       <div class="fixed-title">{{ fixedTitle }}</div>
     </div>
+    <div class="shortcut" @touchstart.stop.prevent="onShortcutTouchStart">
+      <ul>
+        <li
+          v-for="(item, index) in shortcutList"
+          :key="item"
+          :data-index="index"
+          class="item"
+          :class="{ current: currentIndex === index }"
+        >
+          {{ item }}
+        </li>
+      </ul>
+    </div>
   </Scroll>
 </template>
 <script lang="ts">
 import Scroll from "@/components/base/scroll/Scroll.vue";
-import { ISingerInfo } from "@/types";
+import { ISingerList } from "@/types";
 import { defineComponent, PropType } from "vue";
 import useFixed from "@/hooks/useFixed";
+import useShortcut from "@/hooks/useShortcut";
 
 export default defineComponent({
   name: "singerList",
@@ -41,16 +55,30 @@ export default defineComponent({
     Scroll,
   },
   props: {
-    singersList: Array as PropType<ISingerInfo[]>,
+    singersList: Array as PropType<ISingerList[]>,
   },
   setup(props) {
-    const { groupRef, onScroll, fixedTitle, fixedStyle } = useFixed(props);
+    const {
+      groupRef,
+      onScroll,
+      fixedTitle,
+      fixedStyle,
+      currentIndex,
+    } = useFixed(props);
+    const { shortcutList, onShortcutTouchStart, scrollRef } = useShortcut(
+      props,
+      groupRef
+    );
 
     return {
       groupRef,
       onScroll,
       fixedTitle,
       fixedStyle,
+      currentIndex,
+      shortcutList,
+      onShortcutTouchStart,
+      scrollRef,
     };
   },
 });

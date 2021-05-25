@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-24 22:39:14
- * @LastEditTime: 2021-05-25 22:41:57
+ * @LastEditTime: 2021-05-25 23:25:46
  * @LastEditors: Please set LastEditors
  * @Description: useFixed
  * @FilePath: /study_vue03/src/hooks/useFixed.ts
@@ -15,6 +15,7 @@ interface IUseFixed {
   fixedStyle: ComputedRef<{
     transform: string;
   }>;
+  currentIndex: Ref<number>;
 }
 
 export default function useFixed(props: any): IUseFixed {
@@ -86,5 +87,6 @@ export default function useFixed(props: any): IUseFixed {
     onScroll,
     fixedTitle,
     fixedStyle,
+    currentIndex,
   };
 }
