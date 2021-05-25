@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-05-24 23:42:57
+ * @LastEditTime: 2021-05-25 22:41:33
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
@@ -24,7 +24,7 @@
         </ul>
       </li>
     </ul>
-    <div class="fixed" v-show="fixedTitle">
+    <div class="fixed" v-show="fixedTitle" :style="fixedStyle">
       <div class="fixed-title">{{ fixedTitle }}</div>
     </div>
   </Scroll>
@@ -44,12 +44,13 @@ export default defineComponent({
     singersList: Array as PropType<ISingerInfo[]>,
   },
   setup(props) {
-    const { groupRef, onScroll, fixedTitle } = useFixed(props);
+    const { groupRef, onScroll, fixedTitle, fixedStyle } = useFixed(props);
 
     return {
       groupRef,
       onScroll,
       fixedTitle,
+      fixedStyle,
     };
   },
 });
