@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-23 14:11:58
- * @LastEditTime: 2021-05-24 23:20:50
+ * @LastEditTime: 2021-05-26 15:30:48
  * @LastEditors: Please set LastEditors
  * @Description: useScroll
  * @FilePath: /study_vue03/src/hooks/useScroll.ts
@@ -10,17 +10,13 @@ import BScroll, { Options } from "@better-scroll/core";
 import ObserveDOM from "@better-scroll/observe-dom";
 import { onMounted, onUnmounted, Ref, ref, SetupContext } from "vue";
 
-export interface IScroll {
-  scroll: Ref;
-}
-
 BScroll.use(ObserveDOM);
 
 export const useScroll = (
   wrapperRef: Ref,
   options: Options,
   context: SetupContext
-): IScroll => {
+): Ref => {
   const scroll = ref();
 
   onMounted(() => {
@@ -40,5 +36,5 @@ export const useScroll = (
     scroll.value.destroy();
   });
 
-  return { scroll };
+  return scroll;
 };

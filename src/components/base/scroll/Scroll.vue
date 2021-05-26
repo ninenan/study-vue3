@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-23 14:09:30
- * @LastEditTime: 2021-05-24 23:20:57
+ * @LastEditTime: 2021-05-26 15:26:33
  * @LastEditors: Please set LastEditors
  * @Description: Scroll
  * @FilePath: /study_vue03/src/components/base/scroll/Scroll.vue
@@ -29,7 +29,7 @@ export default defineComponent({
   },
   emits: ["scroll"],
   setup(props, context: SetupContext) {
-    const scrollRef = ref(null);
+    const scrollRef = ref<HTMLElement | null>(null);
     const scroll = useScroll(scrollRef, props, context);
 
     return {

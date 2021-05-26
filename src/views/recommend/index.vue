@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:56:26
- * @LastEditTime: 2021-05-26 11:16:10
+ * @LastEditTime: 2021-05-26 14:59:45
  * @LastEditors: Please set LastEditors
  * @Description: Recommend
  * @FilePath: /study_vue03/src/views/recommend/index.vue
@@ -62,7 +62,6 @@ export default {
     const albums = ref<IRecommendAlbums[]>([]);
     const loadingTitle = ref("加载中...");
     const isShowLoading = computed(() => {
-      console.log("object :>> ", !sliders.value.length && !albums.value.length);
       return !sliders.value.length && !albums.value.length;
     });
 

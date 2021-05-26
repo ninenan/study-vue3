@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-25 22:58:55
- * @LastEditTime: 2021-05-25 23:57:17
+ * @LastEditTime: 2021-05-26 15:30:07
  * @LastEditors: Please set LastEditors
  * @Description: useShortcut
  * @FilePath: /study_vue03/src/hooks/useShortcut.ts
@@ -9,6 +9,7 @@
 
 import { computed, ComputedRef, ref, Ref } from "vue";
 import { ISingerList } from "@/types";
+import Scroller from "@better-scroll/core";
 
 interface IUseShortcut {
   shortcutList: ComputedRef<string>;
@@ -35,11 +36,9 @@ export default function useShortcut(
   };
 
   const scrollTo = (index: number) => {
-    const scroll = (scrollRef.value as HTMLElement).scroll;
+    const scroll: any = (scrollRef.value as HTMLElement).scroll;
     const targetEl = groupRef.value.children[index];
-    console.log("scroll :>> ", scroll);
-    console.log("targetEl :>> ", targetEl);
-    // scroll.scrollToElement(targetEl, 0);
+    scroll.scrollToElement(targetEl, 0);
   };
 
   return {
