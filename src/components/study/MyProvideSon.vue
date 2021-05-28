@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-28 14:55:48
- * @LastEditTime: 2021-05-28 15:28:40
+ * @LastEditTime: 2021-05-28 15:56:27
  * @LastEditors: Please set LastEditors
  * @Description: ProvideSon
  * @FilePath: \study-vue3\src\components\study\ProvideSon.vue
@@ -26,12 +26,19 @@
 </template>
 <script lang="ts">
 import { defineComponent, inject } from "vue";
+import { IGeolocation } from "@/views/study/StudyProvide.vue";
 
 export default defineComponent({
   setup() {
-    const useGeolocation = inject("geolocation");
+    const useGeolocation = inject("geolocation") as IGeolocation; // 断言类型 暂时不知道还有什么好的处理方式
     const useLocation = inject("location");
     const uploadLocation = inject("uploadLocation");
+
+    console.log("useGeolocation :>> ", useGeolocation.latitude);
+
+    if (useGeolocation.latitude === 200) {
+      console.log("333 :>> ", 333);
+    }
 
     return {
       useGeolocation,

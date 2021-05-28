@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:31:15
- * @LastEditTime: 2021-05-28 14:32:38
+ * @LastEditTime: 2021-05-28 16:07:55
  * @LastEditors: Please set LastEditors
  * @Description: study demo router
  * @FilePath: /study_vue03/src/router/modules/study.ts
@@ -68,6 +68,14 @@ const study: RouteRecordRaw = {
       component: () => import("@views/study/StudyProvide.vue"),
       meta: {
         title: "学习Provide / Inject",
+      },
+    },
+    {
+      path: "studyJSX",
+      name: "StudyJSX",
+      component: () => import("@views/study/StudyJSX.vue"),
+      meta: {
+        title: "学习JSX",
       },
     },
   ],
