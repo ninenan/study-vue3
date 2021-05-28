@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/views/study/StudyJSX.jsx"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

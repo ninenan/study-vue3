@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-28 16:07:07
- * @LastEditTime: 2021-05-28 17:05:05
+ * @LastEditTime: 2021-05-28 17:31:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\views\study\StudyJSX.vue
@@ -30,7 +30,7 @@
   </div>
 </template>
 <script lang="ts">
-import MyJSX from "@/components/study/MyJSX";
+import MyJSX from "@/components/study/MyJSX.ts";
 import {
   onBeforeUpdate,
   onMounted,
