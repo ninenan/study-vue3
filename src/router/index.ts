@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-28 14:00:57
+ * @LastEditTime: 2021-05-28 14:36:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
@@ -41,6 +41,9 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next();
+  }
+  if (typeof to.meta.title !== undefined) {
+    document.title = to.meta.title as string;
   }
 });
 

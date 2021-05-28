@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-17 22:54:37
+ * @LastEditTime: 2021-05-28 14:50:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\views\Home.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="home">
     <!-- <img alt="Vue logo" :src="imgSrc" /> -->
-    <p class="mb-20">{{ env.NODE_ENV }}</p>
+    <!-- <p class="mb-20">环境变量: {{ env.NODE_ENV }}</p> -->
     <router-view />
   </div>
 </template>
