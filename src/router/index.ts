@@ -1,14 +1,21 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-08 09:38:21
- * @LastEditTime: 2021-05-22 12:49:49
+ * @LastEditTime: 2021-05-28 14:00:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\router\index.ts
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import study from "./modules/study";
-import music from "./modules/music";
+
+const modulesFiles = require.context("./modules", true, /\.ts$/);
+const modules: Array<RouteRecordRaw> = modulesFiles
+  .keys()
+  .reduce((modules: Array<RouteRecordRaw>, modulePath) => {
+    const value = modulesFiles(modulePath);
+    modules.push(value.default);
+    return modules;
+  }, []);
 
 // 公共路由
 const baseRouter: Array<RouteRecordRaw> = [
@@ -18,7 +25,7 @@ const baseRouter: Array<RouteRecordRaw> = [
   },
 ];
 
-const routes: Array<RouteRecordRaw> = [study, music, ...baseRouter];
+const routes: Array<RouteRecordRaw> = [...modules, ...baseRouter];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
