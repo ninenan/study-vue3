@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 20:46:56
- * @LastEditTime: 2021-05-11 09:30:00
+ * @LastEditTime: 2021-05-31 20:09:35
  * @LastEditors: Please set LastEditors
  * @Description: utils
  * @FilePath: /study_vue03/src/helpers/utils.ts
@@ -33,4 +33,15 @@ export const verifyCondition = (params: string, type: string): boolean => {
       break;
   }
   return true;
+};
+
+/**
+ * 数字格式化
+ * @param num {number}
+ * @returns {string}
+ */
+export const digitalFormatting = (num: number): string => {
+  return num.toString().indexOf(".") !== -1
+    ? num.toLocaleString()
+    : num.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
 };

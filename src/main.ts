@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-07 20:58:58
- * @LastEditTime: 2021-05-23 20:24:02
+ * @LastEditTime: 2021-05-31 16:39:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/main.ts
@@ -16,7 +16,7 @@ import store, { storeKey } from "./store";
 import lazyPlugin from "vue3-lazy";
 import "@/assets/style/index.scss";
 import loadingDirective from "@/directive/loadingDirective";
-
+import moneyFormat from "@/directive/moneyFormat";
 const app = createApp(App);
 
 app
@@ -27,4 +27,5 @@ app
     loading: require("@/assets/img/music.jpg"),
   })
   .directive("loading", loadingDirective)
+  .directive("moneyFormat", moneyFormat)
   .mount("#app");

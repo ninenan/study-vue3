@@ -1,18 +1,18 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-23 19:39:44
- * @LastEditTime: 2021-05-23 20:56:32
+ * @LastEditTime: 2021-05-31 20:53:53
  * @LastEditors: Please set LastEditors
  * @Description: loadingDirective
  * @FilePath: /study_vue03/src/directive/loadingDirective.ts
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { createApp } from "vue";
+import { createApp, DirectiveBinding } from "vue";
 import Loading from "@/components/base/loading/Loading.vue";
 
 const loadingDirective = {
-  mounted(el: any, binding: any) {
+  mounted(el: any, binding: DirectiveBinding) {
     const app = createApp(Loading);
     const instance = app.mount(document.createElement("div"));
     const title = binding.arg;
@@ -26,7 +26,7 @@ const loadingDirective = {
     }
   },
 
-  updated(el: any, binding: any) {
+  updated(el: any, binding: DirectiveBinding) {
     const title = binding.arg;
     if (typeof title !== "undefined") {
       el.instance.setTitle(title);
