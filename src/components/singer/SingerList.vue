@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-05-31 11:50:30
+ * @LastEditTime: 2021-05-31 22:14:31
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
@@ -27,7 +27,12 @@
     <div class="fixed" v-show="fixedTitle" :style="fixedStyle">
       <div class="fixed-title">{{ fixedTitle }}</div>
     </div>
-    <div class="shortcut" @touchstart.stop.prevent="onShortcutTouchStart">
+    <div
+      class="shortcut"
+      @touchstart.stop.prevent="onShortcutTouchStart"
+      @touchmove.stop.prevent="onShortcutTouchMove"
+      @touchend.stop.prevent
+    >
       <ul>
         <li
           v-for="(item, index) in shortcutList"
@@ -65,10 +70,12 @@ export default defineComponent({
       fixedStyle,
       currentIndex,
     } = useFixed(props);
-    const { shortcutList, onShortcutTouchStart, scrollRef } = useShortcut(
-      props,
-      groupRef
-    );
+    const {
+      shortcutList,
+      onShortcutTouchStart,
+      scrollRef,
+      onShortcutTouchMove,
+    } = useShortcut(props, groupRef);
 
     return {
       groupRef,
@@ -79,6 +86,7 @@ export default defineComponent({
       shortcutList,
       onShortcutTouchStart,
       scrollRef,
+      onShortcutTouchMove,
     };
   },
 });
