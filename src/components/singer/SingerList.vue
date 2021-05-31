@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-05-25 23:55:18
+ * @LastEditTime: 2021-05-31 11:50:30
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
@@ -126,7 +126,7 @@ export default defineComponent({
       line-height: 30px;
       padding-left: 20px;
       font-size: $font-size-small;
-      color: $color-text-l;
+      color: $color-theme;
       background: $color-highlight-background;
     }
   }
