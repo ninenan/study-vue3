@@ -1,14 +1,15 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:57:28
- * @LastEditTime: 2021-05-26 11:22:52
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
+ * @LastEditTime: 2021-06-01 14:35:21
 -->
 <template>
   <div class="singer" v-loading="loading">
     <SingerList :singers-list="singers" />
+    <router-view />
   </div>
 </template>
 <script lang="ts">

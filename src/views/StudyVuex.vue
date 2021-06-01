@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-11 21:21:49
- * @LastEditTime: 2021-05-16 22:53:54
+ * @LastEditTime: 2021-06-01 14:28:43
  * @LastEditors: Please set LastEditors
  * @Description: study vuex
  * @FilePath: /study_vue03/src/views/StudyVuex.vue
@@ -62,6 +62,7 @@ export default {
     };
 
     const goModules = () => {
+      console.log("1111 :>> ", 1111);
       router.push({
         name: "StudyVuexModules",
         params: {

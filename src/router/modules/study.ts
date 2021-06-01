@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:31:15
- * @LastEditTime: 2021-05-31 16:39:59
+ * @LastEditTime: 2021-06-01 14:46:19
  * @LastEditors: Please set LastEditors
  * @Description: study demo router
  * @FilePath: /study_vue03/src/router/modules/study.ts

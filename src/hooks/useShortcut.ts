@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-25 22:58:55
- * @LastEditTime: 2021-05-31 22:35:55
+ * @LastEditTime: 2021-06-01 02:08:41
  * @LastEditors: Please set LastEditors
  * @Description: useShortcut
  * @FilePath: /study_vue03/src/hooks/useShortcut.ts
@@ -53,7 +53,7 @@ export default function useShortcut(
 
   const onShortcutTouchMove = (e: any) => {
     touch.finishY = e.touches[0].pageY;
-    const delta = Math.floor((touch.finishY - touch.startY) / ANCHOR_HEIGHT); // 向下取整
+    const delta = ((touch.finishY - touch.startY) / ANCHOR_HEIGHT) | 0; // 向下取整
     const anchorIndex = touch.anchorIndex + delta;
     scrollTo(anchorIndex);
   };

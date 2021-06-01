@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-05-31 22:14:31
+ * @LastEditTime: 2021-06-01 14:47:06
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
@@ -49,7 +49,8 @@
 </template>
 <script lang="ts">
 import Scroll from "@/components/base/scroll/Scroll.vue";
-import { ISingerList } from "@/types";
+import { useRouter } from "vue-router";
+import { ISingerList, ISingerInfo } from "@/types";
 import { defineComponent, PropType } from "vue";
 import useFixed from "@/hooks/useFixed";
 import useShortcut from "@/hooks/useShortcut";
@@ -63,6 +64,7 @@ export default defineComponent({
     singersList: Array as PropType<ISingerList[]>,
   },
   setup(props) {
+    const router = useRouter();
     const {
       groupRef,
       onScroll,
@@ -77,16 +79,29 @@ export default defineComponent({
       onShortcutTouchMove,
     } = useShortcut(props, groupRef);
 
+    const onItemClick = (item: ISingerInfo) => {
+      router.push({
+        name: `SingerDetails`,
+        params: {
+          mid: item.mid,
+        },
+      });
+    };
+
     return {
+      // useFixed
       groupRef,
       onScroll,
       fixedTitle,
       fixedStyle,
       currentIndex,
+      // useShortcut
       shortcutList,
       onShortcutTouchStart,
       scrollRef,
       onShortcutTouchMove,
+      // current component
+      onItemClick,
     };
   },
 });
