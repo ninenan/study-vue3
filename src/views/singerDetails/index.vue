@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-01 15:58:00
+ * @LastEditTime: 2021-06-01 16:44:58
  * @LastEditors: Please set LastEditors
  * @Description: SingerDetails
  * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue
@@ -14,6 +14,7 @@
 <script lang="ts">
 import { useRoute } from "vue-router";
 import { getSingerDetails } from "@/api/singer";
+import { processSongs } from "@/api/song";
 
 export interface ISingerDetailsParams {
   mid: string;
@@ -40,7 +41,9 @@ export default {
     const { songs } = await getSingerDetails<{ songs: ISingerDetailsRes[] }>(
       params
     );
-    console.log("res :>> ", songs);
+
+    const res = await processSongs(songs);
+    console.log("res111 :>> ", res);
   },
 };
 </script>

@@ -1,16 +1,13 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-24 21:13:08
- * @LastEditTime: 2021-06-01 15:58:10
+ * @LastEditTime: 2021-06-01 17:11:09
  * @LastEditors: Please set LastEditors
  * @Description: singer
  * @FilePath: /study_vue03/src/api/singer.ts
  */
 import { get } from "@/service/http";
-import {
-  ISingerDetailsParams,
-  ISingerDetailsRes,
-} from "@/views/singer/SingerDetails.vue";
+import { ISingerDetailsParams } from "@/views/singerDetails/index.vue";
 // import { ISingerList, ISingerInfo } from "@/types";
 /**
  * 获取歌手信息
@@ -23,7 +20,7 @@ export const getSingerList = <T>(): Promise<T> => {
 /**
  * 获取歌手歌单信息
  * @param params {ISingerDetailsParams}
- * @returns {ISingerDetailsRes[]}
+ * @returns
  */
 export const getSingerDetails = <T>(
   params: ISingerDetailsParams

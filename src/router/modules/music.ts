@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:55:24
- * @LastEditTime: 2021-06-01 14:46:27
+ * @LastEditTime: 2021-06-01 17:09:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/router/modules/music.ts
@@ -36,7 +36,7 @@ const music: RouteRecordRaw = {
         {
           path: "singerDetails/:mid",
           name: "SingerDetails",
-          component: () => import("@/views/singer/SingerDetails.vue"),
+          component: () => import("@/views/singerDetails/index.vue"),
           meta: {
             title: "歌手详情",
           },
