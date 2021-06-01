@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-06-01 14:47:06
+ * @LastEditTime: 2021-06-01 21:29:18
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
@@ -63,7 +63,10 @@ export default defineComponent({
   props: {
     singersList: Array as PropType<ISingerList[]>,
   },
-  setup(props) {
+  emits: {
+    select: (item: ISingerInfo) => item,
+  },
+  setup(props, { emit }) {
     const router = useRouter();
     const {
       groupRef,
@@ -80,12 +83,13 @@ export default defineComponent({
     } = useShortcut(props, groupRef);
 
     const onItemClick = (item: ISingerInfo) => {
-      router.push({
-        name: `SingerDetails`,
-        params: {
-          mid: item.mid,
-        },
-      });
+      emit("select", item);
+      // router.push({
+      //   name: `SingerDetails`,
+      //   params: {
+      //     mid: item.mid,
+      //   },
+      // });
     };
 
     return {

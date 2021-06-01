@@ -4,36 +4,50 @@
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
- * @LastEditTime: 2021-06-01 14:35:21
+ * @LastEditTime: 2021-06-01 22:50:01
 -->
 <template>
   <div class="singer" v-loading="loading">
-    <SingerList :singers-list="singers" />
-    <router-view />
+    <SingerList :singers-list="singers" @select="selectSinger" />
+    <router-view :singer="selectedSinger" />
   </div>
 </template>
 <script lang="ts">
 import { getSingerList } from "@/api/singer";
-import { ISingerList } from "@/types";
-import { ref, Ref, computed, ComputedRef } from "vue";
+import { ISingerList, ISingerInfo } from "@/types";
+import { ref, Ref, computed, ComputedRef, reactive, toRefs, toRef } from "vue";
+import { useRouter } from "vue-router";
 import SingerList from "@/components/singer/SingerList.vue";
 
-interface ISinger {
-  singers: Ref<ISingerList[]>;
-  loading: ComputedRef<boolean>;
-}
+// interface ISinger {
+//   singers: Ref<ISingerList[]>;
+//   loading: ComputedRef<boolean>;
+//   selectSinger: (singer: ISingerInfo) => void;
+// }
 
 export default {
   name: "singer",
   components: {
     SingerList,
   },
-  setup(): ISinger {
+  setup() {
+    const router = useRouter();
     const singers = ref<ISingerList[]>([]);
+    let selectedSinger = ref<ISingerInfo | null>(null);
 
     const loading = computed(() => {
       return singers.value.length <= 0;
     });
+    const selectSinger = (singer: ISingerInfo) => {
+      selectedSinger.value = singer;
+      // selectedSinger.singer = singer;
+      router.push({
+        name: `SingerDetails`,
+        params: {
+          mid: singer.mid,
+        },
+      });
+    };
 
     getSingerList<{ singers: ISingerList[] }>().then((res) => {
       singers.value = res.singers;
@@ -42,6 +56,8 @@ export default {
     return {
       singers,
       loading,
+      selectSinger,
+      selectedSinger,
     };
   },
 };

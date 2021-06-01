@@ -1,21 +1,24 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-01 16:44:58
+ * @LastEditTime: 2021-06-01 23:31:49
  * @LastEditors: Please set LastEditors
  * @Description: SingerDetails
  * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue
 -->
 <template>
   <div class="singer-details">
-    <h1>singer-details</h1>
+    <MusicList :songs="songs" :title="title" :pic="pic" />
+    <!-- <h1>singer-details</h1> -->
   </div>
 </template>
 <script lang="ts">
 import { useRoute } from "vue-router";
+import { PropType, ref, computed } from "vue";
 import { getSingerDetails } from "@/api/singer";
 import { processSongs } from "@/api/song";
-
+import { ISingerInfo } from "@/types/index";
+import MusicList from "@/components/musicList/MusicList.vue";
 export interface ISingerDetailsParams {
   mid: string;
 }
@@ -32,18 +35,36 @@ export interface ISingerDetailsRes {
 }
 
 export default {
-  async setup(): Promise<void> {
+  name: "SingerDetails",
+  components: {
+    MusicList,
+  },
+  props: {
+    singer: Object as PropType<ISingerInfo>,
+  },
+  async setup(props: any) {
     const route = useRoute();
+    let songs = ref<any[]>([]);
     const params: ISingerDetailsParams = {
       mid: route.params.mid as string,
     };
+    const pic = computed(() => {
+      return props.singer?.pic;
+    });
+    const title = computed(() => {
+      return props.singer?.name;
+    });
 
-    const { songs } = await getSingerDetails<{ songs: ISingerDetailsRes[] }>(
-      params
-    );
+    const res = await getSingerDetails<{ songs: ISingerDetailsRes[] }>(params);
+    const processSongsRes = await processSongs(res.songs);
+    songs.value = processSongsRes;
+    console.log("songs :>> ", songs);
 
-    const res = await processSongs(songs);
-    console.log("res111 :>> ", res);
+    return {
+      songs,
+      pic,
+      title,
+    };
   },
 };
 </script>
