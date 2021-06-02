@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:56:26
- * @LastEditTime: 2021-05-26 14:59:45
+ * @LastEditTime: 2021-06-02 17:27:26
  * @LastEditors: Please set LastEditors
  * @Description: Recommend
  * @FilePath: /study_vue03/src/views/recommend/index.vue
@@ -52,6 +52,7 @@ interface IRecommendVue {
 }
 
 export default {
+  name: "recommend",
   components: {
     Slider,
     Scroll,

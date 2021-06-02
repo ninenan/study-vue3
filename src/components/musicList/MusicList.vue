@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-01 23:18:20
+ * @LastEditTime: 2021-06-02 17:40:49
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="music-list">
     <div class="back" @click="goBack">
-      <i class="icon-back"></i>
+      <base-svg iconClass="arrowLeft" class="icon-back" />
     </div>
     <h1 class="title">{{ title }}</h1>
     <div class="bg-image" ref="bgImage">
@@ -33,8 +33,9 @@
 import SongList from "@/components/songList/SongList.vue";
 import Scroll from "@/components/base/scroll/Scroll.vue";
 import { useRouter } from "vue-router";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "music-list",
   components: {
     SongList,
@@ -50,8 +51,9 @@ export default {
     title: String,
     pic: String,
   },
-  setup() {
+  setup(props) {
     const router = useRouter();
+    // console.log("props.title :>> ", props.title);
     const goBack = () => {
       router.back();
     };
@@ -72,7 +74,7 @@ export default {
       selectItem,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -86,10 +88,11 @@ export default {
     z-index: 20;
     transform: translateZ(2px);
     .icon-back {
-      display: block;
       padding: 10px;
-      font-size: $font-size-large-x;
+      box-sizing: content-box;
       color: $color-theme;
+      width: 20px;
+      height: 20px;
     }
   }
   .title {
