@@ -4,11 +4,15 @@
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
- * @LastEditTime: 2021-06-01 22:50:01
+ * @LastEditTime: 2021-06-02 23:05:08
 -->
 <template>
   <div class="singer" v-loading="loading">
-    <SingerList :singers-list="singers" @select="selectSinger" />
+    <SingerList
+      :singers-list="singers"
+      @select="selectSinger"
+      :loading="singerLoading"
+    />
     <router-view :singer="selectedSinger" />
   </div>
 </template>
@@ -34,6 +38,7 @@ export default {
     const router = useRouter();
     const singers = ref<ISingerList[]>([]);
     let selectedSinger = ref<ISingerInfo | null>(null);
+    let singerLoading = ref(true);
 
     const loading = computed(() => {
       return singers.value.length <= 0;
@@ -51,13 +56,14 @@ export default {
 
     getSingerList<{ singers: ISingerList[] }>().then((res) => {
       singers.value = res.singers;
+      singerLoading.value = false;
     });
-
     return {
       singers,
       loading,
       selectSinger,
       selectedSinger,
+      singerLoading,
     };
   },
 };

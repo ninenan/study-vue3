@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-02 17:40:49
+ * @LastEditTime: 2021-06-03 00:05:16
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -12,7 +12,7 @@
       <base-svg iconClass="arrowLeft" class="icon-back" />
     </div>
     <h1 class="title">{{ title }}</h1>
-    <div class="bg-image" ref="bgImage">
+    <div class="bg-image" :style="bgImageStyle" ref="bgImage">
       <div class="play-btn-wrapper">
         <div v-show="songs.length > 0" class="play-btn" @click="random">
           <i class="icon-play"></i>
@@ -21,7 +21,12 @@
       </div>
       <div class="filter"></div>
     </div>
-    <scroll class="list" :probe-type="3" @scroll="onScroll">
+    <scroll
+      class="list"
+      :style="scrollStyle"
+      :probe-type="3"
+      v-loading="loading"
+    >
       <div class="song-list-wrapper">
         <song-list :songs="songs" @select="selectItem"></song-list>
       </div>
@@ -33,7 +38,7 @@
 import SongList from "@/components/songList/SongList.vue";
 import Scroll from "@/components/base/scroll/Scroll.vue";
 import { useRouter } from "vue-router";
-import { defineComponent } from "vue";
+import { defineComponent, computed, onMounted, ref } from "vue";
 
 export default defineComponent({
   name: "music-list",
@@ -50,10 +55,26 @@ export default defineComponent({
     },
     title: String,
     pic: String,
+    loading: Boolean,
   },
   setup(props) {
     const router = useRouter();
-    // console.log("props.title :>> ", props.title);
+    const imageHeight = ref(0);
+    const bgImage = ref(null);
+    const bgImageStyle = computed(() => {
+      return {
+        backgroundImage: `url(${props.pic})`,
+      };
+    });
+    const scrollStyle = computed(() => {
+      return {
+        top: `${imageHeight.value}px`,
+      };
+    });
+
+    onMounted(() => {
+      imageHeight.value = bgImage.value?.clientHeight;
+    });
     const goBack = () => {
       router.back();
     };
@@ -72,6 +93,10 @@ export default defineComponent({
       onScroll,
       random,
       selectItem,
+      bgImage,
+      bgImageStyle,
+      scrollStyle,
+      imageHeight,
     };
   },
 });
@@ -113,6 +138,7 @@ export default defineComponent({
     width: 100%;
     transform-origin: top;
     background-size: cover;
+    padding-top: 70%;
     .play-btn-wrapper {
       position: absolute;
       bottom: 20px;
@@ -155,6 +181,7 @@ export default defineComponent({
     bottom: 0;
     width: 100%;
     z-index: 0;
+    overflow: hidden;
     .song-list-wrapper {
       padding: 20px 30px;
       background: $color-background;

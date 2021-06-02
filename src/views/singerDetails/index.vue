@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-01 23:31:49
+ * @LastEditTime: 2021-06-02 23:11:06
  * @LastEditors: Please set LastEditors
  * @Description: SingerDetails
  * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue
@@ -9,7 +9,6 @@
 <template>
   <div class="singer-details">
     <MusicList :songs="songs" :title="title" :pic="pic" />
-    <!-- <h1>singer-details</h1> -->
   </div>
 </template>
 <script lang="ts">
@@ -18,7 +17,8 @@ import { PropType, ref, computed } from "vue";
 import { getSingerDetails } from "@/api/singer";
 import { processSongs } from "@/api/song";
 import { ISingerInfo } from "@/types/index";
-import MusicList from "@/components/musicList/MusicList.vue";
+import MusicList from "@components/musicList/MusicList.vue";
+
 export interface ISingerDetailsParams {
   mid: string;
 }
