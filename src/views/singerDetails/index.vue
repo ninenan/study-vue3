@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-02 23:11:06
+ * @LastEditTime: 2021-06-03 22:20:26
  * @LastEditors: Please set LastEditors
  * @Description: SingerDetails
  * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue
@@ -58,7 +58,6 @@ export default {
     const res = await getSingerDetails<{ songs: ISingerDetailsRes[] }>(params);
     const processSongsRes = await processSongs(res.songs);
     songs.value = processSongsRes;
-    console.log("songs :>> ", songs);
 
     return {
       songs,

@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-03 00:05:16
+ * @LastEditTime: 2021-06-03 23:35:32
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -13,19 +13,20 @@
     </div>
     <h1 class="title">{{ title }}</h1>
     <div class="bg-image" :style="bgImageStyle" ref="bgImage">
-      <div class="play-btn-wrapper">
+      <div class="play-btn-wrapper" :style="palyBtnStyle">
         <div v-show="songs.length > 0" class="play-btn" @click="random">
-          <i class="icon-play"></i>
+          <base-svg iconClass="play" class="icon-play" />
           <span class="text">随机播放全部</span>
         </div>
       </div>
-      <div class="filter"></div>
+      <div class="filter" :style="filterStyle"></div>
     </div>
     <scroll
       class="list"
       :style="scrollStyle"
       :probe-type="3"
       v-loading="loading"
+      @scroll="onScroll"
     >
       <div class="song-list-wrapper">
         <song-list :songs="songs" @select="selectItem"></song-list>
@@ -34,11 +35,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import SongList from "@/components/songList/SongList.vue";
 import Scroll from "@/components/base/scroll/Scroll.vue";
 import { useRouter } from "vue-router";
 import { defineComponent, computed, onMounted, ref } from "vue";
+
+interface IPos {
+  x: number;
+  y: number;
+}
+const HEADER_HEIGHT = 40;
 
 export default defineComponent({
   name: "music-list",
@@ -61,9 +68,38 @@ export default defineComponent({
     const router = useRouter();
     const imageHeight = ref(0);
     const bgImage = ref(null);
+    const scrollY = ref(0);
+    const maxTranslateY = ref(0); // 最高滚动距离
     const bgImageStyle = computed(() => {
+      let zIndex = 0;
+      let paddingTop = "70%";
+      let height = 0;
+      let translateZ = 0; // 兼容ios
+      let scale = 1;
+      if (scrollY.value > maxTranslateY.value) {
+        zIndex = 10;
+        height = `${HEADER_HEIGHT}px`;
+        paddingTop = 0;
+        translateZ = 1;
+      }
+      if (scrollY.value < 0) {
+        scale = scale + Math.abs(scrollY.value / maxTranslateY.value);
+      }
       return {
+        zIndex,
+        height,
+        paddingTop,
         backgroundImage: `url(${props.pic})`,
+        transform: `scale(${scale})translateZ(${translateZ}px)`,
+      };
+    });
+    const palyBtnStyle = computed(() => {
+      let display = "";
+      if (scrollY.value >= maxTranslateY.value) {
+        display = "none";
+      }
+      return {
+        display,
       };
     });
     const scrollStyle = computed(() => {
@@ -71,15 +107,34 @@ export default defineComponent({
         top: `${imageHeight.value}px`,
       };
     });
+    const filterStyle = computed(() => {
+      let blur = 0;
+      const customizeScrollY = scrollY.value;
+      const customizeImageHeight = imageHeight.value;
+
+      if (scrollY.value >= 0) {
+        blur =
+          Math.min(
+            maxTranslateY.value / customizeImageHeight,
+            customizeScrollY / customizeImageHeight
+          ) * 20;
+      }
+
+      return {
+        backdropFilter: `blur(${blur}px)`,
+      };
+    });
 
     onMounted(() => {
       imageHeight.value = bgImage.value?.clientHeight;
+      maxTranslateY.value = imageHeight.value - HEADER_HEIGHT;
     });
+
     const goBack = () => {
       router.back();
     };
-    const onScroll = () => {
-      //
+    const onScroll = (pos: IPos) => {
+      scrollY.value = -pos.y;
     };
     const random = () => {
       //
@@ -97,6 +152,8 @@ export default defineComponent({
       bgImageStyle,
       scrollStyle,
       imageHeight,
+      palyBtnStyle,
+      filterStyle,
     };
   },
 });
@@ -106,6 +163,12 @@ export default defineComponent({
 .music-list {
   position: relative;
   height: 100%;
+  .icon-play,
+  .icon-back {
+    color: $color-theme;
+    width: 20px;
+    height: 20px;
+  }
   .back {
     position: absolute;
     top: 0;
@@ -115,9 +178,6 @@ export default defineComponent({
     .icon-back {
       padding: 10px;
       box-sizing: content-box;
-      color: $color-theme;
-      width: 20px;
-      height: 20px;
     }
   }
   .title {
@@ -138,7 +198,6 @@ export default defineComponent({
     width: 100%;
     transform-origin: top;
     background-size: cover;
-    padding-top: 70%;
     .play-btn-wrapper {
       position: absolute;
       bottom: 20px;
@@ -181,7 +240,6 @@ export default defineComponent({
     bottom: 0;
     width: 100%;
     z-index: 0;
-    overflow: hidden;
     .song-list-wrapper {
       padding: 20px 30px;
       background: $color-background;
