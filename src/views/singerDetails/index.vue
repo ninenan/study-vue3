@@ -1,14 +1,19 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-03 22:20:26
+ * @LastEditTime: 2021-06-04 16:15:16
  * @LastEditors: Please set LastEditors
  * @Description: SingerDetails
  * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue
 -->
 <template>
   <div class="singer-details">
-    <MusicList :songs="songs" :title="title" :pic="pic" />
+    <MusicList
+      :songs="songsList"
+      :title="title"
+      :pic="pic"
+      :loading="loading"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -34,20 +39,29 @@ export interface ISingerDetailsRes {
   url: string;
 }
 
+interface IProps {
+  singer: ISingerInfo;
+}
+
 export default {
   name: "SingerDetails",
   components: {
     MusicList,
   },
   props: {
-    singer: Object as PropType<ISingerInfo>,
+    singer: {
+      type: Object as PropType<ISingerInfo>,
+      required: true,
+    },
   },
-  async setup(props: any) {
+  /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+  async setup(props: IProps) {
     const route = useRoute();
-    let songs = ref<any[]>([]);
+    let songsList = ref<ISingerDetailsRes[]>([]);
     const params: ISingerDetailsParams = {
       mid: route.params.mid as string,
     };
+    const loading = ref(true);
     const pic = computed(() => {
       return props.singer?.pic;
     });
@@ -55,14 +69,25 @@ export default {
       return props.singer?.name;
     });
 
-    const res = await getSingerDetails<{ songs: ISingerDetailsRes[] }>(params);
-    const processSongsRes = await processSongs(res.songs);
-    songs.value = processSongsRes;
-
+    const { songs } = await getSingerDetails<{ songs: ISingerDetailsRes[] }>(
+      params
+    );
+    processSongs(songs).then((res) => {
+      const processSongsRes = res;
+      songsList.value = processSongsRes;
+      loading.value = false;
+    });
+    // setTimeout(async () => {
+    //   const processSongsRes = await processSongs(songs);
+    //   songsList.value = processSongsRes;
+    //   loading.value = false;
+    // }, 500);
     return {
       songs,
       pic,
       title,
+      loading,
+      songsList,
     };
   },
 };

@@ -4,15 +4,11 @@
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
- * @LastEditTime: 2021-06-02 23:05:08
+ * @LastEditTime: 2021-06-04 14:31:27
 -->
 <template>
   <div class="singer" v-loading="loading">
-    <SingerList
-      :singers-list="singers"
-      @select="selectSinger"
-      :loading="singerLoading"
-    />
+    <SingerList :singers-list="singers" @select="selectSinger" />
     <router-view :singer="selectedSinger" />
   </div>
 </template>
@@ -23,11 +19,11 @@ import { ref, Ref, computed, ComputedRef, reactive, toRefs, toRef } from "vue";
 import { useRouter } from "vue-router";
 import SingerList from "@/components/singer/SingerList.vue";
 
-// interface ISinger {
-//   singers: Ref<ISingerList[]>;
-//   loading: ComputedRef<boolean>;
-//   selectSinger: (singer: ISingerInfo) => void;
-// }
+interface ISinger {
+  singers: Ref<ISingerList[]>;
+  loading: ComputedRef<boolean>;
+  selectSinger: (singer: ISingerInfo) => void;
+}
 
 export default {
   name: "singer",
@@ -38,14 +34,12 @@ export default {
     const router = useRouter();
     const singers = ref<ISingerList[]>([]);
     let selectedSinger = ref<ISingerInfo | null>(null);
-    let singerLoading = ref(true);
 
     const loading = computed(() => {
       return singers.value.length <= 0;
     });
     const selectSinger = (singer: ISingerInfo) => {
       selectedSinger.value = singer;
-      // selectedSinger.singer = singer;
       router.push({
         name: `SingerDetails`,
         params: {
@@ -56,14 +50,12 @@ export default {
 
     getSingerList<{ singers: ISingerList[] }>().then((res) => {
       singers.value = res.singers;
-      singerLoading.value = false;
     });
     return {
       singers,
       loading,
       selectSinger,
       selectedSinger,
-      singerLoading,
     };
   },
 };

@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-04 13:58:51
+ * @LastEditTime: 2021-06-04 16:17:39
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -47,6 +47,13 @@ interface IPos {
 }
 const HEADER_HEIGHT = 40;
 
+interface IProps {
+  songs?: any[];
+  title?: string;
+  pic?: string;
+  loading?: boolean;
+}
+
 export default defineComponent({
   name: "music-list",
   components: {
@@ -64,7 +71,9 @@ export default defineComponent({
     pic: String,
     loading: Boolean,
   },
-  setup(props: any) {
+  setup(props: IProps) {
+    console.log(props.title);
+    console.log(props.songs);
     const router = useRouter();
     const imageHeight = ref(0);
     const bgImage = ref<HTMLElement | null>(null);
@@ -125,7 +134,7 @@ export default defineComponent({
       };
     });
 
-    onMounted(() => {
+    onMounted(async () => {
       if (bgImage.value?.clientHeight) {
         imageHeight.value = bgImage.value.clientHeight;
       }

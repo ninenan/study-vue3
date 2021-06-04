@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-06-01 21:29:18
+ * @LastEditTime: 2021-06-04 14:22:22
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
@@ -84,12 +84,6 @@ export default defineComponent({
 
     const onItemClick = (item: ISingerInfo) => {
       emit("select", item);
-      // router.push({
-      //   name: `SingerDetails`,
-      //   params: {
-      //     mid: item.mid,
-      //   },
-      // });
     };
 
     return {

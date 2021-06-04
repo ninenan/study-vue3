@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:15:13
- * @LastEditTime: 2021-06-01 23:33:45
+ * @LastEditTime: 2021-06-04 16:23:36
  * @LastEditors: Please set LastEditors
  * @Description: SongList
  * @FilePath: /study_vue03/src/components/songList/SongList.vue
@@ -17,15 +17,22 @@
   </ul>
 </template>
 <script lang="ts">
+import { PropType } from "vue";
+import { ISingerDetailsRes } from "@/views/singerDetails/index.vue";
+
+interface ISongList {
+  getDesc: (song: ISingerDetailsRes) => string;
+}
+
 export default {
   props: {
     songs: {
-      type: Array,
-      default: () => [],
+      type: Array as PropType<ISingerDetailsRes[]>,
+      required: true,
     },
   },
-  setup() {
-    const getDesc = (song: any) => {
+  setup(): ISongList {
+    const getDesc = (song: ISingerDetailsRes) => {
       return `${song.singer}·${song.album}`;
     };
 
