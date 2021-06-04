@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-03 23:35:32
+ * @LastEditTime: 2021-06-04 13:58:51
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -64,16 +64,16 @@ export default defineComponent({
     pic: String,
     loading: Boolean,
   },
-  setup(props) {
+  setup(props: any) {
     const router = useRouter();
     const imageHeight = ref(0);
-    const bgImage = ref(null);
+    const bgImage = ref<HTMLElement | null>(null);
     const scrollY = ref(0);
     const maxTranslateY = ref(0); // 最高滚动距离
     const bgImageStyle = computed(() => {
       let zIndex = 0;
-      let paddingTop = "70%";
-      let height = 0;
+      let paddingTop: string | number = "70%";
+      let height = `0px`;
       let translateZ = 0; // 兼容ios
       let scale = 1;
       if (scrollY.value > maxTranslateY.value) {
@@ -126,7 +126,10 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      imageHeight.value = bgImage.value?.clientHeight;
+      if (bgImage.value?.clientHeight) {
+        imageHeight.value = bgImage.value.clientHeight;
+      }
+
       maxTranslateY.value = imageHeight.value - HEADER_HEIGHT;
     });
 
