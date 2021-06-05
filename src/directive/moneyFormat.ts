@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: NineNan
  * @Date: 2021-05-31 16:32:05
- * @LastEditTime: 2021-05-31 21:16:42
+ * @LastEditTime: 2021-06-05 12:53:02
  * @LastEditors: Please set LastEditors
  * @Description: 金钱格式化
  * @FilePath: \study-vue3\src\directive\moneyFormat.ts

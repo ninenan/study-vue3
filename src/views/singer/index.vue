@@ -4,25 +4,32 @@
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
- * @LastEditTime: 2021-06-04 14:31:27
+ * @LastEditTime: 2021-06-05 21:25:25
 -->
 <template>
   <div class="singer" v-loading="loading">
     <SingerList :singers-list="singers" @select="selectSinger" />
-    <router-view :singer="selectedSinger" />
+    <Suspense>
+      <template #default>
+        <router-view :singer="selectedSinger" />
+      </template>
+    </Suspense>
   </div>
 </template>
 <script lang="ts">
 import { getSingerList } from "@/api/singer";
 import { ISingerList, ISingerInfo } from "@/types";
-import { ref, Ref, computed, ComputedRef, reactive, toRefs, toRef } from "vue";
+import { ref, Ref, computed, ComputedRef } from "vue";
 import { useRouter } from "vue-router";
 import SingerList from "@/components/singer/SingerList.vue";
+import { useStore } from "@/store/index";
+import { CACHE_SINGER_INFO } from "@/helpers/constant";
 
 interface ISinger {
   singers: Ref<ISingerList[]>;
   loading: ComputedRef<boolean>;
   selectSinger: (singer: ISingerInfo) => void;
+  selectedSinger: Ref<ISingerInfo | null>;
 }
 
 export default {
@@ -30,8 +37,9 @@ export default {
   components: {
     SingerList,
   },
-  setup() {
+  setup(): ISinger {
     const router = useRouter();
+    const store = useStore();
     const singers = ref<ISingerList[]>([]);
     let selectedSinger = ref<ISingerInfo | null>(null);
 
@@ -40,6 +48,7 @@ export default {
     });
     const selectSinger = (singer: ISingerInfo) => {
       selectedSinger.value = singer;
+      store.commit(CACHE_SINGER_INFO, singer);
       router.push({
         name: `SingerDetails`,
         params: {

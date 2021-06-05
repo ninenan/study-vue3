@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-05-24 22:38:19
+ * @LastEditTime: 2021-06-05 19:08:01
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -39,6 +39,11 @@ export interface ITestSore {
 export interface IStore {
   test: ITestSore;
   user: IUser;
+  singer: ISingerStore;
+}
+
+export interface ISingerStore {
+  singerInfo: ISingerInfo | null;
 }
 
 export interface IResponseData<T = any> {

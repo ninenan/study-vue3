@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-24 22:01:15
- * @LastEditTime: 2021-06-04 14:22:22
+ * @LastEditTime: 2021-06-05 21:04:30
  * @LastEditors: Please set LastEditors
  * @Description: SingerList
  * @FilePath: /study_vue03/src/components/singer/SingerList.vue
@@ -49,7 +49,6 @@
 </template>
 <script lang="ts">
 import Scroll from "@/components/base/scroll/Scroll.vue";
-import { useRouter } from "vue-router";
 import { ISingerList, ISingerInfo } from "@/types";
 import { defineComponent, PropType } from "vue";
 import useFixed from "@/hooks/useFixed";
@@ -61,13 +60,15 @@ export default defineComponent({
     Scroll,
   },
   props: {
-    singersList: Array as PropType<ISingerList[]>,
+    singersList: {
+      type: Array as PropType<ISingerList[]>,
+      required: true,
+    },
   },
   emits: {
     select: (item: ISingerInfo) => item,
   },
   setup(props, { emit }) {
-    const router = useRouter();
     const {
       groupRef,
       onScroll,

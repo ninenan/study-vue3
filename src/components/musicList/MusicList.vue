@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-04 16:17:39
+ * @LastEditTime: 2021-06-05 11:34:55
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -72,8 +72,6 @@ export default defineComponent({
     loading: Boolean,
   },
   setup(props: IProps) {
-    console.log(props.title);
-    console.log(props.songs);
     const router = useRouter();
     const imageHeight = ref(0);
     const bgImage = ref<HTMLElement | null>(null);

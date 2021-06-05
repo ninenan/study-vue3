@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-11 22:42:52
- * @LastEditTime: 2021-05-22 16:30:41
+ * @LastEditTime: 2021-06-05 19:02:03
  * @LastEditors: Please set LastEditors
  * @Description: constant
  * @FilePath: /study_vue03/src/helpers/constant.ts
@@ -13,3 +13,4 @@ export const baseURL =
   process.env.NODE_ENV === "production"
     ? "http://ustbhuangyi.com/music-next/"
     : "/";
+export const CACHE_SINGER_INFO = "CACHE_SINGER_INFO";
