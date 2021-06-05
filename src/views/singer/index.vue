@@ -4,14 +4,18 @@
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
- * @LastEditTime: 2021-06-05 21:25:25
+ * @LastEditTime: 2021-06-05 22:15:22
 -->
 <template>
   <div class="singer" v-loading="loading">
     <SingerList :singers-list="singers" @select="selectSinger" />
     <Suspense>
       <template #default>
-        <router-view :singer="selectedSinger" />
+        <router-view v-slot="{ Component }">
+          <transition appear name="slide">
+            <component :is="Component" :singer="selectedSinger" />
+          </transition>
+        </router-view>
       </template>
     </Suspense>
   </div>

@@ -25,16 +25,6 @@ html {
   position: relative;
 }
 
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.3s;
-}
-
-.slide-enter-from,
-.slide-leave-to {
-  transform: translate3d(100%, 0, 0);
-}
-
 .list-enter-active,
 .list-leave-active {
   transition: all 0.3s;

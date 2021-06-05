@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-05 11:34:55
+ * @LastEditTime: 2021-06-05 23:05:58
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -26,6 +26,7 @@
       :style="scrollStyle"
       :probe-type="3"
       v-loading="loading"
+      v-no-result:[noResultText]="isShowNoResult"
       @scroll="onScroll"
     >
       <div class="song-list-wrapper">
@@ -52,6 +53,7 @@ interface IProps {
   title?: string;
   pic?: string;
   loading?: boolean;
+  isShowNoResult?: boolean;
 }
 
 export default defineComponent({
@@ -70,6 +72,10 @@ export default defineComponent({
     title: String,
     pic: String,
     loading: Boolean,
+    noResultText: {
+      type: String,
+      default: "抱歉，没有歌曲",
+    },
   },
   setup(props: IProps) {
     const router = useRouter();
@@ -131,6 +137,9 @@ export default defineComponent({
         backdropFilter: `blur(${blur}px)`,
       };
     });
+    const isShowNoResult = computed(() => {
+      return !props.loading && !props.songs?.length;
+    });
 
     onMounted(async () => {
       if (bgImage.value?.clientHeight) {
@@ -164,6 +173,7 @@ export default defineComponent({
       imageHeight,
       palyBtnStyle,
       filterStyle,
+      isShowNoResult,
     };
   },
 });

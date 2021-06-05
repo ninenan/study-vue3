@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-07 20:58:58
- * @LastEditTime: 2021-06-02 17:24:11
+ * @LastEditTime: 2021-06-05 22:59:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/main.ts
@@ -16,6 +16,7 @@ import store, { storeKey } from "./store";
 import lazyPlugin from "vue3-lazy";
 import "@/assets/style/index.scss";
 import loadingDirective from "@/directive/loadingDirective";
+import noResultDirective from "@/directive/noResultDirective";
 import moneyFormat from "@/directive/moneyFormat";
 import BaseSvg from "@/components/base/BaseSvg/BaseSvg.vue"; // 注册全局svg组件
 
@@ -35,5 +36,6 @@ app
   })
   .directive("loading", loadingDirective)
   .directive("moneyFormat", moneyFormat)
+  .directive("no-result", noResultDirective)
   .component("BaseSvg", BaseSvg)
   .mount("#app");
