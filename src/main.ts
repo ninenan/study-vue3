@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-07 20:58:58
- * @LastEditTime: 2021-06-05 22:59:27
+ * @LastEditTime: 2021-06-06 00:56:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/main.ts
@@ -34,8 +34,8 @@ app
   .use(lazyPlugin, {
     loading: require("@/assets/img/music.jpg"),
   })
+  .component("BaseSvg", BaseSvg)
   .directive("loading", loadingDirective)
   .directive("moneyFormat", moneyFormat)
   .directive("no-result", noResultDirective)
-  .component("BaseSvg", BaseSvg)
   .mount("#app");

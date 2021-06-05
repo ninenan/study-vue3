@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-05 22:54:53
- * @LastEditTime: 2021-06-05 23:16:06
+ * @LastEditTime: 2021-06-06 01:07:45
  * @LastEditors: Please set LastEditors
  * @Description: BaseNoResult
  * @FilePath: /study_vue03/src/components/base/BaseNoResult/BaseNoResult.vue
@@ -9,16 +9,20 @@
 <template>
   <div class="no-result">
     <div class="no-result-content">
-      <div class="icon"></div>
+      <BaseSvg iconClass="noResult" class="icon-no-result" />
       <p class="text">{{ title }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import BaseSvg from "@/components/base/BaseSvg/BaseSvg.vue";
 import { defineComponent, ref } from "vue";
 export default defineComponent({
   name: "no-result",
+  components: {
+    BaseSvg,
+  },
   setup() {
     const title = ref("抱歉，没有结果");
     const setTitle = (newTitle: string): void => {
@@ -40,14 +44,15 @@ export default defineComponent({
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   .no-result-content {
-    text-align: center;
-    .icon {
-      width: 86px;
-      height: 90px;
+    @include FlexCenter();
+    flex-direction: column;
+    height: 300px;
+    width: 100%;
+    .icon-no-result {
+      width: 100px;
+      height: 100px;
       margin: 0 auto;
-      border-radius: 50%;
-      background-image: url("https://yw-dev-bucket.eos-ningbo-1.cmecloud.cn/f9ef65e9-6111-4162-9171-2af67398bed0.jpg");
-      background-size: 86px 90px;
+      color: $color-text-d;
     }
     .text {
       margin-top: 30px;
