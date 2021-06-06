@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-06 00:25:51
+ * @LastEditTime: 2021-06-06 20:12:41
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -41,11 +41,19 @@ import SongList from "@/components/songList/SongList.vue";
 import Scroll from "@/components/base/scroll/Scroll.vue";
 import { useRouter } from "vue-router";
 import { defineComponent, computed, onMounted, ref } from "vue";
+import { ISingerDetailsRes } from "@/views/singerDetails/index.vue";
+import { useStore } from "@/store/index";
 
 interface IPos {
   x: number;
   y: number;
 }
+
+interface ISongListSelectItemParams {
+  song: ISingerDetailsRes;
+  index: number;
+}
+
 const HEADER_HEIGHT = 40;
 
 interface IProps {
@@ -79,6 +87,7 @@ export default defineComponent({
   },
   setup(props: IProps) {
     const router = useRouter();
+    const store = useStore();
     const imageHeight = ref(0);
     const bgImage = ref<HTMLElement | null>(null);
     const scrollY = ref(0);
@@ -155,11 +164,22 @@ export default defineComponent({
     const onScroll = (pos: IPos) => {
       scrollY.value = -pos.y;
     };
+    /**
+     * 随机播放
+     */
     const random = () => {
-      //
+      store.dispatch("randomPlay", {
+        list: props.songs,
+      });
     };
-    const selectItem = () => {
-      //
+    /**
+     * 顺序选择播放
+     */
+    const selectItem = ({ index }: ISongListSelectItemParams): void => {
+      store.dispatch("selectPlay", {
+        list: props.songs,
+        index,
+      });
     };
 
     return {

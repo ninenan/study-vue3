@@ -1,12 +1,17 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-07 20:58:58
- * @LastEditTime: 2021-05-12 15:15:10
+ * @LastEditTime: 2021-06-06 18:52:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/index.ts
  */
-import { createStore, Store, useStore as baseUseStore } from "vuex";
+import {
+  createStore,
+  Store,
+  useStore as baseUseStore,
+  createLogger,
+} from "vuex";
 import { InjectionKey } from "vue";
 import { IStore } from "@/types";
 
@@ -21,9 +26,12 @@ const modules: any = modulesFiles.keys().reduce((modules: any, modulePath) => {
   return modules;
 }, {});
 
+const isProd = process.env.NODE_ENV !== "production";
+
 const store = createStore<IStore>({
   modules,
-  strict: process.env.NODE_ENV !== "production",
+  strict: isProd,
+  plugins: isProd ? [createLogger()] : [],
 });
 
 export const useStore = (): Store<IStore> => {

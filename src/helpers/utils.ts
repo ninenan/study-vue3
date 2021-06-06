@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 20:46:56
- * @LastEditTime: 2021-05-31 20:09:35
+ * @LastEditTime: 2021-06-06 20:03:06
  * @LastEditors: Please set LastEditors
  * @Description: utils
  * @FilePath: /study_vue03/src/helpers/utils.ts
@@ -45,3 +45,27 @@ export const digitalFormatting = (num: number): string => {
     ? num.toLocaleString()
     : num.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
 };
+
+/**
+ * 洗牌数组
+ * @param source unknown[]
+ * @returns unknown[]
+ */
+export const shuffle = (source: unknown[]): unknown[] => {
+  const arr = source.slice();
+  for (let i = 0; i < arr.length; i++) {
+    const j = getRandomInt(i);
+    swap(arr, i, j);
+  }
+  return arr;
+};
+
+function getRandomInt(max: number) {
+  return Math.floor(Math.random() * (max + 1));
+}
+
+function swap(arr: unknown[], i: number, j: number) {
+  const t = arr[i];
+  arr[i] = arr[j];
+  arr[j] = t;
+}

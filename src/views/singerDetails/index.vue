@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-05 21:29:33
+ * @LastEditTime: 2021-06-06 19:42:06
  * @LastEditors: Please set LastEditors
  * @Description: SingerDetails
  * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue

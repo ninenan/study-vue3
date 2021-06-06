@@ -1,14 +1,19 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:15:13
- * @LastEditTime: 2021-06-04 16:23:36
+ * @LastEditTime: 2021-06-06 19:36:48
  * @LastEditors: Please set LastEditors
  * @Description: SongList
  * @FilePath: /study_vue03/src/components/songList/SongList.vue
 -->
 <template>
   <ul class="song-list">
-    <li class="item" v-for="song in songs" :key="song.id">
+    <li
+      class="item"
+      v-for="(song, index) in songs"
+      :key="song.id"
+      @click="selectItem(song, index)"
+    >
       <div class="content">
         <h2 class="name">{{ song.name }}</h2>
         <p class="desc">{{ getDesc(song) }}</p>
@@ -22,6 +27,7 @@ import { ISingerDetailsRes } from "@/views/singerDetails/index.vue";
 
 interface ISongList {
   getDesc: (song: ISingerDetailsRes) => string;
+  selectItem: (song: ISingerDetailsRes, index: number) => void;
 }
 
 export default {
@@ -31,13 +37,21 @@ export default {
       required: true,
     },
   },
-  setup(): ISongList {
+  emits: ["select"],
+  setup(props: { songs: ISingerDetailsRes[] }, context: any): ISongList {
     const getDesc = (song: ISingerDetailsRes) => {
       return `${song.singer}·${song.album}`;
+    };
+    const selectItem = (song: ISingerDetailsRes, index: number): void => {
+      context?.emit("select", {
+        song,
+        index,
+      });
     };
 
     return {
       getDesc,
+      selectItem,
     };
   },
 };
