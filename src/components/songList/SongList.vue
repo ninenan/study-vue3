@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:15:13
- * @LastEditTime: 2021-06-06 19:36:48
+ * @LastEditTime: 2021-06-10 23:09:37
  * @LastEditors: Please set LastEditors
  * @Description: SongList
  * @FilePath: /study_vue03/src/components/songList/SongList.vue
@@ -23,26 +23,26 @@
 </template>
 <script lang="ts">
 import { PropType } from "vue";
-import { ISingerDetailsRes } from "@/views/singerDetails/index.vue";
+import { ISingerDetailsInfo } from "@/types/index";
 
 interface ISongList {
-  getDesc: (song: ISingerDetailsRes) => string;
-  selectItem: (song: ISingerDetailsRes, index: number) => void;
+  getDesc: (song: ISingerDetailsInfo) => string;
+  selectItem: (song: ISingerDetailsInfo, index: number) => void;
 }
 
 export default {
   props: {
     songs: {
-      type: Array as PropType<ISingerDetailsRes[]>,
+      type: Array as PropType<ISingerDetailsInfo[]>,
       required: true,
     },
   },
   emits: ["select"],
-  setup(props: { songs: ISingerDetailsRes[] }, context: any): ISongList {
-    const getDesc = (song: ISingerDetailsRes) => {
+  setup(props: { songs: ISingerDetailsInfo[] }, context: any): ISongList {
+    const getDesc = (song: ISingerDetailsInfo) => {
       return `${song.singer}·${song.album}`;
     };
-    const selectItem = (song: ISingerDetailsRes, index: number): void => {
+    const selectItem = (song: ISingerDetailsInfo, index: number): void => {
       context?.emit("select", {
         song,
         index,

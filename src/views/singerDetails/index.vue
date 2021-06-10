@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-06 19:42:06
+ * @LastEditTime: 2021-06-10 23:07:34
  * @LastEditors: Please set LastEditors
  * @Description: SingerDetails
  * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue
@@ -21,7 +21,7 @@ import { useRoute, useRouter } from "vue-router";
 import { PropType, ref, computed, Ref } from "vue";
 import { getSingerDetails } from "@/api/singer";
 import { processSongs } from "@/api/song";
-import { ISingerInfo } from "@/types/index";
+import { ISingerInfo, ISingerDetailsInfo } from "@/types/index";
 import MusicList from "@components/musicList/MusicList.vue";
 import { useStore } from "@/store/index";
 
@@ -29,23 +29,12 @@ export interface ISingerDetailsParams {
   mid: string;
 }
 
-export interface ISingerDetailsRes {
-  album: string;
-  duration: number;
-  id: number;
-  mid: string;
-  name: string;
-  pic: string;
-  singer: string;
-  url: string;
-}
-
 interface IProps {
   singer: ISingerInfo | null;
 }
 
 interface ISingerDetails {
-  songsList: Ref<ISingerDetailsRes[]>;
+  songsList: Ref<ISingerDetailsInfo[]>;
   pic: Ref<string | undefined>;
   title: Ref<string | undefined>;
   loading: Ref<boolean>;
@@ -67,7 +56,7 @@ export default {
     const router = useRouter();
     const store = useStore();
     const loading = ref(true);
-    let songsList = ref<ISingerDetailsRes[]>([]);
+    let songsList = ref<ISingerDetailsInfo[]>([]);
     const computedSingerInfo = computed(() => {
       let result: ISingerInfo | null = null;
       if (props?.singer?.id) {
@@ -98,7 +87,7 @@ export default {
     const params: ISingerDetailsParams = {
       mid: route.params.mid as string,
     };
-    const { songs } = await getSingerDetails<{ songs: ISingerDetailsRes[] }>(
+    const { songs } = await getSingerDetails<{ songs: ISingerDetailsInfo[] }>(
       params
     );
     processSongs(songs).then((res) => {

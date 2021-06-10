@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-06-06 20:07:11
+ * @LastEditTime: 2021-06-10 23:06:55
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -54,12 +54,23 @@ export interface ISingerStore {
 }
 
 export interface IMusicStore {
-  sequenceList: unknown[]; // 播放顺序列表
-  playList: unknown[]; // 播放列表
+  sequenceList: ISingerDetailsInfo[]; // 播放顺序列表
+  playList: ISingerDetailsInfo[]; // 播放列表
   isPlaying: boolean; // 是否播放中
   playMode: PLAY_MODE; // 播放模式
   currentIndex: number; // 当前播放下标
   isFullScreen: boolean; // 是否全屏
+}
+
+export interface ISingerDetailsInfo {
+  album: string;
+  duration: number;
+  id: number;
+  mid: string;
+  name: string;
+  pic: string;
+  singer: string;
+  url: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

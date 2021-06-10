@@ -1,26 +1,17 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-01 15:49:54
- * @LastEditTime: 2021-06-01 17:05:19
+ * @LastEditTime: 2021-06-10 23:07:53
  * @LastEditors: Please set LastEditors
  * @Description: song
  * @FilePath: \study-vue3\src\api\song.ts
  */
 import { get } from "@/service/http";
-interface ISingerDetailsRes {
-  album: string;
-  duration: number;
-  id: number;
-  mid: string;
-  name: string;
-  pic: string;
-  singer: string;
-  url: string;
-}
+import { ISingerDetailsInfo } from "@/types/index";
 
 export const processSongs = (
-  songs: ISingerDetailsRes[]
-): Promise<ISingerDetailsRes[]> => {
+  songs: ISingerDetailsInfo[]
+): Promise<ISingerDetailsInfo[]> => {
   if (!songs.length) {
     return Promise.resolve(songs);
   }
@@ -39,5 +30,5 @@ export const processSongs = (
       .filter((song) => {
         return song.url?.indexOf("vkey") > -1;
       });
-  }) as Promise<ISingerDetailsRes[]>;
+  }) as Promise<ISingerDetailsInfo[]>;
 };

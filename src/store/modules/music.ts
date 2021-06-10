@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-06-06 20:06:05
+ * @LastEditTime: 2021-06-10 23:38:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
  */
-import { IMusicStore, PLAY_MODE } from "@/types/index";
+import { IMusicStore, PLAY_MODE, ISingerDetailsInfo } from "@/types/index";
 import {
   SET_PLAYING_STATUE,
   SET_SEQUENCE_LIST,
@@ -28,8 +28,8 @@ const state: IMusicStore = {
 };
 
 const getters = {
-  currentSong: (state: IMusicStore): unknown => {
-    return state.playList[state.currentIndex];
+  currentSong: (state: IMusicStore): ISingerDetailsInfo => {
+    return state.playList[state.currentIndex] || {};
   },
 };
 
@@ -47,7 +47,10 @@ const mutations = {
    * @param state IMusicStore
    * @param list unknown[]
    */
-  [SET_SEQUENCE_LIST]: (state: IMusicStore, list: unknown[]): void => {
+  [SET_SEQUENCE_LIST]: (
+    state: IMusicStore,
+    list: ISingerDetailsInfo[]
+  ): void => {
     state.sequenceList = list;
   },
   /**
@@ -55,7 +58,7 @@ const mutations = {
    * @param state IMusicStore
    * @param list unknown[]
    */
-  [SET_PLAYLIST]: (state: IMusicStore, list: unknown[]): void => {
+  [SET_PLAYLIST]: (state: IMusicStore, list: ISingerDetailsInfo[]): void => {
     state.playList = list;
   },
   /**

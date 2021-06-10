@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-06 20:12:41
+ * @LastEditTime: 2021-06-10 23:09:09
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -41,8 +41,8 @@ import SongList from "@/components/songList/SongList.vue";
 import Scroll from "@/components/base/scroll/Scroll.vue";
 import { useRouter } from "vue-router";
 import { defineComponent, computed, onMounted, ref } from "vue";
-import { ISingerDetailsRes } from "@/views/singerDetails/index.vue";
 import { useStore } from "@/store/index";
+import { ISingerDetailsInfo } from "@/types/index";
 
 interface IPos {
   x: number;
@@ -50,7 +50,7 @@ interface IPos {
 }
 
 interface ISongListSelectItemParams {
-  song: ISingerDetailsRes;
+  song: ISingerDetailsInfo;
   index: number;
 }
 
