@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-15 10:31:25
+ * @LastEditTime: 2021-06-15 23:32:47
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -15,7 +15,7 @@
     <div class="bg-image" :style="bgImageStyle" ref="bgImage">
       <div class="play-btn-wrapper" :style="palyBtnStyle">
         <div v-show="songs.length > 0" class="play-btn" @click="random">
-          <base-svg iconClass="play" class="icon-play" />
+          <base-svg icon-class="icon-play" class="icon-play" />
           <span class="text">随机播放全部</span>
         </div>
       </div>

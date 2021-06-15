@@ -11,13 +11,36 @@
         <h1 class="title">{{ currentSong.name }}</h1>
         <h2 class="subtitle">{{ currentSong.singer }}</h2>
       </div>
+      <div class="bottom">
+        <div class="operators">
+          <div class="icon i-left">
+            <base-svg icon-class="icon-prev-song" class="icon-play"></base-svg>
+          </div>
+          <div class="icon i-left">
+            <base-svg icon-class="icon-prev-song" class="icon-play"></base-svg>
+          </div>
+          <div class="icon i-center">
+            <base-svg
+              :icon-class="playIcon"
+              class="icon-play"
+              @click="switchPlay"
+            ></base-svg>
+          </div>
+          <div class="icon i-right">
+            <base-svg icon-class="icon-next-song" class="icon-play"></base-svg>
+          </div>
+          <div class="icon i-right">
+            <base-svg icon-class="icon-love" class="icon-play"></base-svg>
+          </div>
+        </div>
+      </div>
     </div>
-    <audio ref="audioRef"></audio>
+    <audio ref="audioRef" @pause="pause"></audio>
   </div>
 </template>
 
 <script lang="ts">
-import { SET_FULL_SCREEN } from "@/helpers/constant";
+import { SET_FULL_SCREEN, SET_PLAYING_STATUE } from "@/helpers/constant";
 import { computed, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
 import { ISingerDetailsInfo } from "@/types/index";
@@ -28,6 +51,9 @@ interface IPlayer {
   goBack: () => void;
   fullScreen: Ref<boolean>;
   audioRef: Ref<HTMLMediaElement | null>;
+  switchPlay: () => void;
+  pause: () => void;
+  playIcon: Ref<string>;
 }
 
 export default {
@@ -38,6 +64,10 @@ export default {
     const fullScreen = computed(() => store.state.music.isFullScreen);
     const currentSong = computed(() => store.getters.currentSong);
     const playlist = computed(() => store.state.music.playList);
+    const isPlaying = computed(() => store.state.music.isPlaying);
+    const playIcon = computed(() =>
+      isPlaying.value ? "icon-playing" : "icon-play"
+    );
 
     watch(currentSong, (newSong: ISingerDetailsInfo) => {
       if (!newSong.id || !newSong.url) {
@@ -48,8 +78,30 @@ export default {
       audioEl.src = newSong.url;
       audioEl.play();
     });
+
+    watch(isPlaying, (newIsPlaying) => {
+      if (audioRef.value) {
+        const audioEl = audioRef.value;
+        newIsPlaying ? audioEl.play() : audioEl.pause();
+      }
+    });
+    /**
+     * 返回
+     */
     const goBack = () => {
       store.commit(SET_FULL_SCREEN, false);
+    };
+    /**
+     * 切换播放
+     */
+    const switchPlay = () => {
+      store.commit(SET_PLAYING_STATUE, !isPlaying.value);
+    };
+    /**
+     * 歌曲暂停
+     */
+    const pause = () => {
+      store.commit(SET_PLAYING_STATUE, false);
     };
     return {
       playlist,
@@ -57,6 +109,9 @@ export default {
       fullScreen,
       audioRef,
       goBack,
+      switchPlay,
+      pause,
+      playIcon,
     };
   },
 };
@@ -64,6 +119,10 @@ export default {
 
 <style lang="scss" scoped>
 .player {
+  .operators {
+    display: flex;
+    align-items: center;
+  }
   .normal-player {
     position: fixed;
     left: 0;
@@ -257,8 +316,10 @@ export default {
           &.disable {
             color: $color-theme-d;
           }
-          i {
-            font-size: 30px;
+          .icon-play {
+            width: 30px;
+            height: 30px;
+            // color: $color-theme;
           }
         }
         .i-left {
