@@ -9,7 +9,7 @@
 <template>
   <div class="no-result">
     <div class="no-result-content">
-      <BaseSvg iconClass="noResult" class="icon-no-result" />
+      <BaseSvg iconClass="icon-no-result" class="icon-no-result" />
       <p class="text">{{ title }}</p>
     </div>
   </div>

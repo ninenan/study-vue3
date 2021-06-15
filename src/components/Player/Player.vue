@@ -6,7 +6,7 @@
       </div>
       <div class="top">
         <div class="back" @click="goBack">
-          <base-svg iconClass="arrowLeft" class="icon-back"></base-svg>
+          <base-svg iconClass="icon-arrow-left" class="icon-back"></base-svg>
         </div>
         <h1 class="title">{{ currentSong.name }}</h1>
         <h2 class="subtitle">{{ currentSong.singer }}</h2>
