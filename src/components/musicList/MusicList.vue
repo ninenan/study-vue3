@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-10 23:09:09
+ * @LastEditTime: 2021-06-15 10:31:25
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -151,7 +151,7 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      if (bgImage.value?.clientHeight) {
+      if (bgImage.value) {
         imageHeight.value = bgImage.value.clientHeight;
       }
 

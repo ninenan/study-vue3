@@ -27,14 +27,14 @@ interface IPlayer {
   currentSong: Ref<ISingerDetailsInfo>;
   goBack: () => void;
   fullScreen: Ref<boolean>;
-  audioRef: Ref<HTMLElement | null>;
+  audioRef: Ref<HTMLMediaElement | null>;
 }
 
 export default {
   name: "player",
   setup(): IPlayer {
     const store = useStore();
-    const audioRef = ref<HTMLElement | null>(null);
+    const audioRef = ref<HTMLMediaElement | null>(null);
     const fullScreen = computed(() => store.state.music.isFullScreen);
     const currentSong = computed(() => store.getters.currentSong);
     const playlist = computed(() => store.state.music.playList);
@@ -44,7 +44,7 @@ export default {
         return;
       }
 
-      const audioEl = audioRef.value;
+      const audioEl = audioRef.value as HTMLMediaElement;
       audioEl.src = newSong.url;
       audioEl.play();
     });
