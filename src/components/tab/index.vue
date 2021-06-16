@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:07:46
- * @LastEditTime: 2021-05-17 23:08:17
+ * @LastEditTime: 2021-06-16 18:01:50
  * @LastEditors: Please set LastEditors
  * @Description: tab
  * @FilePath: /study_vue03/src/components/tab/index.vue
@@ -22,7 +22,7 @@
 </template>
 <script lang="ts">
 import { reactive } from "@vue/reactivity";
-import { IRouterLink } from "@/types/index.ts";
+import { IRouterLink } from "@/types/index";
 
 interface ITab {
   tabList: IRouterLink[];

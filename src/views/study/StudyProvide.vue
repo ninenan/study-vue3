@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-28 14:29:13
- * @LastEditTime: 2021-05-28 16:00:28
+ * @LastEditTime: 2021-06-16 18:02:36
  * @LastEditors: Please set LastEditors
  * @Description: StudyProvide
  * @FilePath: \study-vue3\src\views\study\StudyProvide.vue
@@ -13,15 +13,7 @@
   </div>
 </template>
 <script lang="ts">
-import {
-  provide,
-  reactive,
-  ref,
-  readonly,
-  Ref,
-  onMounted,
-  onUnmounted,
-} from "vue";
+import { provide, reactive, ref, readonly, onUnmounted } from "vue";
 import ProvideSon from "@/components/study/MyProvideSon.vue";
 
 export interface IGeolocation {
