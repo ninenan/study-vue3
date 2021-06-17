@@ -16,18 +16,26 @@
           <div class="icon i-left">
             <base-svg icon-class="icon-prev-song" class="icon-play"></base-svg>
           </div>
-          <div class="icon i-left">
-            <base-svg icon-class="icon-prev-song" class="icon-play"></base-svg>
+          <div class="icon i-left" :class="disableCls">
+            <base-svg
+              icon-class="icon-prev-song"
+              class="icon-play"
+              @click="prevPlay"
+            ></base-svg>
           </div>
-          <div class="icon i-center">
+          <div class="icon i-center" :class="disableCls">
             <base-svg
               :icon-class="playIcon"
               class="icon-play"
               @click="switchPlay"
             ></base-svg>
           </div>
-          <div class="icon i-right">
-            <base-svg icon-class="icon-next-song" class="icon-play"></base-svg>
+          <div class="icon i-right" :class="disableCls">
+            <base-svg
+              icon-class="icon-next-song"
+              class="icon-play"
+              @click="nextPlay"
+            ></base-svg>
           </div>
           <div class="icon i-right">
             <base-svg icon-class="icon-love" class="icon-play"></base-svg>
@@ -35,12 +43,21 @@
         </div>
       </div>
     </div>
-    <audio ref="audioRef" @pause="pause"></audio>
+    <audio
+      ref="audioRef"
+      @pause="pause"
+      @canplay="songReady"
+      @error="songPlayError"
+    ></audio>
   </div>
 </template>
 
 <script lang="ts">
-import { SET_FULL_SCREEN, SET_PLAYING_STATUE } from "@/helpers/constant";
+import {
+  SET_FULL_SCREEN,
+  SET_PLAYING_STATUE,
+  SET_CURRENT_INDEX,
+} from "@/helpers/constant";
 import { computed, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
 import { ISingerDetailsInfo } from "@/types/index";
@@ -51,9 +68,14 @@ interface IPlayer {
   goBack: () => void;
   fullScreen: Ref<boolean>;
   audioRef: Ref<HTMLMediaElement | null>;
+  disableCls: Ref<string>;
   switchPlay: () => void;
   pause: () => void;
   playIcon: Ref<string>;
+  prevPlay: () => void;
+  nextPlay: () => void;
+  songReady: () => void;
+  songPlayError: () => void;
 }
 
 export default {
@@ -61,6 +83,8 @@ export default {
   setup(): IPlayer {
     const store = useStore();
     const audioRef = ref<HTMLMediaElement | null>(null);
+    const isSongReady = ref(false);
+
     const fullScreen = computed(() => store.state.music.isFullScreen);
     const currentSong = computed(() => store.getters.currentSong);
     const playlist = computed(() => store.state.music.playList);
@@ -68,6 +92,8 @@ export default {
     const playIcon = computed(() =>
       isPlaying.value ? "icon-playing" : "icon-play"
     );
+    const currentIndex = computed(() => store.state.music.currentIndex);
+    const disableCls = computed(() => (isSongReady.value ? "" : "disabled"));
 
     watch(currentSong, (newSong: ISingerDetailsInfo) => {
       if (!newSong.id || !newSong.url) {
@@ -77,10 +103,14 @@ export default {
       const audioEl = audioRef.value as HTMLMediaElement;
       audioEl.src = newSong.url;
       audioEl.play();
+      isSongReady.value = false;
     });
 
     watch(isPlaying, (newIsPlaying) => {
       if (audioRef.value) {
+        if (!isSongReady.value) {
+          return;
+        }
         const audioEl = audioRef.value;
         newIsPlaying ? audioEl.play() : audioEl.pause();
       }
@@ -95,6 +125,9 @@ export default {
      * 切换播放
      */
     const switchPlay = () => {
+      if (!isSongReady.value) {
+        return;
+      }
       store.commit(SET_PLAYING_STATUE, !isPlaying.value);
     };
     /**
@@ -103,15 +136,85 @@ export default {
     const pause = () => {
       store.commit(SET_PLAYING_STATUE, false);
     };
+    /**
+     * 上一首
+     */
+    const prevPlay = () => {
+      const list = playlist.value;
+
+      if (!list.length || !isSongReady.value) {
+        return;
+      }
+      if (list.length === 1) {
+        loop();
+      } else {
+        let index = currentIndex.value - 1;
+        if (index === -1) {
+          index = list.length - 1;
+        }
+        store.commit(SET_CURRENT_INDEX, index);
+        !isPlaying.value && store.commit(SET_PLAYING_STATUE, true);
+      }
+    };
+    /**
+     * 下一首
+     */
+    const nextPlay = () => {
+      const list = playlist.value;
+
+      if (!list.length || !isSongReady.value) {
+        return;
+      }
+      if (list.length === 1) {
+        loop();
+      } else {
+        let index = currentIndex.value + 1;
+        if (index === list.length) {
+          index = 0;
+        }
+        store.commit(SET_CURRENT_INDEX, index);
+        !isPlaying.value && store.commit(SET_PLAYING_STATUE, true);
+      }
+    };
+    /**
+     * 循环播放
+     */
+    const loop = () => {
+      const audioEl = audioRef.value;
+      if (audioEl) {
+        audioEl.currentTime = 0;
+        audioEl.play();
+      }
+    };
+    /**
+     * 歌曲是否可以播放
+     */
+    const songReady = () => {
+      if (isSongReady.value) {
+        return;
+      }
+      isSongReady.value = true;
+    };
+    /**
+     * 歌曲播放失败
+     */
+    const songPlayError = () => {
+      isSongReady.value = true;
+    };
     return {
       playlist,
       currentSong,
       fullScreen,
       audioRef,
+      disableCls,
       goBack,
       switchPlay,
       pause,
       playIcon,
+      prevPlay,
+      nextPlay,
+      songReady,
+      songPlayError,
     };
   },
 };
@@ -313,13 +416,12 @@ export default {
         .icon {
           flex: 1;
           color: $color-theme;
-          &.disable {
+          &.disabled {
             color: $color-theme-d;
           }
           .icon-play {
             width: 30px;
             height: 30px;
-            // color: $color-theme;
           }
         }
         .i-left {
