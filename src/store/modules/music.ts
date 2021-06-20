@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-06-10 23:38:54
+ * @LastEditTime: 2021-06-20 22:41:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -102,6 +102,7 @@ const actions = {
     context.commit(SET_PLAYLIST, list);
     context.commit(SET_CURRENT_INDEX, index);
     context.commit(SET_FULL_SCREEN, true);
+    context.commit(SET_PLAY_MODE, PLAY_MODE.sequence);
   },
   /**
    * 随机播放
@@ -118,6 +119,28 @@ const actions = {
     context.commit(SET_CURRENT_INDEX, 0);
     context.commit(SET_FULL_SCREEN, true);
     context.commit(SET_PLAY_MODE, PLAY_MODE.random);
+  },
+  /**
+   * 改变播放模式
+   * @param context
+   * @param mode
+   * @returns
+   */
+  changeMode: (
+    context: ActionContext<IMusicStore, IMusicStore>,
+    mode: PLAY_MODE
+  ): void => {
+    const currentId = context.getters.currentSong.id;
+    if (mode === PLAY_MODE.random) {
+      context.commit(SET_PLAYLIST, shuffle(context.state.sequenceList));
+    } else {
+      context.commit(SET_PLAYLIST, context.state.sequenceList);
+    }
+    const currentIndex = context.state.playList.findIndex(
+      (song) => song.id === currentId
+    );
+    context.commit(SET_CURRENT_INDEX, currentIndex);
+    context.commit(SET_PLAY_MODE, mode);
   },
 };
 

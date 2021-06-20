@@ -14,7 +14,11 @@
       <div class="bottom">
         <div class="operators">
           <div class="icon i-left">
-            <base-svg icon-class="icon-prev-song" class="icon-play"></base-svg>
+            <base-svg
+              :icon-class="modeIcon"
+              class="icon-play"
+              @click="changeMode"
+            ></base-svg>
           </div>
           <div class="icon i-left" :class="disableCls">
             <base-svg
@@ -61,8 +65,9 @@ import {
 import { computed, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
 import { ISingerDetailsInfo } from "@/types/index";
+import useMode, { IUseMode } from "@/hooks/useMode";
 
-interface IPlayer {
+interface IPlayer extends IUseMode {
   playlist: Ref<ISingerDetailsInfo[]>;
   currentSong: Ref<ISingerDetailsInfo>;
   goBack: () => void;
@@ -94,6 +99,7 @@ export default {
     );
     const currentIndex = computed(() => store.state.music.currentIndex);
     const disableCls = computed(() => (isSongReady.value ? "" : "disabled"));
+    const { modeIcon, changeMode } = useMode();
 
     watch(currentSong, (newSong: ISingerDetailsInfo) => {
       if (!newSong.id || !newSong.url) {
@@ -215,6 +221,9 @@ export default {
       nextPlay,
       songReady,
       songPlayError,
+      // useMode
+      modeIcon,
+      changeMode,
     };
   },
 };
