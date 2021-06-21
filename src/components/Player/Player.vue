@@ -42,7 +42,10 @@
             ></base-svg>
           </div>
           <div class="icon i-right">
-            <base-svg icon-class="icon-love" class="icon-play"></base-svg>
+            <base-svg
+              :icon-class="getFavoritesIcon(currentSong)"
+              class="icon-play"
+            ></base-svg>
           </div>
         </div>
       </div>
@@ -66,6 +69,7 @@ import { computed, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
 import { ISingerDetailsInfo } from "@/types/index";
 import useMode, { IUseMode } from "@/hooks/useMode";
+import useFavorites from "@/hooks/useFavorites";
 
 interface IPlayer extends IUseMode {
   playlist: Ref<ISingerDetailsInfo[]>;
@@ -81,6 +85,7 @@ interface IPlayer extends IUseMode {
   nextPlay: () => void;
   songReady: () => void;
   songPlayError: () => void;
+  getFavoritesIcon: (song: ISingerDetailsInfo) => string;
 }
 
 export default {
@@ -99,7 +104,6 @@ export default {
     );
     const currentIndex = computed(() => store.state.music.currentIndex);
     const disableCls = computed(() => (isSongReady.value ? "" : "disabled"));
-    const { modeIcon, changeMode } = useMode();
 
     watch(currentSong, (newSong: ISingerDetailsInfo) => {
       if (!newSong.id || !newSong.url) {
@@ -121,6 +125,11 @@ export default {
         newIsPlaying ? audioEl.play() : audioEl.pause();
       }
     });
+
+    // hooks
+    const { modeIcon, changeMode } = useMode();
+    const { getFavoritesIcon } = useFavorites();
+
     /**
      * 返回
      */
@@ -224,6 +233,8 @@ export default {
       // useMode
       modeIcon,
       changeMode,
+      // useFavorites
+      getFavoritesIcon,
     };
   },
 };

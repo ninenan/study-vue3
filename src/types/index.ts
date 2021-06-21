@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-06-10 23:06:55
+ * @LastEditTime: 2021-06-21 22:34:40
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -60,6 +60,7 @@ export interface IMusicStore {
   playMode: PLAY_MODE; // 播放模式
   currentIndex: number; // 当前播放下标
   isFullScreen: boolean; // 是否全屏
+  favoritesList: ISingerDetailsInfo[]; // 收藏列表
 }
 
 export interface ISingerDetailsInfo {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-06-20 22:41:54
+ * @LastEditTime: 2021-06-21 22:37:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -14,6 +14,7 @@ import {
   SET_PLAY_MODE,
   SET_CURRENT_INDEX,
   SET_FULL_SCREEN,
+  SET_FAVORITES_LIST,
 } from "@/helpers/constant";
 import { ActionContext } from "vuex";
 import { shuffle } from "@/helpers/utils";
@@ -25,6 +26,7 @@ const state: IMusicStore = {
   playMode: PLAY_MODE.sequence,
   currentIndex: 0,
   isFullScreen: false,
+  favoritesList: [],
 };
 
 const getters = {
@@ -84,6 +86,17 @@ const mutations = {
    */
   [SET_FULL_SCREEN]: (state: IMusicStore, isFullScreen: boolean): void => {
     state.isFullScreen = isFullScreen;
+  },
+  /**
+   * 设置收藏列表
+   * @param state IMusicStore
+   * @param favoritesList ISingerDetailsInfo[]
+   */
+  [SET_FAVORITES_LIST]: (
+    state: IMusicStore,
+    favoritesList: ISingerDetailsInfo[]
+  ): void => {
+    state.favoritesList = favoritesList;
   },
 };
 
