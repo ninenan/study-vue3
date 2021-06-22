@@ -11,6 +11,20 @@
         <h1 class="title">{{ currentSong.name }}</h1>
         <h2 class="subtitle">{{ currentSong.singer }}</h2>
       </div>
+      <div class="middle">
+        <div class="middle-l">
+          <div ref="cdWrapperRef" class="cd-wrapper">
+            <div ref="cdRef" class="cd">
+              <img
+                ref="cdImageRef"
+                class="image"
+                :class="cdCls"
+                :src="currentSong.pic"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="bottom">
         <div class="progress-wrapper">
           <span class="time time-l">{{ formatTime(currentTime) }}</span>
@@ -87,6 +101,7 @@ import { useStore } from "@/store/index";
 import { ISingerDetailsInfo, PLAY_MODE } from "@/types/index";
 import useMode, { IUseMode } from "@/hooks/useMode";
 import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
+import useCd from "@/hooks/useCd";
 import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
 import { formatTime } from "@/helpers/utils";
 
@@ -99,6 +114,9 @@ interface IPlayer extends IUseMode, IUseFavorites {
   playIcon: Ref<string>;
   progress: Ref<number>;
   currentTime: Ref<number>;
+  cdCls: Ref<string>;
+  cdRef: Ref<HTMLElement | null>;
+  cdImageRef: Ref<HTMLElement | null>;
   goBack: () => void;
   switchPlay: () => void;
   pause: () => void;
@@ -166,6 +184,7 @@ export default {
     // hooks
     const { modeIcon, changeMode } = useMode();
     const { getFavoritesIcon, toggleFavorites } = useFavorites();
+    const { cdCls, cdRef, cdImageRef } = useCd();
 
     /**
      * 返回
@@ -323,6 +342,10 @@ export default {
       // useFavorites
       getFavoritesIcon,
       toggleFavorites,
+      // useCd
+      cdCls,
+      cdRef,
+      cdImageRef,
     };
   },
 };
