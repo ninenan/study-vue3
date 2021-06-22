@@ -1,7 +1,7 @@
 /*
- * @Author: your name
+ * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-06-22 11:44:50
+ * @LastEditTime: 2021-06-22 21:31:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts

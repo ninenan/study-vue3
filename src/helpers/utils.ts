@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 20:46:56
- * @LastEditTime: 2021-06-22 14:59:28
+ * @LastEditTime: 2021-06-22 21:19:50
  * @LastEditors: Please set LastEditors
  * @Description: utils
  * @FilePath: /study_vue03/src/helpers/utils.ts
@@ -74,7 +74,7 @@ function swap(arr: unknown[], i: number, j: number) {
  * 格式化时间
  * @param time number
  */
-export const formatTime = (time: number) => {
+export const formatTime = (time: number): string => {
   time = time | 0;
 
   const minute: string = (((time / 60) | 0) + "").padStart(2, "0");

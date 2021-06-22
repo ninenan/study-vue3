@@ -15,7 +15,12 @@
         <div class="progress-wrapper">
           <span class="time time-l">{{ formatTime(currentTime) }}</span>
           <div class="progress-bar-wrapper">
-            <progress-bar ref="barRef" :progress="progress"></progress-bar>
+            <progress-bar
+              ref="barRef"
+              :progress="progress"
+              @progress-changing="onProgressChanging"
+              @progress-changed="onProgressChanged"
+            ></progress-bar>
           </div>
           <span class="time time-r">{{
             formatTime(currentSong.duration)
@@ -66,6 +71,7 @@
       @canplay="songReady"
       @error="songPlayError"
       @timeupdate="updateTime"
+      @ended="endSong"
     ></audio>
   </div>
 </template>
@@ -78,7 +84,7 @@ import {
 } from "@/helpers/constant";
 import { computed, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
-import { ISingerDetailsInfo } from "@/types/index";
+import { ISingerDetailsInfo, PLAY_MODE } from "@/types/index";
 import useMode, { IUseMode } from "@/hooks/useMode";
 import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
 import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
@@ -102,6 +108,9 @@ interface IPlayer extends IUseMode, IUseFavorites {
   songPlayError: () => void;
   formatTime: (time: number) => string;
   updateTime: (e: any) => void;
+  onProgressChanging: (progress: number) => void;
+  onProgressChanged: (progress: number) => void;
+  endSong: () => void;
 }
 
 export default {
@@ -114,11 +123,13 @@ export default {
     const audioRef = ref<HTMLMediaElement | null>(null);
     const isSongReady = ref(false);
     const currentTime = ref(0);
+    let isInProgressChanging = false;
 
     const fullScreen = computed(() => store.state.music.isFullScreen);
     const currentSong: Ref<ISingerDetailsInfo> = computed(
       () => store.getters.currentSong
     );
+    const playMode = computed(() => store.state.music.playMode);
     const playlist = computed(() => store.state.music.playList);
     const isPlaying = computed(() => store.state.music.isPlaying);
     const playIcon = computed(() =>
@@ -175,6 +186,7 @@ export default {
      * 歌曲暂停
      */
     const pause = () => {
+      console.log("pause");
       store.commit(SET_PLAYING_STATUE, false);
     };
     /**
@@ -226,6 +238,7 @@ export default {
         audioEl.currentTime = 0;
         audioEl.play();
       }
+      store.commit(SET_PLAYING_STATUE, true);
     };
     /**
      * 歌曲是否可以播放
@@ -246,7 +259,42 @@ export default {
      * 歌曲进度
      */
     const updateTime = (event: any) => {
-      currentTime.value = event.target.currentTime;
+      if (!isInProgressChanging) {
+        currentTime.value = event.target.currentTime;
+      }
+    };
+    /**
+     * 歌曲结束
+     */
+    const endSong = () => {
+      currentTime.value = 0;
+      if (playMode.value === PLAY_MODE.loop) {
+        loop();
+      } else {
+        nextPlay();
+      }
+    };
+    /**
+     * 进度条滑动
+     * @param progress number
+     */
+    const onProgressChanging = (progress: number): void => {
+      isInProgressChanging = true;
+      currentTime.value = currentSong.value.duration * progress;
+    };
+    /**
+     * 进度条结束滑动
+     * @param progress number
+     */
+    const onProgressChanged = (progress: number): void => {
+      isInProgressChanging = false;
+      if (audioRef.value) {
+        audioRef.value.currentTime = currentTime.value =
+          currentSong.value.duration * progress;
+      }
+      if (!isPlaying.value) {
+        store.commit(SET_PLAYING_STATUE, true);
+      }
     };
     return {
       playlist,
@@ -266,6 +314,9 @@ export default {
       songPlayError,
       formatTime,
       updateTime,
+      endSong,
+      onProgressChanging,
+      onProgressChanged,
       // useMode
       modeIcon,
       changeMode,
