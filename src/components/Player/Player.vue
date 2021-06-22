@@ -43,6 +43,7 @@
           </div>
           <div class="icon i-right">
             <base-svg
+              @click="toggleFavorites(currentSong)"
               :icon-class="getFavoritesIcon(currentSong)"
               class="icon-play"
             ></base-svg>
@@ -69,9 +70,9 @@ import { computed, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
 import { ISingerDetailsInfo } from "@/types/index";
 import useMode, { IUseMode } from "@/hooks/useMode";
-import useFavorites from "@/hooks/useFavorites";
+import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
 
-interface IPlayer extends IUseMode {
+interface IPlayer extends IUseMode, IUseFavorites {
   playlist: Ref<ISingerDetailsInfo[]>;
   currentSong: Ref<ISingerDetailsInfo>;
   goBack: () => void;
@@ -85,7 +86,6 @@ interface IPlayer extends IUseMode {
   nextPlay: () => void;
   songReady: () => void;
   songPlayError: () => void;
-  getFavoritesIcon: (song: ISingerDetailsInfo) => string;
 }
 
 export default {
@@ -128,7 +128,7 @@ export default {
 
     // hooks
     const { modeIcon, changeMode } = useMode();
-    const { getFavoritesIcon } = useFavorites();
+    const { getFavoritesIcon, toggleFavorites } = useFavorites();
 
     /**
      * 返回
@@ -235,6 +235,7 @@ export default {
       changeMode,
       // useFavorites
       getFavoritesIcon,
+      toggleFavorites,
     };
   },
 };

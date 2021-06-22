@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-06-21 22:37:32
+ * @LastEditTime: 2021-06-22 11:44:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -15,9 +15,11 @@ import {
   SET_CURRENT_INDEX,
   SET_FULL_SCREEN,
   SET_FAVORITES_LIST,
+  STORAGE,
 } from "@/helpers/constant";
 import { ActionContext } from "vuex";
 import { shuffle } from "@/helpers/utils";
+import { load } from "@/helpers/storage";
 
 const state: IMusicStore = {
   sequenceList: [],
@@ -26,7 +28,7 @@ const state: IMusicStore = {
   playMode: PLAY_MODE.sequence,
   currentIndex: 0,
   isFullScreen: false,
-  favoritesList: [],
+  favoritesList: load(STORAGE.favorites),
 };
 
 const getters = {
