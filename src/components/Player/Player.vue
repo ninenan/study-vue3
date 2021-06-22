@@ -12,6 +12,15 @@
         <h2 class="subtitle">{{ currentSong.singer }}</h2>
       </div>
       <div class="bottom">
+        <div class="progress-wrapper">
+          <span class="time time-l">{{ formatTime(currentTime) }}</span>
+          <div class="progress-bar-wrapper">
+            <progress-bar ref="barRef" :progress="progress"></progress-bar>
+          </div>
+          <span class="time time-r">{{
+            formatTime(currentSong.duration)
+          }}</span>
+        </div>
         <div class="operators">
           <div class="icon i-left">
             <base-svg
@@ -56,6 +65,7 @@
       @pause="pause"
       @canplay="songReady"
       @error="songPlayError"
+      @timeupdate="updateTime"
     ></audio>
   </div>
 </template>
@@ -71,32 +81,44 @@ import { useStore } from "@/store/index";
 import { ISingerDetailsInfo } from "@/types/index";
 import useMode, { IUseMode } from "@/hooks/useMode";
 import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
+import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
+import { formatTime } from "@/helpers/utils";
 
 interface IPlayer extends IUseMode, IUseFavorites {
   playlist: Ref<ISingerDetailsInfo[]>;
   currentSong: Ref<ISingerDetailsInfo>;
-  goBack: () => void;
   fullScreen: Ref<boolean>;
   audioRef: Ref<HTMLMediaElement | null>;
   disableCls: Ref<string>;
+  playIcon: Ref<string>;
+  progress: Ref<number>;
+  currentTime: Ref<number>;
+  goBack: () => void;
   switchPlay: () => void;
   pause: () => void;
-  playIcon: Ref<string>;
   prevPlay: () => void;
   nextPlay: () => void;
   songReady: () => void;
   songPlayError: () => void;
+  formatTime: (time: number) => string;
+  updateTime: (e: any) => void;
 }
 
 export default {
   name: "player",
+  components: {
+    "progress-bar": ProgressBar,
+  },
   setup(): IPlayer {
     const store = useStore();
     const audioRef = ref<HTMLMediaElement | null>(null);
     const isSongReady = ref(false);
+    const currentTime = ref(0);
 
     const fullScreen = computed(() => store.state.music.isFullScreen);
-    const currentSong = computed(() => store.getters.currentSong);
+    const currentSong: Ref<ISingerDetailsInfo> = computed(
+      () => store.getters.currentSong
+    );
     const playlist = computed(() => store.state.music.playList);
     const isPlaying = computed(() => store.state.music.isPlaying);
     const playIcon = computed(() =>
@@ -104,16 +126,20 @@ export default {
     );
     const currentIndex = computed(() => store.state.music.currentIndex);
     const disableCls = computed(() => (isSongReady.value ? "" : "disabled"));
+    const progress = computed(
+      () => currentTime.value / currentSong.value.duration
+    );
 
     watch(currentSong, (newSong: ISingerDetailsInfo) => {
       if (!newSong.id || !newSong.url) {
         return;
       }
 
+      currentTime.value = 0;
+      isSongReady.value = false;
       const audioEl = audioRef.value as HTMLMediaElement;
       audioEl.src = newSong.url;
       audioEl.play();
-      isSongReady.value = false;
     });
 
     watch(isPlaying, (newIsPlaying) => {
@@ -216,20 +242,30 @@ export default {
     const songPlayError = () => {
       isSongReady.value = true;
     };
+    /**
+     * 歌曲进度
+     */
+    const updateTime = (event: any) => {
+      currentTime.value = event.target.currentTime;
+    };
     return {
       playlist,
       currentSong,
       fullScreen,
       audioRef,
       disableCls,
+      playIcon,
+      progress,
+      currentTime,
       goBack,
       switchPlay,
       pause,
-      playIcon,
       prevPlay,
       nextPlay,
       songReady,
       songPlayError,
+      formatTime,
+      updateTime,
       // useMode
       modeIcon,
       changeMode,
