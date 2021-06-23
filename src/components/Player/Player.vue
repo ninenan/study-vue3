@@ -101,6 +101,7 @@ import { useStore } from "@/store/index";
 import { ISingerDetailsInfo, PLAY_MODE } from "@/types/index";
 import useMode, { IUseMode } from "@/hooks/useMode";
 import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
+import useLyric from "@/hooks/useLyric";
 import useCd from "@/hooks/useCd";
 import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
 import { formatTime } from "@/helpers/utils";
@@ -185,6 +186,7 @@ export default {
     const { modeIcon, changeMode } = useMode();
     const { getFavoritesIcon, toggleFavorites } = useFavorites();
     const { cdCls, cdRef, cdImageRef } = useCd();
+    useLyric();
 
     /**
      * 返回

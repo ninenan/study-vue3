@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-06-21 22:34:40
+ * @LastEditTime: 2021-06-23 22:28:46
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -72,6 +72,8 @@ export interface ISingerDetailsInfo {
   pic: string;
   singer: string;
   url: string;
+  lyric?: string;
+  [prop: string]: string | number | undefined;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

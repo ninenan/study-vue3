@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-06-22 21:31:00
+ * @LastEditTime: 2021-06-23 23:07:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -16,6 +16,7 @@ import {
   SET_FULL_SCREEN,
   SET_FAVORITES_LIST,
   STORAGE,
+  ADD_SONG_LYRIC,
 } from "@/helpers/constant";
 import { ActionContext } from "vuex";
 import { shuffle } from "@/helpers/utils";
@@ -99,6 +100,28 @@ const mutations = {
     favoritesList: ISingerDetailsInfo[]
   ): void => {
     state.favoritesList = favoritesList;
+  },
+  /**
+   * 设置歌曲的歌词
+   * @param state IMusicStore
+   * @param param1 { song: ISingerDetailsInfo; lyric: string; }
+   */
+  [ADD_SONG_LYRIC]: (
+    state: IMusicStore,
+    {
+      song,
+      lyric,
+    }: {
+      song: ISingerDetailsInfo;
+      lyric: string;
+    }
+  ): void => {
+    state.sequenceList.map((item) => {
+      if (item.mid === song.mid) {
+        item.lyric = lyric;
+      }
+      return item;
+    });
   },
 };
 

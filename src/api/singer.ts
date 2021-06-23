@@ -1,14 +1,14 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-24 21:13:08
- * @LastEditTime: 2021-06-01 17:11:09
+ * @LastEditTime: 2021-06-23 22:45:52
  * @LastEditors: Please set LastEditors
  * @Description: singer
  * @FilePath: /study_vue03/src/api/singer.ts
  */
 import { get } from "@/service/http";
 import { ISingerDetailsParams } from "@/views/singerDetails/index.vue";
-// import { ISingerList, ISingerInfo } from "@/types";
+
 /**
  * 获取歌手信息
  * @returns {Promise<T>}
