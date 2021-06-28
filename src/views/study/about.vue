@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-03 10:05:31
- * @LastEditTime: 2021-06-28 10:48:41
+ * @LastEditTime: 2021-06-28 11:02:49
  * @LastEditors: Please set LastEditors
  * @Description: study vue03
  * @FilePath: /study_vue03/src/views/About.vue
@@ -20,7 +20,7 @@
     <div class="image-box" v-else>
       <img :src="result?.message" alt="" />
     </div>
-    <a-button type="primary" @click="addCount">+1</a-button>
+    <button type="primary" @click="addCount">+1</button>
   </div>
 </template>
 <script lang="ts">

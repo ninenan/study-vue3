@@ -23,7 +23,27 @@
               />
             </div>
           </div>
+          <div class="playing-lyric-wrapper">
+            <div class="playing-lyric">{{ playingLyric }}</div>
+          </div>
         </div>
+        <scroll class="middle-r" ref="lyricScrollRef">
+          <div class="lyric-wrapper">
+            <div v-if="currentLyric" ref="lyricListRef">
+              <p
+                class="text"
+                :class="{ current: currentLineNum === index }"
+                v-for="(line, index) in currentLyric.lines"
+                :key="line.num"
+              >
+                {{ line.txt }}
+              </p>
+            </div>
+            <div class="pure-music" v-show="pureMusicLyric">
+              <p>{{ pureMusicLyric }}</p>
+            </div>
+          </div>
+        </scroll>
       </div>
       <div class="bottom">
         <div class="progress-wrapper">
@@ -101,12 +121,13 @@ import { useStore } from "@/store/index";
 import { ISingerDetailsInfo, PLAY_MODE } from "@/types/index";
 import useMode, { IUseMode } from "@/hooks/useMode";
 import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
-import useLyric from "@/hooks/useLyric";
+import useLyric, { IUseLyric } from "@/hooks/useLyric";
 import useCd from "@/hooks/useCd";
 import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
 import { formatTime } from "@/helpers/utils";
+import Scroll from "@/components/base/scroll/Scroll.vue";
 
-interface IPlayer extends IUseMode, IUseFavorites {
+interface IPlayer extends IUseMode, IUseFavorites, IUseLyric {
   playlist: Ref<ISingerDetailsInfo[]>;
   currentSong: Ref<ISingerDetailsInfo>;
   fullScreen: Ref<boolean>;
@@ -130,12 +151,17 @@ interface IPlayer extends IUseMode, IUseFavorites {
   onProgressChanging: (progress: number) => void;
   onProgressChanged: (progress: number) => void;
   endSong: () => void;
+  currentLyric: Ref<null>;
+  currentLineNum: Ref<number>;
+  lyricScrollRef: Ref<any | null>;
+  lyricListRef: Ref<any | null>;
 }
 
 export default {
   name: "player",
   components: {
     "progress-bar": ProgressBar,
+    scroll: Scroll,
   },
   setup(): IPlayer {
     const store = useStore();
@@ -178,7 +204,13 @@ export default {
           return;
         }
         const audioEl = audioRef.value;
-        newIsPlaying ? audioEl.play() : audioEl.pause();
+        if (newIsPlaying) {
+          audioEl.play();
+          playLyric();
+        } else {
+          audioEl.pause();
+          stopLyric();
+        }
       }
     });
 
@@ -186,7 +218,16 @@ export default {
     const { modeIcon, changeMode } = useMode();
     const { getFavoritesIcon, toggleFavorites } = useFavorites();
     const { cdCls, cdRef, cdImageRef } = useCd();
-    useLyric();
+    const {
+      currentLyric,
+      currentLineNum,
+      lyricScrollRef,
+      lyricListRef,
+      pureMusicLyric,
+      playingLyric,
+      playLyric,
+      stopLyric,
+    } = useLyric(isSongReady, currentTime);
 
     /**
      * 返回
@@ -269,6 +310,7 @@ export default {
         return;
       }
       isSongReady.value = true;
+      playLyric();
     };
     /**
      * 歌曲播放失败
@@ -302,6 +344,8 @@ export default {
     const onProgressChanging = (progress: number): void => {
       isInProgressChanging = true;
       currentTime.value = currentSong.value.duration * progress;
+      playLyric();
+      stopLyric();
     };
     /**
      * 进度条结束滑动
@@ -316,6 +360,7 @@ export default {
       if (!isPlaying.value) {
         store.commit(SET_PLAYING_STATUE, true);
       }
+      playLyric();
     };
     return {
       playlist,
@@ -348,6 +393,13 @@ export default {
       cdCls,
       cdRef,
       cdImageRef,
+      // useLyric
+      currentLyric,
+      currentLineNum,
+      lyricScrollRef,
+      lyricListRef,
+      pureMusicLyric,
+      playingLyric,
     };
   },
 };
@@ -466,7 +518,7 @@ export default {
             height: 20px;
             line-height: 20px;
             font-size: $font-size-medium;
-            color: $color-text-l;
+            color: $color-text;
           }
         }
       }

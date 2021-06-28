@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:33:16
- * @LastEditTime: 2021-06-28 10:35:11
+ * @LastEditTime: 2021-06-28 14:00:59
  * @LastEditors: Please set LastEditors
  * @Description: Modal teleport
  * @FilePath: /study_vue03/src/views/Modal.vue
@@ -16,14 +16,16 @@
   </div>
 </template>
 <script lang="ts">
-import MyModal from "@/components/MyModal.vue";
-import { ref, Ref } from "vue";
+// import MyModal from "@/components/MyModal.vue";
+import { ref, Ref, defineAsyncComponent } from "vue";
 
 interface IModal {
   isShow: Ref<boolean>;
   open: () => void;
   closeModal: (val: number) => void;
 }
+
+const MyModal = defineAsyncComponent(() => import("@/components/MyModal.vue"));
 
 export default {
   components: {
