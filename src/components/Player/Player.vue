@@ -11,8 +11,13 @@
         <h1 class="title">{{ currentSong.name }}</h1>
         <h2 class="subtitle">{{ currentSong.singer }}</h2>
       </div>
-      <div class="middle">
-        <div class="middle-l">
+      <div
+        class="middle"
+        @touchstart.prevent="onMiddleTouchStart"
+        @touchmove.prevent="onMiddleTouchMove"
+        @touchend.prevent="onMiddleTouchEnd"
+      >
+        <div class="middle-l" :style="middleLStyle">
           <div ref="cdWrapperRef" class="cd-wrapper">
             <div ref="cdRef" class="cd">
               <img
@@ -27,7 +32,7 @@
             <div class="playing-lyric">{{ playingLyric }}</div>
           </div>
         </div>
-        <scroll class="middle-r" ref="lyricScrollRef">
+        <scroll class="middle-r" ref="lyricScrollRef" :style="middleRStyle">
           <div class="lyric-wrapper">
             <div v-if="currentLyric" ref="lyricListRef">
               <p
@@ -46,6 +51,10 @@
         </scroll>
       </div>
       <div class="bottom">
+        <div class="dot-wrapper">
+          <span class="dot" :class="{ active: currentShow === 'cd' }"></span>
+          <span class="dot" :class="{ active: currentShow === 'lyric' }"></span>
+        </div>
         <div class="progress-wrapper">
           <span class="time time-l">{{ formatTime(currentTime) }}</span>
           <div class="progress-bar-wrapper">
@@ -119,15 +128,25 @@ import {
 import { computed, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
 import { ISingerDetailsInfo, PLAY_MODE } from "@/types/index";
+// components
+import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
+import Scroll from "@/components/base/scroll/Scroll.vue";
+// hooks
 import useMode, { IUseMode } from "@/hooks/useMode";
 import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
 import useLyric, { IUseLyric } from "@/hooks/useLyric";
 import useCd from "@/hooks/useCd";
-import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
+import useMiddleInteractive, {
+  IUseMiddleInteractive,
+} from "@/hooks/useMiddleInteractive";
+// utils
 import { formatTime } from "@/helpers/utils";
-import Scroll from "@/components/base/scroll/Scroll.vue";
 
-interface IPlayer extends IUseMode, IUseFavorites, IUseLyric {
+interface IPlayer
+  extends IUseMode,
+    IUseFavorites,
+    IUseLyric,
+    IUseMiddleInteractive {
   playlist: Ref<ISingerDetailsInfo[]>;
   currentSong: Ref<ISingerDetailsInfo>;
   fullScreen: Ref<boolean>;
@@ -151,7 +170,7 @@ interface IPlayer extends IUseMode, IUseFavorites, IUseLyric {
   onProgressChanging: (progress: number) => void;
   onProgressChanged: (progress: number) => void;
   endSong: () => void;
-  currentLyric: Ref<null>;
+  currentLyric: Ref<null | any>;
   currentLineNum: Ref<number>;
   lyricScrollRef: Ref<any | null>;
   lyricListRef: Ref<any | null>;
@@ -228,7 +247,14 @@ export default {
       playLyric,
       stopLyric,
     } = useLyric(isSongReady, currentTime);
-
+    const {
+      currentShow,
+      middleLStyle,
+      middleRStyle,
+      onMiddleTouchStart,
+      onMiddleTouchMove,
+      onMiddleTouchEnd,
+    } = useMiddleInteractive();
     /**
      * 返回
      */
@@ -400,6 +426,13 @@ export default {
       lyricListRef,
       pureMusicLyric,
       playingLyric,
+      // useMiddleInteractive
+      currentShow,
+      middleLStyle,
+      middleRStyle,
+      onMiddleTouchStart,
+      onMiddleTouchMove,
+      onMiddleTouchEnd,
     };
   },
 };
