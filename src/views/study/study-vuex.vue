@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-11 21:21:49
- * @LastEditTime: 2021-06-06 00:44:54
+ * @LastEditTime: 2021-06-28 10:24:15
  * @LastEditors: Please set LastEditors
  * @Description: study vuex
  * @FilePath: /study_vue03/src/views/StudyVuex.vue
@@ -12,15 +12,15 @@
     <p>count: {{ count }}</p>
     <p>isGreaterTen: {{ isGreaterTen }}</p>
     <div class="mb-20">
-      <a-button @click.prevent="addCount" type="primary">addCount</a-button>
+      <button @click.prevent="addCount" type="primary">addCount</button>
     </div>
     <div class="mb-20">
-      <a-button @click.prevent="asyncAddCount" type="primary"
-        >asyncAddCount</a-button
-      >
+      <button @click.prevent="asyncAddCount" type="primary">
+        asyncAddCount
+      </button>
     </div>
     <div>
-      <a-button @click="goModules" type="primary">goModules</a-button>
+      <button @click="goModules" type="primary">goModules</button>
     </div>
   </div>
 </template>
@@ -62,11 +62,11 @@ export default {
     };
 
     const goModules = () => {
-      console.log("1111 :>> ", 1111);
       router.push({
-        name: "StudyVuexModules",
+        name: "studyVuexModules",
         params: {
           id: 11,
+          userName: "NNN",
         },
       });
     };

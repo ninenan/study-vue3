@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-28 14:55:48
- * @LastEditTime: 2021-05-28 15:56:27
+ * @LastEditTime: 2021-06-28 10:10:33
  * @LastEditors: Please set LastEditors
  * @Description: ProvideSon
  * @FilePath: \study-vue3\src\components\study\ProvideSon.vue
@@ -18,15 +18,15 @@
       useLocation: <span>{{ useLocation }}</span>
     </p>
     <p class="mt-20">
-      <a-button @click="uploadLocation('North Pole')" type="primary"
-        >uploadLocation</a-button
-      >
+      <button @click="uploadLocation('North Pole')" type="primary">
+        uploadLocation
+      </button>
     </p>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, inject } from "vue";
-import { IGeolocation } from "@/views/study/StudyProvide.vue";
+import { IGeolocation } from "@/views/study/study-provide.vue";
 
 export default defineComponent({
   setup() {

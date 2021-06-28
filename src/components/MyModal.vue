@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:42:02
- * @LastEditTime: 2021-05-26 16:40:11
+ * @LastEditTime: 2021-06-28 10:39:56
  * @LastEditors: Please set LastEditors
  * @Description: MyModal
  * @FilePath: /study_vue03/src/components/MyModal.vue
@@ -12,7 +12,7 @@
       <p>
         <slot>MyModal!!!</slot>
       </p>
-      <a-button @click="closeModal" type="primary">close</a-button>
+      <button @click="closeModal">close</button>
     </div>
   </teleport>
 </template>
@@ -68,7 +68,7 @@ export default defineComponent({
 .modal {
   width: 200px;
   height: 200px;
-  border: 1px solid black;
+  border: 1px solid $color-text;
   @include FlexCenter();
   flex-direction: column;
 }

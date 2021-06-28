@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:33:16
- * @LastEditTime: 2021-05-16 22:38:29
+ * @LastEditTime: 2021-06-28 10:35:11
  * @LastEditors: Please set LastEditors
  * @Description: Modal teleport
  * @FilePath: /study_vue03/src/views/Modal.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="modal">
     <h1>子组件modal</h1>
-    <a-button @click="open" type="primary">openModal</a-button>
+    <button @click="open" type="primary">openModal</button>
     <my-modal :isShow="isShow" @close-modal="closeModal"
       >我是自定义的内容</my-modal
     >

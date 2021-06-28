@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:31:15
- * @LastEditTime: 2021-06-06 22:21:21
+ * @LastEditTime: 2021-06-28 10:43:25
  * @LastEditors: Please set LastEditors
  * @Description: study demo router
  * @FilePath: /study_vue03/src/router/modules/study.ts
@@ -11,28 +11,28 @@ import { RouteRecordRaw } from "vue-router";
 const study: RouteRecordRaw = {
   path: "/study",
   name: "study",
-  redirect: "/abort",
+  redirect: "/study/abort",
   component: () => import("@/views/Home.vue"),
   children: [
     {
       path: "about",
-      name: "About",
-      component: () => import("@/views/About.vue"),
+      name: "about",
+      component: () => import("@/views/study/about.vue"),
     },
     {
       path: "cat",
-      name: "Cat",
-      component: () => import("@/views/Cat.vue"),
+      name: "cat",
+      component: () => import("@/views/study/cat.vue"),
     },
     {
-      path: "modal",
-      name: "Modal",
-      component: () => import("@/views/Modal.vue"),
+      path: "study-modal",
+      name: "studyModal",
+      component: () => import("@/views/study/study-modal.vue"),
     },
     {
-      path: "suspense",
-      name: "Suspense",
-      component: () => import("@/views/Suspense.vue"),
+      path: "study-suspense",
+      name: "studySuspense",
+      component: () => import("@/views/study/study-suspense.vue"),
     },
     {
       path: "studyWatch",
@@ -40,56 +40,48 @@ const study: RouteRecordRaw = {
       component: () => import("@/views/StudyWatch.vue"),
     },
     {
-      path: "dropdown",
-      name: "Dropdown",
-      component: () => import("@/views/Dropdown.vue"),
+      path: "study-dropdown",
+      name: "studyDropdown",
+      component: () => import("@/views/study/study-dropdown.vue"),
     },
     {
-      path: "studyValidate",
-      name: "StudyValidate",
-      component: () => import("@/views/StudyValidate.vue"),
+      path: "study-validate",
+      name: "studyValidate",
+      component: () => import("@/views/study/study-validate.vue"),
     },
     {
-      path: "studyVuex",
-      name: "StudyVuex",
-      component: () => import("@/views/StudyVuex.vue"),
+      path: "study-vuex",
+      name: "studyVuex",
+      component: () => import("@/views/study/study-vuex.vue"),
     },
     {
-      path: "studyVuexModules/:id",
-      name: "StudyVuexModules",
-      component: () => import("@/views/StudyVuexModules.vue"),
+      path: "study-vuex-modules/:id/:userName",
+      name: "studyVuexModules",
+      component: () => import("@/views/study/study-vuex-modules.vue"),
       meta: {
         redirectLogin: true,
       },
     },
     {
-      path: "studyProvide",
-      name: "StudyProvide",
-      component: () => import("@views/study/StudyProvide.vue"),
+      path: "study-provide",
+      name: "studyProvide",
+      component: () => import("@views/study/study-provide.vue"),
       meta: {
         title: "学习Provide / Inject",
       },
     },
     {
-      path: "studyAnt",
-      name: "StudyAnt",
-      component: () => import("@views/StudyAnt.vue"),
-      meta: {
-        title: "学习Ant",
-      },
-    },
-    {
-      path: "studyJSX",
-      name: "StudyJSX",
-      component: () => import("@views/study/StudyJSX.vue"),
+      path: "study-jsx",
+      name: "studyJSX",
+      component: () => import("@views/study/study-jsx.vue"),
       meta: {
         title: "学习JSX",
       },
     },
     {
-      path: "studyDirective",
-      name: "StudyDirective",
-      component: () => import("@views/study/StudyDirective.vue"),
+      path: "study-directive",
+      name: "studyDirective",
+      component: () => import("@views/study/study-directive.vue"),
       meta: {
         title: "学习directive",
       },

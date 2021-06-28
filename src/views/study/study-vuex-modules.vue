@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-12 11:04:37
- * @LastEditTime: 2021-05-16 22:58:25
+ * @LastEditTime: 2021-06-28 10:23:29
  * @LastEditors: Please set LastEditors
  * @Description: Study Vuex Modules
  * @FilePath: \study-vue3\src\views\StudyVuexModules.vue
@@ -13,10 +13,10 @@
       <p>test module</p>
       <p>count: {{ count }}</p>
       <div class="mb-20">
-        <a-button @click="addCount" type="primary">addCount</a-button>
+        <button @click="addCount" type="primary">addCount</button>
       </div>
       <div>
-        <a-button @click="asyncAddCount" type="primary">asyncAddCount</a-button>
+        <button @click="asyncAddCount" type="primary">asyncAddCount</button>
       </div>
     </div>
     <div class="user">
@@ -26,10 +26,10 @@
       <p>address: {{ user.address }}</p>
       <p>pet: {{ user.pet.join() }}</p>
       <div class="mb-20">
-        <a-button @click="syncEditPet" type="primary">syncEditPet</a-button>
+        <button @click="syncEditPet" type="primary">syncEditPet</button>
       </div>
       <div class="mb-20">
-        <a-button @click="asyncEditPet" type="primary">asyncEditPet</a-button>
+        <button @click="asyncEditPet" type="primary">asyncEditPet</button>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@ interface IStudyVuexModules {
 }
 
 export default {
-  setup(): IStudyVuexModules {
+  setup(props: any): IStudyVuexModules {
     const store = useStore();
     const route = useRoute();
     const count = computed(() => {

@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-03 10:05:31
- * @LastEditTime: 2021-05-16 22:34:30
+ * @LastEditTime: 2021-06-28 10:48:41
  * @LastEditors: Please set LastEditors
  * @Description: study vue03
  * @FilePath: /study_vue03/src/views/About.vue
@@ -27,6 +27,7 @@
 import { computed, reactive, toRefs, ref, watch, Ref } from "vue";
 import useMousePosition from "@/hooks/useMousePosition";
 import useURLLoader from "@/hooks/useURLLoader";
+
 interface INewCountObj {
   count: number;
   double: number;
@@ -36,7 +37,6 @@ interface IDogResult {
   message: string;
   status: string;
 }
-
 interface IAbout<T> {
   count: Ref<number>;
   double: Ref<number>;
@@ -68,9 +68,7 @@ export default {
     watch(
       () => newCountObj.count,
       (newVal) => {
-        if (newVal === 4) {
-          name.value = "NNN";
-        }
+        name.value = newVal === 4 ? "NNN" : "NineNan";
       }
     );
 
@@ -93,7 +91,7 @@ export default {
   color: $color-text;
 }
 span {
-  color: blue;
+  color: $color-theme;
 }
 .image-box {
   height: 200px;

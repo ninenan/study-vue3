@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-08 14:16:32
- * @LastEditTime: 2021-05-08 14:31:09
+ * @LastEditTime: 2021-06-28 10:33:06
  * @LastEditors: Please set LastEditors
  * @Description: AsyncShow
  * @FilePath: \study-vue3\src\components\AsyncShow.vue
@@ -27,6 +27,6 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 div {
-  color: #3eaf7c;
+  color: $color-theme;
 }
 </style>
