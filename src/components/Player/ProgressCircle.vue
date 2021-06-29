@@ -1,9 +1,9 @@
 <!--
- * @Author: your name
+ * @Author: NineNan
  * @Date: 2021-06-29 14:47:23
- * @LastEditTime: 2021-06-29 15:14:51
+ * @LastEditTime: 2021-06-29 21:54:41
  * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Description: ProgressCircle
  * @FilePath: \study-vue3\src\components\Player\ProgressCircle.vue
 -->
 <template>

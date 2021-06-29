@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-29 11:39:01
- * @LastEditTime: 2021-06-29 17:04:04
+ * @LastEditTime: 2021-06-29 22:39:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\components\Player\MiniPlayer.vue
@@ -47,10 +47,12 @@ import { useStore } from "@/store";
 import ProgressCircle from "./ProgressCircle.vue";
 // hooks
 import useCd from "@/hooks/useCd";
+import useMiddleSlider from "@/hooks/useMiddleSlider";
 // helpers
-import { SET_FULL_SCREEN, SET_PLAYING_STATUE } from "@/helpers/constant";
+import { SET_FULL_SCREEN } from "@/helpers/constant";
 
 export default defineComponent({
+  name: "miniPlayer",
   components: {
     "progress-circle": ProgressCircle,
   },
@@ -69,12 +71,15 @@ export default defineComponent({
     const currentSong = computed(() => store.getters.currentSong);
     const playlist = computed(() => store.state.music.playList);
     const isPlaying = computed(() => store.state.music.isPlaying);
-    const miniPlayIcon = computed(() =>
-      isPlaying.value ? "icon-playing" : "icon-play"
-    );
+    const miniPlayIcon = computed(() => {
+      console.log("isPlaying.value :>> ", isPlaying.value);
+      return isPlaying.value ? "icon-playing" : "icon-play";
+    });
 
     // hooks
     const { cdCls, cdRef, cdImageRef } = useCd();
+    const { sliderWrapperRef } = useMiddleSlider();
+
     /**
      * 全屏播放
      */
@@ -92,6 +97,8 @@ export default defineComponent({
       cdCls,
       cdRef,
       cdImageRef,
+      // useMiddleSlider
+      sliderWrapperRef,
     };
   },
 });

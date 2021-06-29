@@ -1,12 +1,12 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-23 22:46:19
- * @LastEditTime: 2021-06-29 11:09:22
+ * @LastEditTime: 2021-06-29 22:33:55
  * @LastEditors: Please set LastEditors
  * @Description: useLyric
  * @FilePath: /study_vue03/src/hooks/useLyric.ts
  */
-import { watch, computed, Ref, ref, HtmlHTMLAttributes } from "vue";
+import { watch, computed, Ref, ref } from "vue";
 import { useStore } from "@/store";
 import { getLyric } from "@/api/song";
 import { ADD_SONG_LYRIC } from "@/helpers/constant";
@@ -26,7 +26,10 @@ export interface IUseLyric {
 export default function useLyric(
   isSongReady: Ref<boolean>,
   currentTime: Ref<number>
-) {
+): IUseLyric & {
+  stopLyric: () => void;
+  playLyric: () => void;
+} {
   const store = useStore();
   const currentLyric = ref<any | null>(null);
   const currentLineNum = ref(0);
