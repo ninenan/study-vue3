@@ -59,7 +59,7 @@
           <span class="time time-l">{{ formatTime(currentTime) }}</span>
           <div class="progress-bar-wrapper">
             <progress-bar
-              ref="barRef"
+              ref="progressBarRef"
               :progress="progress"
               @progress-changing="onProgressChanging"
               @progress-changed="onProgressChanged"
@@ -108,6 +108,7 @@
         </div>
       </div>
     </div>
+    <mini-player :progress="progress" :toggle-play="switchPlay"></mini-player>
     <audio
       ref="audioRef"
       @pause="pause"
@@ -125,12 +126,13 @@ import {
   SET_PLAYING_STATUE,
   SET_CURRENT_INDEX,
 } from "@/helpers/constant";
-import { computed, Ref, ref, watch } from "vue";
+import { computed, nextTick, Ref, ref, watch } from "vue";
 import { useStore } from "@/store/index";
 import { ISingerDetailsInfo, PLAY_MODE } from "@/types/index";
 // components
 import ProgressBar from "@/components/ProgressBar/ProgressBar.vue";
 import Scroll from "@/components/base/scroll/Scroll.vue";
+import MiniPlayer from "@/components/Player/MiniPlayer.vue";
 // hooks
 import useMode, { IUseMode } from "@/hooks/useMode";
 import useFavorites, { IUseFavorites } from "@/hooks/useFavorites";
@@ -151,6 +153,7 @@ interface IPlayer
   currentSong: Ref<ISingerDetailsInfo>;
   fullScreen: Ref<boolean>;
   audioRef: Ref<HTMLMediaElement | null>;
+  progressBarRef: Ref<HTMLElement | null>;
   disableCls: Ref<string>;
   playIcon: Ref<string>;
   progress: Ref<number>;
@@ -172,8 +175,8 @@ interface IPlayer
   endSong: () => void;
   currentLyric: Ref<null | any>;
   currentLineNum: Ref<number>;
-  lyricScrollRef: Ref<any | null>;
-  lyricListRef: Ref<any | null>;
+  lyricScrollRef: Ref<HTMLElement | null>;
+  lyricListRef: Ref<HTMLElement | null>;
 }
 
 export default {
@@ -181,10 +184,12 @@ export default {
   components: {
     "progress-bar": ProgressBar,
     scroll: Scroll,
+    "mini-player": MiniPlayer,
   },
   setup(): IPlayer {
     const store = useStore();
     const audioRef = ref<HTMLMediaElement | null>(null);
+    const progressBarRef = ref<HTMLElement | null>(null);
     const isSongReady = ref(false);
     const currentTime = ref(0);
     let isInProgressChanging = false;
@@ -233,6 +238,13 @@ export default {
       }
     });
 
+    watch(fullScreen, async (newFullScreen) => {
+      if (newFullScreen) {
+        await nextTick();
+        progressBarRef.value &&
+          (progressBarRef.value as any).setOffset(progress.value);
+      }
+    });
     // hooks
     const { modeIcon, changeMode } = useMode();
     const { getFavoritesIcon, toggleFavorites } = useFavorites();
@@ -274,7 +286,6 @@ export default {
      * 歌曲暂停
      */
     const pause = () => {
-      console.log("pause");
       store.commit(SET_PLAYING_STATUE, false);
     };
     /**
@@ -393,6 +404,7 @@ export default {
       currentSong,
       fullScreen,
       audioRef,
+      progressBarRef,
       disableCls,
       playIcon,
       progress,

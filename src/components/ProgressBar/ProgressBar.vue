@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-22 14:32:23
- * @LastEditTime: 2021-06-22 21:58:47
+ * @LastEditTime: 2021-06-29 16:05:43
  * @LastEditors: Please set LastEditors
  * @Description: ProgressBar
  * @FilePath: \study-vue3\src\components\ProgressBar\ProgressBar.vue
@@ -23,13 +23,25 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, Ref, ref, watch } from "vue";
 
 const progressBtnWidth = 16;
 
 interface ITouch {
   x: number;
   beginWidth: number;
+}
+
+export interface IProgressBar {
+  progressStyle: Ref<string>;
+  btnStyle: Ref<string>;
+  progressBarRef: Ref<HTMLElement | null>;
+  progressRef: Ref<HTMLElement | null>;
+  onTouchStart: (event: TouchEvent) => void;
+  onTouchMove: (event: TouchEvent) => void;
+  onTouchEnd: () => void;
+  onClick: (event: MouseEvent) => void;
+  setOffset: (progress: number) => void;
 }
 
 export default defineComponent({
@@ -42,7 +54,7 @@ export default defineComponent({
   },
   emits: ["progress-changing", "progress-changed"],
 
-  setup(props, { emit }) {
+  setup(props, { emit }): IProgressBar {
     const offset = ref(0);
     const progressBarRef = ref<HTMLElement | null>(null);
     const progressRef = ref<HTMLElement | null>(null);
@@ -132,6 +144,7 @@ export default defineComponent({
       onTouchMove,
       onTouchEnd,
       onClick,
+      setOffset,
     };
   },
 });
