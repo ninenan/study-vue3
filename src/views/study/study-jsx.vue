@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-28 16:07:07
- * @LastEditTime: 2021-06-28 10:02:17
+ * @LastEditTime: 2021-06-30 17:57:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\views\study\StudyJSX.vue
@@ -12,7 +12,11 @@
 <template>
   <div>
     <h1>StudyJSX</h1>
-    <MyJSX />
+    <MyJSX :name="'NineNan'" :num="num" @add-num="addNum">
+      <template #header>
+        <div>header</div>
+      </template>
+    </MyJSX>
     <div class="mt-20">
       <div
         v-for="(item, i) in list"
@@ -44,6 +48,8 @@ export interface IStudyJSX {
   list: number[];
   divs: Ref<Array<HTMLElement>>;
   rootRef: Ref<HTMLElement | null>;
+  num: Ref<number>;
+  addNum: () => void;
 }
 
 export default {
@@ -55,6 +61,7 @@ export default {
     const list = reactive<number[]>([1, 2, 3]);
     const divs = ref([]);
     const rootRef = ref<HTMLElement | null>(null);
+    const num = ref(3);
 
     watchEffect(
       () => {
@@ -66,6 +73,11 @@ export default {
         flush: "post",
       }
     );
+
+    function addNum() {
+      console.log("1111 :>> ", 1111);
+      num.value++;
+    }
 
     onBeforeUpdate(() => {
       divs.value = [];
@@ -79,6 +91,8 @@ export default {
       list,
       divs,
       rootRef,
+      num,
+      addNum,
     };
   },
 };
