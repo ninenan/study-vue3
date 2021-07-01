@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-23 22:46:19
- * @LastEditTime: 2021-06-29 22:33:55
+ * @LastEditTime: 2021-07-01 22:26:18
  * @LastEditors: Please set LastEditors
  * @Description: useLyric
  * @FilePath: /study_vue03/src/hooks/useLyric.ts
@@ -12,10 +12,11 @@ import { getLyric } from "@/api/song";
 import { ADD_SONG_LYRIC } from "@/helpers/constant";
 import { ISingerDetailsInfo } from "@/types";
 import Lyric from "lyric-parser";
+import ILyric from "lyric-parser/index";
 // import IBScroll from "@better-scroll/core/dist/types/index";
 
 export interface IUseLyric {
-  currentLyric: Ref<null>;
+  currentLyric: Ref<null | ILyric>;
   currentLineNum: Ref<number>;
   lyricScrollRef: Ref<any | null>;
   lyricListRef: Ref<HTMLElement | null>;
@@ -31,7 +32,7 @@ export default function useLyric(
   playLyric: () => void;
 } {
   const store = useStore();
-  const currentLyric = ref<any | null>(null);
+  const currentLyric = ref<ILyric | null>(null);
   const currentLineNum = ref(0);
   const lyricScrollRef = ref<any | null>(null);
   const lyricListRef = ref<HTMLElement | null>(null);
