@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:31:15
- * @LastEditTime: 2021-06-28 10:43:25
+ * @LastEditTime: 2021-07-01 09:45:56
  * @LastEditors: Please set LastEditors
  * @Description: study demo router
  * @FilePath: /study_vue03/src/router/modules/study.ts
@@ -84,6 +84,14 @@ const study: RouteRecordRaw = {
       component: () => import("@views/study/study-directive.vue"),
       meta: {
         title: "学习directive",
+      },
+    },
+    {
+      path: "study-slot",
+      name: "studySlot",
+      component: () => import("@views/study/study-slot.vue"),
+      meta: {
+        title: "学习slot",
       },
     },
   ],
