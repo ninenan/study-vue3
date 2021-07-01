@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-07 22:42:02
- * @LastEditTime: 2021-06-28 10:39:56
+ * @LastEditTime: 2021-07-01 11:29:02
  * @LastEditors: Please set LastEditors
  * @Description: MyModal
  * @FilePath: /study_vue03/src/components/MyModal.vue
@@ -18,6 +18,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, toRef, toRefs, watch } from "vue";
+
+// hooks
+import useTeleportNode from "@/hooks/useTeleportNode";
 export default defineComponent({
   props: {
     isShow: {
@@ -54,9 +57,7 @@ export default defineComponent({
       context.emit("closeModal", 333);
     };
 
-    const node = document.createElement("div");
-    node.id = "modal";
-    document.body.appendChild(node);
+    const { node } = useTeleportNode("modal");
 
     return {
       closeModal,

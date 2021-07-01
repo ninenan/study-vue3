@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-07-01 09:43:45
- * @LastEditTime: 2021-07-01 11:11:29
+ * @LastEditTime: 2021-07-01 11:14:19
  * @LastEditors: Please set LastEditors
  * @Description: study-slot
  * @FilePath: \study-vue3\src\views\study\study-slot.vue
@@ -26,7 +26,7 @@
         </template>
         <!-- 动态插槽名 -->
         <template #[slotName]>
-          <div>我是新定义的slot1</div>
+          <div class="mt-20">我是新定义的slot1</div>
         </template>
       </my-slot>
     </div>
