@@ -1,6 +1,12 @@
 <template>
   <div class="player" v-show="playlist.length">
-    <transition name="normal">
+    <transition
+      name="normal"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @leave="leave"
+      @after-leave="afterLeave"
+    >
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img :src="currentSong.pic" />
@@ -146,6 +152,7 @@ import useCd from "@/hooks/useCd";
 import useMiddleInteractive, {
   IUseMiddleInteractive,
 } from "@/hooks/useMiddleInteractive";
+import useAnimation, { IUseAnimation } from "@/hooks/useAnimation";
 // utils
 import { formatTime } from "@/helpers/utils";
 
@@ -153,7 +160,8 @@ interface IPlayer
   extends IUseMode,
     IUseFavorites,
     IUseLyric,
-    IUseMiddleInteractive {
+    IUseMiddleInteractive,
+    IUseAnimation {
   playlist: Ref<ISingerDetailsInfo[]>;
   currentSong: Ref<ISingerDetailsInfo>;
   fullScreen: Ref<boolean>;
@@ -272,6 +280,13 @@ export default {
       onMiddleTouchMove,
       onMiddleTouchEnd,
     } = useMiddleInteractive();
+    const {
+      cdWrapperRef,
+      enter,
+      afterEnter,
+      leave,
+      afterLeave,
+    } = useAnimation();
     /**
      * 返回
      */
@@ -450,6 +465,12 @@ export default {
       onMiddleTouchStart,
       onMiddleTouchMove,
       onMiddleTouchEnd,
+      // useAnimation
+      cdWrapperRef,
+      enter,
+      afterEnter,
+      leave,
+      afterLeave,
     };
   },
 };
