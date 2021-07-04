@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-07-02 20:54:52
- * @LastEditTime: 2021-07-04 20:26:31
+ * @LastEditTime: 2021-07-04 23:32:09
  * @LastEditors: Please set LastEditors
  * @Description: useAnimation
  * @FilePath: /study_vue03/src/hooks/useAnimation.ts
@@ -31,11 +31,6 @@ export default function useAnimation(): IUseAnimation {
     const x = -(window.innerWidth / 2 - paddingLeft);
     const y = window.innerHeight - paddingTop - width / 2 - paddingBottom;
     const scale = targetWidth / width;
-    console.log("object :>> ", {
-      x,
-      y,
-      scale,
-    });
     return {
       x,
       y,

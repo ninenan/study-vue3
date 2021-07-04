@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-29 11:39:01
- * @LastEditTime: 2021-06-29 22:39:55
+ * @LastEditTime: 2021-07-04 23:30:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\components\Player\MiniPlayer.vue
@@ -37,14 +37,19 @@
           ></base-svg>
         </progress-circle>
       </div>
+      <div class="control" @click.stop="showPlayList">
+        <base-svg icon-class="icon-playlist" class="icon-playlist"></base-svg>
+      </div>
+      <playlist ref="playlistRef"></playlist>
     </div>
   </transition>
 </template>
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ref } from "vue";
 import { useStore } from "@/store";
 // components
 import ProgressCircle from "./ProgressCircle.vue";
+import Playlist from "./Playlist.vue";
 // hooks
 import useCd from "@/hooks/useCd";
 import useMiddleSlider from "@/hooks/useMiddleSlider";
@@ -55,6 +60,7 @@ export default defineComponent({
   name: "miniPlayer",
   components: {
     "progress-circle": ProgressCircle,
+    playlist: Playlist,
   },
   props: {
     progress: {
@@ -75,6 +81,7 @@ export default defineComponent({
       console.log("isPlaying.value :>> ", isPlaying.value);
       return isPlaying.value ? "icon-playing" : "icon-play";
     });
+    const playlistRef = ref<HTMLElement | null>(null);
 
     // hooks
     const { cdCls, cdRef, cdImageRef } = useCd();
@@ -87,12 +94,20 @@ export default defineComponent({
       store.commit(SET_FULL_SCREEN, true);
     }
 
+    function showPlayList() {
+      if (playlistRef.value) {
+        (playlistRef.value as any).show();
+      }
+    }
+
     return {
       isFullScreen,
       currentSong,
       playlist,
       miniPlayIcon,
+      playlistRef,
       showNormalPlayer,
+      showPlayList,
       // useCd
       cdCls,
       cdRef,
@@ -170,8 +185,9 @@ export default defineComponent({
     .icon-playlist {
       position: relative;
       top: -2px;
-      font-size: 28px;
-      color: $color-theme-d;
+      width: 28px;
+      height: 28px;
+      color: $color-theme;
     }
     .icon-mini {
       position: absolute;

@@ -10,3 +10,16 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
+// 扩展小图标按钮的点击区域
+@mixin extend-click() {
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+  }
+}
