@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-07-04 22:53:28
- * @LastEditTime: 2021-07-04 23:49:47
+ * @LastEditTime: 2021-07-06 00:01:08
  * @LastEditors: Please set LastEditors
  * @Description: Playlist
  * @FilePath: /study_vue03/src/components/Player/Playlist.vue
@@ -17,7 +17,7 @@
               </base-svg>
               <span class="text">{{ modeText }}</span>
               <span class="clear" @click="showConfirm">
-                <i class="icon-clear"></i>
+                <base-svg class="icon-clear" icon-class="icon-clear"></base-svg>
               </span>
             </h1>
           </div>
@@ -45,7 +45,10 @@
                   @click.stop="removeSong(song)"
                   :class="{ disable: removing }"
                 >
-                  <i class="icon-delete"></i>
+                  <base-svg
+                    class="icon-delete"
+                    icon-class="icon-delete"
+                  ></base-svg>
                 </span>
               </li>
             </transition-group>
@@ -65,7 +68,7 @@
   </teleport>
 </template>
 <script lang="ts">
-import { ref, computed, defineComponent } from "vue";
+import { ref, computed, defineComponent, nextTick } from "vue";
 import { useStore } from "@/store";
 
 import { SET_CURRENT_INDEX, SET_PLAYING_STATUE } from "@/helpers/constant";
@@ -87,19 +90,42 @@ export default defineComponent({
     const store = useStore();
     const visible = ref(false);
     const removing = ref(false);
+    const scrollRef = ref<HTMLElement | null>(null);
+    const listRef = ref<HTMLElement | null>(null);
     const playlist = computed(() => store.state.music.playList);
     const sequenceList = computed(() => store.state.music.sequenceList);
     const currentSong = computed(() => store.getters.currentSong);
 
+    /**
+     * 显示二次确认框
+     */
     const showConfirm = () => {
       //
     };
-
     /**
      * 显示
      */
-    const show = () => {
+    const show = async () => {
       visible.value = true;
+      await nextTick();
+      refreshScroll();
+      scrollToCurrent();
+    };
+
+    const refreshScroll = () => {
+      (scrollRef.value as any).scroll.refresh();
+    };
+
+    const scrollToCurrent = () => {
+      const index = sequenceList.value.findIndex(
+        (item) => currentSong.value.id === item.id
+      );
+
+      if (index === -1) {
+        return;
+      }
+      const target = (listRef.value as any).$el.children[index];
+      (scrollRef.value as any).scroll.scrollToElement(target, 300);
     };
     /**
      *隐藏
@@ -111,12 +137,11 @@ export default defineComponent({
       //
     };
     const getCurrentIcon = (song: ISingerDetailsInfo) => {
-      if (song.id === currentSong.value.id) {
-        return "icon-playing";
-      } else {
-        return " ";
-      }
+      return song.id === currentSong.value.id ? "icon-playing" : "";
     };
+    /**
+     * 删除歌曲
+     */
     const removeSong = (song: ISingerDetailsInfo) => {
       //
       console.log(song);
@@ -140,6 +165,8 @@ export default defineComponent({
       playlist,
       sequenceList,
       removing,
+      scrollRef,
+      listRef,
       show,
       hide,
       showConfirm,
@@ -169,9 +196,9 @@ export default defineComponent({
   background-color: $color-background-d;
   &.list-fade-enter-active,
   &.list-fade-leave-active {
-    transition: opacity 0.3s;
+    transition: opacity 0.5s;
     .list-wrapper {
-      transition: all 0.3s;
+      transition: all 0.5s;
     }
   }
   &.list-fade-enter-from,
@@ -208,7 +235,8 @@ export default defineComponent({
         .clear {
           @include extend-click();
           .icon-clear {
-            font-size: $font-size-medium;
+            width: 20px;
+            height: 20px;
             color: $color-text-d;
           }
         }
@@ -251,6 +279,11 @@ export default defineComponent({
           @include extend-click();
           font-size: $font-size-small;
           color: $color-theme;
+          .icon-delete {
+            width: 20px;
+            height: 20px;
+            color: $color-theme;
+          }
           &.disable {
             color: $color-theme-d;
           }
