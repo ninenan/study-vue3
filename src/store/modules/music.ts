@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-06-23 23:07:14
+ * @LastEditTime: 2021-07-06 21:52:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -180,7 +180,51 @@ const actions = {
     context.commit(SET_CURRENT_INDEX, currentIndex);
     context.commit(SET_PLAY_MODE, mode);
   },
+  /**
+   * 删除歌曲
+   * @param {ActionContext<IMusicStore, IMusicStore>} context
+   * @param {ISingerDetailsInfo} song
+   * @returns
+   */
+  removeSong(
+    context: ActionContext<IMusicStore, IMusicStore>,
+    song: ISingerDetailsInfo
+  ): void {
+    const sequenceList = context.state.sequenceList.slice();
+    const playList = context.state.playList.slice();
+    const sequenceIndex = findIndex(sequenceList, song);
+    const playIndex = findIndex(playList, song);
+
+    console.log("sequenceIndex :>> ", sequenceIndex);
+    console.log("playIndex :>> ", playIndex);
+
+    if (sequenceIndex < 0 || playIndex < 0) {
+      return;
+    }
+
+    sequenceList.splice(sequenceIndex, 1);
+    playList.splice(playIndex, 1);
+
+    let currentIndex = state.currentIndex;
+    if (playIndex < currentIndex || currentIndex === playList.length) {
+      currentIndex--;
+    }
+
+    context.commit(SET_SEQUENCE_LIST, sequenceList);
+    context.commit(SET_PLAYLIST, playList);
+    context.commit(SET_CURRENT_INDEX, currentIndex);
+    if (!playList.length) {
+      context.commit(SET_PLAYING_STATUE, false);
+    }
+  },
 };
+
+function findIndex(
+  list: ISingerDetailsInfo[],
+  song: ISingerDetailsInfo
+): number {
+  return list.findIndex((item) => item.id === song.id);
+}
 
 export default {
   state,

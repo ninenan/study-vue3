@@ -233,6 +233,7 @@ export default {
       const audioEl = audioRef.value as HTMLMediaElement;
       audioEl.src = newSong.url;
       audioEl.play();
+      store.commit(SET_PLAYING_STATUE, true);
     });
 
     watch(isPlaying, (newIsPlaying) => {
@@ -325,7 +326,6 @@ export default {
           index = list.length - 1;
         }
         store.commit(SET_CURRENT_INDEX, index);
-        !isPlaying.value && store.commit(SET_PLAYING_STATUE, true);
       }
     };
     /**
@@ -345,7 +345,6 @@ export default {
           index = 0;
         }
         store.commit(SET_CURRENT_INDEX, index);
-        !isPlaying.value && store.commit(SET_PLAYING_STATUE, true);
       }
     };
     /**

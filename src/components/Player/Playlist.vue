@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-07-04 22:53:28
- * @LastEditTime: 2021-07-06 00:01:08
+ * @LastEditTime: 2021-07-06 22:40:24
  * @LastEditors: Please set LastEditors
  * @Description: Playlist
  * @FilePath: /study_vue03/src/components/Player/Playlist.vue
@@ -63,17 +63,24 @@
             <span>关闭</span>
           </div>
         </div>
+        <confirm
+          ref="confirmRef"
+          @confirm="confirmClear"
+          text="是否清空播放列表？"
+          confirm-btn-text="清空"
+        ></confirm>
       </div>
     </transition>
   </teleport>
 </template>
 <script lang="ts">
-import { ref, computed, defineComponent, nextTick } from "vue";
+import { ref, computed, defineComponent, nextTick, watch } from "vue";
 import { useStore } from "@/store";
 
 import { SET_CURRENT_INDEX, SET_PLAYING_STATUE } from "@/helpers/constant";
 // components
 import Scroll from "@/components/base/scroll/Scroll.vue";
+import Confirm from "@/components/base/confirm/Confirm.vue";
 
 // hooks
 import useMode from "@/hooks/useMode";
@@ -85,6 +92,7 @@ import { ISingerDetailsInfo } from "@/types";
 export default defineComponent({
   components: {
     Scroll,
+    confirm: Confirm,
   },
   setup() {
     const store = useStore();
@@ -92,15 +100,24 @@ export default defineComponent({
     const removing = ref(false);
     const scrollRef = ref<HTMLElement | null>(null);
     const listRef = ref<HTMLElement | null>(null);
+    const confirmRef = ref<HTMLElement | null>(null);
     const playlist = computed(() => store.state.music.playList);
     const sequenceList = computed(() => store.state.music.sequenceList);
     const currentSong = computed(() => store.getters.currentSong);
+
+    watch(currentSong, async (newCurrentSong) => {
+      if (!visible.value || !newCurrentSong.id) {
+        return;
+      }
+      await nextTick();
+      scrollToCurrent();
+    });
 
     /**
      * 显示二次确认框
      */
     const showConfirm = () => {
-      //
+      (confirmRef.value as any).show();
     };
     /**
      * 显示
@@ -143,8 +160,14 @@ export default defineComponent({
      * 删除歌曲
      */
     const removeSong = (song: ISingerDetailsInfo) => {
-      //
-      console.log(song);
+      if (removing.value) {
+        return;
+      }
+      removing.value = true;
+      store.dispatch("removeSong", song);
+      setTimeout(() => {
+        removing.value = false;
+      }, 300);
     };
     /**
      * 选择歌曲
@@ -154,6 +177,12 @@ export default defineComponent({
 
       store.commit(SET_CURRENT_INDEX, index);
       store.commit(SET_PLAYING_STATUE, true);
+    };
+    /**
+     * 清空歌曲
+     */
+    const confirmClear = () => {
+      //
     };
 
     // hooks
@@ -167,6 +196,7 @@ export default defineComponent({
       removing,
       scrollRef,
       listRef,
+      confirmRef,
       show,
       hide,
       showConfirm,
@@ -174,6 +204,7 @@ export default defineComponent({
       getCurrentIcon,
       removeSong,
       selectItem,
+      confirmClear,
       // useMode
       modeIcon,
       modeText,
@@ -282,7 +313,6 @@ export default defineComponent({
           .icon-delete {
             width: 20px;
             height: 20px;
-            color: $color-theme;
           }
           &.disable {
             color: $color-theme-d;

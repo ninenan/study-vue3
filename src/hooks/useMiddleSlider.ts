@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-29 21:54:02
- * @LastEditTime: 2021-06-29 22:50:12
+ * @LastEditTime: 2021-07-06 22:13:27
  * @LastEditors: Please set LastEditors
  * @Description: useMiddleSlider
  * @FilePath: /study_vue03/src/hooks/useMiddleSlider.ts
@@ -61,7 +61,6 @@ export default function useMiddleSlider(): IUseMiddleSlider {
 
           sliderVal.on("slidePageChanged", ({ pageX }: any) => {
             store.commit(SET_CURRENT_INDEX, pageX);
-            store.commit(SET_PLAYING_STATUE, true);
           });
         } else {
           (sliderVal as IBScroll).refresh();
