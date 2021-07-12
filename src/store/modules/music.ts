@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-07-06 21:52:56
+ * @LastEditTime: 2021-07-12 22:54:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -216,6 +216,16 @@ const actions = {
     if (!playList.length) {
       context.commit(SET_PLAYING_STATUE, false);
     }
+  },
+  /**
+   * 清空歌曲
+   * @param context
+   */
+  clearSongList(context: ActionContext<IMusicStore, IMusicStore>): void {
+    context.commit(SET_SEQUENCE_LIST, []);
+    context.commit(SET_PLAYLIST, []);
+    context.commit(SET_CURRENT_INDEX, 0);
+    context.commit(SET_PLAYING_STATUE, false);
   },
 };
 

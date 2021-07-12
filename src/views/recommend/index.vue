@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:56:26
- * @LastEditTime: 2021-06-02 17:27:26
+ * @LastEditTime: 2021-07-12 23:21:15
  * @LastEditors: Please set LastEditors
  * @Description: Recommend
  * @FilePath: /study_vue03/src/views/recommend/index.vue
@@ -65,7 +65,6 @@ export default {
     const isShowLoading = computed(() => {
       return !sliders.value.length && !albums.value.length;
     });
-
     getRecommend<IRecommend>().then((res) => {
       albums.value = res.albums;
       sliders.value = res.sliders;

@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-06-15 23:35:49
+ * @LastEditTime: 2021-07-12 23:12:38
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -92,6 +92,8 @@ export default defineComponent({
     const bgImage = ref<HTMLElement | null>(null);
     const scrollY = ref(0);
     const maxTranslateY = ref(0); // 最高滚动距离
+
+    const playList = computed(() => store.state.music.playList);
     const bgImageStyle = computed(() => {
       let zIndex = 0;
       let paddingTop: string | number = "70%";
@@ -125,8 +127,10 @@ export default defineComponent({
       };
     });
     const scrollStyle = computed(() => {
+      const bottom = playList.value.length ? "60px" : "0";
       return {
         top: `${imageHeight.value}px`,
+        bottom,
       };
     });
     const filterStyle = computed(() => {

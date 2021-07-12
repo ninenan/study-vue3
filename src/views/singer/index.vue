@@ -4,7 +4,7 @@
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
- * @LastEditTime: 2021-06-05 22:15:22
+ * @LastEditTime: 2021-07-12 23:33:58
 -->
 <template>
   <div class="singer" v-loading="loading">
@@ -78,6 +78,5 @@ export default {
   position: fixed;
   top: 44px;
   width: 100%;
-  height: 100%;
 }
 </style>

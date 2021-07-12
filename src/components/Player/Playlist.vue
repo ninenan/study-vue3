@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-07-04 22:53:28
- * @LastEditTime: 2021-07-06 22:40:24
+ * @LastEditTime: 2021-07-12 23:05:33
  * @LastEditors: Please set LastEditors
  * @Description: Playlist
  * @FilePath: /study_vue03/src/components/Player/Playlist.vue
@@ -117,7 +117,7 @@ export default defineComponent({
      * 显示二次确认框
      */
     const showConfirm = () => {
-      (confirmRef.value as any).show();
+      ((confirmRef.value as HTMLElement) as any).show();
     };
     /**
      * 显示
@@ -165,6 +165,9 @@ export default defineComponent({
       }
       removing.value = true;
       store.dispatch("removeSong", song);
+      if (!playlist.value.length) {
+        hide();
+      }
       setTimeout(() => {
         removing.value = false;
       }, 300);
@@ -182,7 +185,8 @@ export default defineComponent({
      * 清空歌曲
      */
     const confirmClear = () => {
-      //
+      store.dispatch("clearSongList");
+      hide();
     };
 
     // hooks
