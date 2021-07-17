@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-11 22:42:52
- * @LastEditTime: 2021-06-23 23:03:09
+ * @LastEditTime: 2021-07-17 23:33:59
  * @LastEditors: Please set LastEditors
  * @Description: constant
  * @FilePath: /study_vue03/src/helpers/constant.ts
@@ -24,6 +24,9 @@ export const SET_CURRENT_INDEX = "SET_CURRENT_INDEX";
 export const SET_FULL_SCREEN = "SET_FULL_SCREEN";
 export const SET_FAVORITES_LIST = "SET_FAVORITES_LIST";
 export const ADD_SONG_LYRIC = "ADD_SONG_LYRIC";
+
+// recommend
+export const CACHE_ALBUM_INFO = "CACHE_ALBUM_INFO";
 
 // storage
 export const STORAGE = {

@@ -4,7 +4,7 @@
  * @LastEditors: Please set LastEditors
  * @Description: Singer
  * @FilePath: /study_vue03/src/views/singer/index.vue
- * @LastEditTime: 2021-07-12 23:33:58
+ * @LastEditTime: 2021-07-17 23:16:02
 -->
 <template>
   <div class="singer" v-loading="loading">
@@ -54,7 +54,7 @@ export default {
       selectedSinger.value = singer;
       store.commit(CACHE_SINGER_INFO, singer);
       router.push({
-        name: `SingerDetails`,
+        name: "SingerDetails",
         params: {
           mid: singer.mid,
         },

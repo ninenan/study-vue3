@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:55:24
- * @LastEditTime: 2021-06-01 21:39:57
+ * @LastEditTime: 2021-07-17 23:00:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/router/modules/music.ts
@@ -17,6 +17,16 @@ const music: RouteRecordRaw = {
       path: "recommend",
       name: "recommend",
       component: () => import("@/views/recommend/index.vue"),
+      children: [
+        {
+          path: ":id",
+          name: "albumDetail",
+          component: () => import("@views/album-detail/index.vue"),
+          meta: {
+            title: "专辑详情",
+          },
+        },
+      ],
     },
     {
       path: "search",
@@ -36,7 +46,7 @@ const music: RouteRecordRaw = {
         {
           path: ":mid",
           name: "SingerDetails",
-          component: () => import("@/views/singerDetails/index.vue"),
+          component: () => import("@/views/singer-details/index.vue"),
           meta: {
             title: "歌手详情",
           },

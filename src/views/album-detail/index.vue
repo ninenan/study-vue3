@@ -1,10 +1,10 @@
 <!--
  * @Author: NineNan
- * @Date: 2021-06-01 01:00:15
- * @LastEditTime: 2021-06-10 23:07:34
+ * @Date: 2021-07-17 22:57:36
+ * @LastEditTime: 2021-07-18 00:03:30
  * @LastEditors: Please set LastEditors
- * @Description: SingerDetails
- * @FilePath: \study-vue3\src\views\singer\SingerDetails.vue
+ * @Description: album-detail
+ * @FilePath: \study-vue3\src\views\album-detail\index.vue
 -->
 <template>
   <div class="singer-details">
@@ -17,20 +17,20 @@
   </div>
 </template>
 <script lang="ts">
-import { useRoute, useRouter } from "vue-router";
 import { PropType, ref, computed, Ref } from "vue";
-import { getSingerDetails } from "@/api/singer";
-import { processSongs } from "@/api/song";
-import { ISingerInfo, ISingerDetailsInfo } from "@/types/index";
-import MusicList from "@components/musicList/MusicList.vue";
+import { useRoute, useRouter } from "vue-router";
 import { useStore } from "@/store/index";
+import { processSongs } from "@/api/song";
+import { getAlbumDetail } from "@/api/recommend";
+import { IRecommendAlbums, ISingerDetailsInfo } from "@/types/index";
+import MusicList from "@components/musicList/MusicList.vue";
 
 export interface ISingerDetailsParams {
   mid: string;
 }
 
 interface IProps {
-  singer: ISingerInfo | null;
+  singer: IRecommendAlbums | null;
 }
 
 interface ISingerDetails {
@@ -38,17 +38,17 @@ interface ISingerDetails {
   pic: Ref<string | undefined>;
   title: Ref<string | undefined>;
   loading: Ref<boolean>;
-  computedSingerInfo: Ref<ISingerInfo | null>;
+  computedSingerInfo: Ref<IRecommendAlbums | null>;
 }
 
 export default {
-  name: "SingerDetails",
+  name: "albumDetail",
   components: {
     MusicList,
   },
   props: {
     singer: {
-      type: Object as PropType<ISingerInfo | null>,
+      type: Object as PropType<IRecommendAlbums | null>,
     },
   },
   async setup(props: IProps): Promise<ISingerDetails | undefined> {
@@ -58,15 +58,12 @@ export default {
     const loading = ref(true);
     let songsList = ref<ISingerDetailsInfo[]>([]);
     const computedSingerInfo = computed(() => {
-      let result: ISingerInfo | null = null;
+      let result: IRecommendAlbums | null = null;
       if (props?.singer?.id) {
         result = props.singer;
       } else {
-        if (
-          store.getters.getSingerInfo &&
-          store.getters.getSingerInfo.mid === route.params.mid
-        ) {
-          result = store.getters.getSingerInfo;
+        if (store.getters?.getAlbumInfo.id + "" === route.params.id) {
+          result = store.getters.getAlbumInfo;
         }
       }
       return result;
@@ -75,7 +72,7 @@ export default {
       return computedSingerInfo.value?.pic;
     });
     const title = computed(() => {
-      return computedSingerInfo.value?.name;
+      return computedSingerInfo.value?.username;
     });
 
     if (!computedSingerInfo.value) {
@@ -84,23 +81,15 @@ export default {
       return;
     }
 
-    const params: ISingerDetailsParams = {
-      mid: route.params.mid as string,
-    };
-    const { songs } = await getSingerDetails<{ songs: ISingerDetailsInfo[] }>(
+    const params = route.params as { id: string };
+    const { songs } = await getAlbumDetail<{ songs: ISingerDetailsInfo[] }>(
       params
     );
-    processSongs(songs).then((res) => {
-      const processSongsRes = res;
-      songsList.value = processSongsRes;
-      loading.value = false;
-    });
 
-    // setTimeout(async () => {
-    //   const processSongsRes = await processSongs(songs);
-    //   songsList.value = processSongsRes;
-    //   loading.value = false;
-    // }, 500);
+    const processSongsRes = await processSongs(songs);
+    songsList.value = processSongsRes;
+    loading.value = false;
+
     return {
       pic,
       title,

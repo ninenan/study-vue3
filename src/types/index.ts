@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-06-23 22:28:46
+ * @LastEditTime: 2021-07-17 23:36:51
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -51,6 +51,7 @@ export interface IStore {
 
 export interface ISingerStore {
   singerInfo: ISingerInfo | null;
+  albumInfo: IRecommendAlbums | null;
 }
 
 export interface IMusicStore {
