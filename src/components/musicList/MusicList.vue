@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-07-12 23:12:38
+ * @LastEditTime: 2021-07-17 22:08:56
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -38,7 +38,8 @@
 
 <script lang="ts">
 import SongList from "@/components/songList/SongList.vue";
-import Scroll from "@/components/base/scroll/Scroll.vue";
+// import Scroll from "@/components/base/scroll/Scroll.vue";
+import Scroll from "@/components/WrapScroll/WrapScroll";
 import { useRouter } from "vue-router";
 import { defineComponent, computed, onMounted, ref } from "vue";
 import { useStore } from "@/store/index";

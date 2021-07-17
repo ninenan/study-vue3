@@ -15,7 +15,7 @@ export default defineComponent({
     name: String,
     num: {
       type: Number,
-      default: 0
+      default: 0,
     },
   },
   setup(props, context) {
@@ -25,26 +25,24 @@ export default defineComponent({
       bar: () => <span>B</span>,
     };
 
-    onMounted(() =>{
-      console.log('root :>> ', root.value?.clientWidth);
-    })
+    onMounted(() => {
+      console.log("root :>> ", root.value?.clientWidth);
+    });
 
     function addNum() {
-      context.emit('addNum')
+      context.emit("addNum");
     }
 
     return () => (
       <div>
-        <div ref={root}>
-          {props.name}
-        </div>
+        <div ref={root}>{props.name}</div>
         <div>
           <p>{props.num}</p>
           <button onClick={addNum}>+1</button>
         </div>
-        <h1>{ context.slots.default ? context.slots.default() : '默认插槽' }</h1>
-        <h2>{ context.slots.header ? context.slots.header() : '具名插槽'}</h2>
+        <h1>{context.slots.default ? context.slots.default() : "默认插槽"}</h1>
+        <h2>{context.slots.header ? context.slots.header() : "具名插槽"}</h2>
       </div>
-    )
+    );
   },
 });
