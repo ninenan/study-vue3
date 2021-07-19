@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-17 22:55:24
- * @LastEditTime: 2021-07-17 23:00:44
+ * @LastEditTime: 2021-07-19 22:44:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/router/modules/music.ts
@@ -34,9 +34,22 @@ const music: RouteRecordRaw = {
       component: () => import("@/views/search/index.vue"),
     },
     {
-      path: "rankingList",
+      path: "ranking-list",
       name: "rankingList",
-      component: () => import("@/views/search/index.vue"),
+      component: () => import("@/views/music/ranking-list/index.vue"),
+      meta: {
+        title: "排行榜",
+      },
+      children: [
+        {
+          path: ":id",
+          name: "rankingDetail",
+          component: () => import("@/views/music/ranking-detail/index.vue"),
+          meta: {
+            title: "排行榜详情",
+          },
+        },
+      ],
     },
     {
       path: "singer",

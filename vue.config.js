@@ -44,7 +44,8 @@ module.exports = {
       .set("@hooks", resolve("src/hooks"))
       .set("@router", resolve("src/router"))
       .set("@store", resolve("src/store"))
-      .set("@helpers", resolve("src/helpers"));
+      .set("@helpers", resolve("src/helpers"))
+      .set("@api", resolve("src/api"));
   },
 
   devServer: {

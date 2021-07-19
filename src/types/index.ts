@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-07-17 23:36:51
+ * @LastEditTime: 2021-07-19 22:59:27
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -52,6 +52,7 @@ export interface IStore {
 export interface ISingerStore {
   singerInfo: ISingerInfo | null;
   albumInfo: IRecommendAlbums | null;
+  rankingInfo: IRankList | null;
 }
 
 export interface IMusicStore {
@@ -111,4 +112,16 @@ export interface ISingerInfo {
 export interface ISingerList {
   list: ISingerInfo[];
   title: string;
+}
+
+export interface IRankList {
+  id: number;
+  name: string;
+  period: string;
+  pic: string;
+  songList: {
+    id: number;
+    singerName: string;
+    songName: string;
+  }[];
 }

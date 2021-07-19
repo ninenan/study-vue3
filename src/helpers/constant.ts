@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-11 22:42:52
- * @LastEditTime: 2021-07-17 23:33:59
+ * @LastEditTime: 2021-07-19 22:58:00
  * @LastEditors: Please set LastEditors
  * @Description: constant
  * @FilePath: /study_vue03/src/helpers/constant.ts
@@ -27,6 +27,9 @@ export const ADD_SONG_LYRIC = "ADD_SONG_LYRIC";
 
 // recommend
 export const CACHE_ALBUM_INFO = "CACHE_ALBUM_INFO";
+
+// ranking
+export const CACHE_RANKING_INFO = "CACHE_RANKING_INFO";
 
 // storage
 export const STORAGE = {

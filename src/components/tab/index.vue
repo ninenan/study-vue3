@@ -42,7 +42,7 @@ export default {
       },
       {
         name: "排行",
-        path: "/music/rankingList",
+        path: "/music/ranking-list",
       },
       {
         name: "搜索",
