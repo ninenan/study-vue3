@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-07-17 22:08:56
+ * @LastEditTime: 2021-07-20 23:31:54
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -30,7 +30,11 @@
       @scroll="onScroll"
     >
       <div class="song-list-wrapper">
-        <song-list :songs="songs" @select="selectItem"></song-list>
+        <song-list
+          :songs="songs"
+          @select="selectItem"
+          :is-rank="isRank"
+        ></song-list>
       </div>
     </scroll>
   </div>
@@ -84,6 +88,10 @@ export default defineComponent({
     noResultText: {
       type: String,
       default: "抱歉，没有歌曲",
+    },
+    isRank: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props: IProps) {

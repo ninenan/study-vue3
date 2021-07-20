@@ -1,18 +1,19 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-07-19 22:22:25
- * @LastEditTime: 2021-07-19 23:21:06
+ * @LastEditTime: 2021-07-20 23:31:05
  * @LastEditors: Please set LastEditors
  * @Description: 排行榜详情
  * @FilePath: /study_vue03/src/views/music/ranking-detail/index.vue
 -->
 <template>
   <div class="ranking-detail">
-    <MusicList
+    <music-list
       :songs="songsList"
       :title="title"
       :pic="pic"
       :loading="loading"
+      isRank
     />
   </div>
 </template>
@@ -40,7 +41,7 @@ interface ISingerDetails {
 export default {
   name: "SingerDetails",
   components: {
-    MusicList,
+    "music-list": MusicList,
   },
   props: {
     singer: {
