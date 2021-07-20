@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-07-19 22:22:25
- * @LastEditTime: 2021-07-19 23:10:12
+ * @LastEditTime: 2021-07-19 23:21:06
  * @LastEditors: Please set LastEditors
  * @Description: 排行榜详情
  * @FilePath: /study_vue03/src/views/music/ranking-detail/index.vue
@@ -24,7 +24,6 @@ import { processSongs } from "@/api/song";
 import { IRankList, ISingerDetailsInfo } from "@/types/index";
 import MusicList from "@components/musicList/MusicList.vue";
 import { useStore } from "@/store/index";
-import singer from "@/store/modules/singer";
 
 interface IProps {
   singer: IRankList | null;
