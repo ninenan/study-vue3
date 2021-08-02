@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-07-19 22:59:27
+ * @LastEditTime: 2021-08-02 23:22:28
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -124,4 +124,9 @@ export interface IRankList {
     singerName: string;
     songName: string;
   }[];
+}
+
+export interface IHotKey {
+  id: number;
+  key: string;
 }

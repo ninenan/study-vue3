@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-06-01 23:01:49
- * @LastEditTime: 2021-07-20 23:31:54
+ * @LastEditTime: 2021-08-02 22:24:01
  * @LastEditors: Please set LastEditors
  * @Description: MusicList
  * @FilePath: /study_vue03/src/components/musicList/MusicList.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="music-list">
     <div class="back" @click="goBack">
-      <base-svg iconClass="icon-arrow-left" class="icon-back" />
+      <base-svg icon-class="icon-arrow-left" class="icon-back" />
     </div>
     <h1 class="title">{{ title }}</h1>
     <div class="bg-image" :style="bgImageStyle" ref="bgImage">
