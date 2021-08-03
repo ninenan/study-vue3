@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:58:49
- * @LastEditTime: 2021-07-19 23:03:26
+ * @LastEditTime: 2021-08-03 21:58:46
  * @LastEditors: Please set LastEditors
  * @Description: ranking-list
  * @FilePath: /study_vue03/src/views/music/ranking-list/index.vue
@@ -78,8 +78,6 @@ export default {
     const result = await getTopList<{ topList: IRankList[] }>();
     topList.value = result.topList;
     isLoading.value = false;
-
-    console.log("result :>> ", result);
 
     const selectItem = (item: IRankList) => {
       selectedTop.value = item;

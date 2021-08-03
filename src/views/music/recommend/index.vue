@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 22:56:26
- * @LastEditTime: 2021-07-17 23:55:14
+ * @LastEditTime: 2021-08-03 21:59:25
  * @LastEditors: Please set LastEditors
  * @Description: Recommend
  * @FilePath: /study_vue03/src/views/recommend/index.vue
@@ -96,7 +96,6 @@ export default {
      * @param { IRecommendAlbums } album
      */
     const selectItem = (album: IRecommendAlbums) => {
-      console.log("album :>> ", album);
       selectedAlbum.value = album;
       store.commit(CACHE_ALBUM_INFO, album);
       router.push({

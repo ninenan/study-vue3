@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-08-02 22:11:30
- * @LastEditTime: 2021-08-02 23:03:04
+ * @LastEditTime: 2021-08-03 23:00:41
  * @LastEditors: Please set LastEditors
  * @Description: SearchInput
  * @FilePath: /study_vue03/src/components/search/SearchInput.vue
@@ -37,6 +37,7 @@ export default defineComponent({
       default: "",
     },
   },
+  emits: ["update:modelValue"],
   setup(props: { placeholder: string; modelValue: string }, { emit }) {
     const query = ref(props.modelValue);
 
@@ -48,7 +49,7 @@ export default defineComponent({
     );
 
     watch(query, (newQuery) => {
-      emit("update:modeValue", newQuery);
+      emit("update:modelValue", newQuery);
     });
 
     const clear = () => {

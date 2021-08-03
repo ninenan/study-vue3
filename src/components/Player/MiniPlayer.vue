@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-29 11:39:01
- * @LastEditTime: 2021-07-04 23:30:00
+ * @LastEditTime: 2021-08-03 22:12:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \study-vue3\src\components\Player\MiniPlayer.vue
@@ -78,7 +78,6 @@ export default defineComponent({
     const playlist = computed(() => store.state.music.playList);
     const isPlaying = computed(() => store.state.music.isPlaying);
     const miniPlayIcon = computed(() => {
-      console.log("isPlaying.value :>> ", isPlaying.value);
       return isPlaying.value ? "icon-playing" : "icon-play";
     });
     const playlistRef = ref<HTMLElement | null>(null);

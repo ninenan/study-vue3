@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 23:00:01
- * @LastEditTime: 2021-08-02 23:35:38
+ * @LastEditTime: 2021-08-03 22:53:25
  * @LastEditors: Please set LastEditors
  * @Description: search
  * @FilePath: /study_vue03/src/views/search/index.vue
@@ -11,7 +11,7 @@
     <article class="search-input-wrapper">
       <search-input v-model="query"></search-input>
     </article>
-    <article class="search-content">
+    <article class="search-content" v-show="!query">
       <section class="hot-keys">
         <h1 class="title">热门搜索</h1>
         <ul>
@@ -26,14 +26,18 @@
         </ul>
       </section>
     </article>
+    <article class="search-result" v-show="query">
+      <suggest :query="query"></suggest>
+    </article>
   </main>
 </template>
 <script lang="ts">
 // components
 import SearchInput from "@/components/search/SearchInput.vue";
+import Suggest from "@/components/search/Suggest.vue";
 // api
 import { getHotKeys } from "@/api/search";
-import { Ref, ref } from "vue";
+import { Ref, ref, watch } from "vue";
 // types
 import { IHotKey } from "@/types/index";
 export interface ISearch {
@@ -46,10 +50,15 @@ export default {
   name: "search",
   components: {
     "search-input": SearchInput,
+    suggest: Suggest,
   },
   setup(): ISearch {
-    const query = ref("test");
+    const query = ref("");
     const hotKeys = ref<IHotKey[]>([]);
+
+    watch(query, (newQuery) => {
+      console.log("newQuery :>> ", newQuery);
+    });
 
     getHotKeys<{ hotKeys: IHotKey[] }>().then((res) => {
       hotKeys.value = res.hotKeys;

@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-07-12 22:54:43
+ * @LastEditTime: 2021-08-03 21:59:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -194,9 +194,6 @@ const actions = {
     const playList = context.state.playList.slice();
     const sequenceIndex = findIndex(sequenceList, song);
     const playIndex = findIndex(playList, song);
-
-    console.log("sequenceIndex :>> ", sequenceIndex);
-    console.log("playIndex :>> ", playIndex);
 
     if (sequenceIndex < 0 || playIndex < 0) {
       return;
