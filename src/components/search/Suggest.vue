@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-08-03 22:06:39
- * @LastEditTime: 2021-08-04 23:50:16
+ * @LastEditTime: 2021-08-05 22:49:46
  * @LastEditors: Please set LastEditors
  * @Description: suggest
  * @FilePath: /study_vue03/src/components/search/Suggest.vue
@@ -9,6 +9,7 @@
 <template>
   <article
     class="suggest"
+    ref="rootRef"
     v-loading="isShowLoading"
     v-no-result[noResultText]="isShowNoResult"
   >
@@ -39,7 +40,7 @@
   </article>
 </template>
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, nextTick, ref, watch } from "vue";
 // api
 import { search } from "@/api/search";
 import { processSongs } from "@/api/song";
@@ -73,6 +74,8 @@ export default defineComponent({
     const hasMore = ref(true);
     const page = ref(1);
     const noResultText = ref("抱歉，暂无搜索结果");
+    const manualLoading = ref(false);
+
     const isShowLoading = computed(() => !singer.value && !songs.value.length);
     const isShowNoResult = computed(
       () => !singer.value && !songs.value.length && !hasMore.value
@@ -80,9 +83,15 @@ export default defineComponent({
     const isShowPullUpLoading = computed(
       () => hasMore.value && isPullUpLoad.value
     );
+    const preventPullUpLoad = computed(
+      () => isShowLoading.value || manualLoading.value
+    );
 
     // hooks
-    const { rootRef, isPullUpLoad } = usePullUpLoad(searchMore);
+    const { rootRef, isPullUpLoad, scroll } = usePullUpLoad(
+      searchMore,
+      preventPullUpLoad
+    );
 
     watch(
       () => props.query,
@@ -95,8 +104,38 @@ export default defineComponent({
       }
     );
 
+    /**
+     * 重置数据
+     */
+    const resetData = () => {
+      page.value = 1;
+      singer.value = undefined;
+      songs.value = [];
+      hasMore.value = true;
+    };
+    /**
+     * 搜索数据
+     */
+    const searchData = async () => {
+      if (!props.query) return;
+      const response = await search<ISearchResult>(
+        props.query,
+        page.value,
+        props.isShowSinger
+      );
+
+      songs.value = await processSongs(response.songs);
+      singer.value = response.singer;
+      hasMore.value = response.hasMore;
+
+      await nextTick();
+      await makeItScrollAble();
+    };
+    /**
+     * 搜索更多
+     */
     async function searchMore() {
-      if (!hasMore.value) {
+      if (!hasMore.value || !props.query) {
         return;
       }
       page.value++;
@@ -107,38 +146,25 @@ export default defineComponent({
       );
       songs.value = songs.value.concat(await processSongs(response.songs));
       hasMore.value = response.hasMore;
+
+      await nextTick();
+      await makeItScrollAble();
     }
 
-    /**
-     * 重置数据
-     */
-    const resetData = () => {
-      page.value = 1;
-      singer.value = undefined;
-      songs.value = [];
-      hasMore.value = true;
-    };
+    async function makeItScrollAble() {
+      if (scroll.value) {
+        if (scroll.value?.maxScrollY >= -1) {
+          manualLoading.value = true;
+          await searchMore();
+          manualLoading.value = false;
+        }
+      }
+    }
 
-    /**
-     * 搜索数据
-     */
-    const searchData = async () => {
-      const response = await search<ISearchResult>(
-        props.query,
-        page.value,
-        props.isShowSinger
-      );
-
-      songs.value = await processSongs(response.songs);
-      singer.value = response.singer;
-      hasMore.value = response.hasMore;
-      console.log("response :>> ", response);
-    };
-
-    const selectSong = (song: any) => {
+    const selectSong = (song: ISingerDetailsInfo) => {
       emit("select-song", song);
     };
-    const selectSinger = (singer: any) => {
+    const selectSinger = (singer: ISingerInfo) => {
       emit("select-singer", singer);
     };
 

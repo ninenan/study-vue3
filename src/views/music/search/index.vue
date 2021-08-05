@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 23:00:01
- * @LastEditTime: 2021-08-03 22:53:25
+ * @LastEditTime: 2021-08-05 23:16:10
  * @LastEditors: Please set LastEditors
  * @Description: search
  * @FilePath: /study_vue03/src/views/search/index.vue
@@ -27,8 +27,21 @@
       </section>
     </article>
     <article class="search-result" v-show="query">
-      <suggest :query="query"></suggest>
+      <suggest
+        :query="query"
+        @select-song="selectSong"
+        @select-singer="selectSinger"
+      ></suggest>
     </article>
+    <Suspense>
+      <template #default>
+        <router-view v-slot="{ Component }">
+          <transition appear name="slide">
+            <component :is="Component" :singer="selectedSinger" />
+          </transition>
+        </router-view>
+      </template>
+    </Suspense>
   </main>
 </template>
 <script lang="ts">
@@ -39,11 +52,17 @@ import Suggest from "@/components/search/Suggest.vue";
 import { getHotKeys } from "@/api/search";
 import { Ref, ref, watch } from "vue";
 // types
-import { IHotKey } from "@/types/index";
+import { IHotKey, ISingerDetailsInfo, ISingerInfo } from "@/types/index";
+import { useStore } from "@/store";
+import { useRouter } from "vue-router";
+import { CACHE_SINGER_INFO } from "@/helpers/constant";
 export interface ISearch {
   query: Ref<string>;
   hotKeys: Ref<IHotKey[]>;
   addQuery: (key: string) => void;
+  selectSong: (song: ISingerDetailsInfo) => void;
+  selectSinger: (singer: ISingerInfo) => void;
+  selectedSinger: Ref<ISingerInfo | null>;
 }
 
 export default {
@@ -53,12 +72,11 @@ export default {
     suggest: Suggest,
   },
   setup(): ISearch {
+    const store = useStore();
+    const router = useRouter();
     const query = ref("");
     const hotKeys = ref<IHotKey[]>([]);
-
-    watch(query, (newQuery) => {
-      console.log("newQuery :>> ", newQuery);
-    });
+    let selectedSinger = ref<ISingerInfo | null>(null);
 
     getHotKeys<{ hotKeys: IHotKey[] }>().then((res) => {
       hotKeys.value = res.hotKeys;
@@ -67,11 +85,33 @@ export default {
     const addQuery = (key: string) => {
       query.value = key;
     };
+    /**
+     * 添加播放歌曲
+     */
+    const selectSong = (song: ISingerDetailsInfo) => {
+      store.dispatch("addSong", song);
+    };
+    /**
+     * 选择歌手
+     */
+    const selectSinger = (singer: ISingerInfo) => {
+      selectedSinger.value = singer;
+      store.commit(CACHE_SINGER_INFO, singer);
+      router.push({
+        name: "SearchSingerDetails",
+        params: {
+          mid: singer.mid,
+        },
+      });
+    };
 
     return {
       query,
       hotKeys,
+      selectedSinger,
       addQuery,
+      selectSong,
+      selectSinger,
     };
   },
 };

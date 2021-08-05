@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-08-04 22:53:30
- * @LastEditTime: 2021-08-04 23:34:38
+ * @LastEditTime: 2021-08-05 22:32:59
  * @LastEditors: Please set LastEditors
  * @Description: use-pull-up-load
  * @FilePath: /study_vue03/src/hooks/use-pull-up-load.ts
@@ -22,7 +22,10 @@ export interface IUsePullUpLoad {
   isPullUpLoad: Ref<boolean>;
 }
 
-export default function usePullUpLoad(requestData: () => void): IUsePullUpLoad {
+export default function usePullUpLoad(
+  requestData: () => void,
+  preventPullUpLoad: Ref<boolean>
+): IUsePullUpLoad {
   const scroll = ref<IBScroll>();
   const rootRef = ref<HTMLElement | null>(null);
   const isPullUpLoad = ref(false);
@@ -40,6 +43,11 @@ export default function usePullUpLoad(requestData: () => void): IUsePullUpLoad {
     scrollVal.on("pullingUp", pullingUpHandler);
 
     async function pullingUpHandler() {
+      if (preventPullUpLoad.value) {
+        scrollVal.finishPullUp();
+        return;
+      }
+
       isPullUpLoad.value = true;
       await requestData();
       scrollVal.finishPullUp();

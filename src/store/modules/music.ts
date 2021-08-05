@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-08-03 21:59:17
+ * @LastEditTime: 2021-08-05 23:01:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -223,6 +223,38 @@ const actions = {
     context.commit(SET_PLAYLIST, []);
     context.commit(SET_CURRENT_INDEX, 0);
     context.commit(SET_PLAYING_STATUE, false);
+  },
+  /**
+   * 添加并播放歌曲
+   * @param context
+   * @param song
+   */
+  addSong(
+    context: ActionContext<IMusicStore, IMusicStore>,
+    song: ISingerDetailsInfo
+  ): void {
+    const playList = state.playList.slice();
+    const sequenceList = state.sequenceList.slice();
+    let currentIndex = state.currentIndex;
+    const playIndex = findIndex(playList, song);
+
+    if (playIndex !== -1) {
+      currentIndex = playIndex;
+    } else {
+      playList.push(song);
+      currentIndex = playList.length - 1;
+    }
+
+    const sequenceIndex = findIndex(sequenceList, song);
+    if (sequenceIndex === -1) {
+      sequenceList.push(song);
+    }
+
+    context.commit(SET_PLAYLIST, playList);
+    context.commit(SET_SEQUENCE_LIST, sequenceList);
+    context.commit(SET_CURRENT_INDEX, currentIndex);
+    context.commit(SET_PLAYING_STATUE, true);
+    context.commit(SET_FULL_SCREEN, true);
   },
 };
 
