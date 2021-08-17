@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-05-10 13:50:43
- * @LastEditTime: 2021-08-02 23:22:28
+ * @LastEditTime: 2021-08-17 23:09:19
  * @LastEditors: Please set LastEditors
  * @Description: types
  * @FilePath: \study-vue3\src\types\index.ts
@@ -63,6 +63,7 @@ export interface IMusicStore {
   currentIndex: number; // 当前播放下标
   isFullScreen: boolean; // 是否全屏
   favoritesList: ISingerDetailsInfo[]; // 收藏列表
+  searchHistory: string[]; // 历史搜索记录
 }
 
 export interface ISingerDetailsInfo {

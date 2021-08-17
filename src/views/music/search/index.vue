@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 23:00:01
- * @LastEditTime: 2021-08-05 23:16:10
+ * @LastEditTime: 2021-08-17 23:38:06
  * @LastEditors: Please set LastEditors
  * @Description: search
  * @FilePath: /study_vue03/src/views/search/index.vue
@@ -25,6 +25,26 @@
           </li>
         </ul>
       </section>
+      <div class="search-history" v-show="searchHistory.length">
+        <h1 class="title">
+          <span class="text">搜索历史</span>
+          <span class="clear" @click="showConfirm">
+            <base-svg icon-class="icon-clear"></base-svg>
+          </span>
+        </h1>
+        <confirm
+          ref="confirmRef"
+          text="是否清空所有搜索历史"
+          confirm-btn-text="清空"
+          @confirm="clearSearch"
+        >
+        </confirm>
+        <search-history-list
+          :searches="searchHistory"
+          @select="addQuery"
+          @delete="deleteSearchHistory"
+        ></search-history-list>
+      </div>
     </article>
     <article class="search-result" v-show="query">
       <suggest
@@ -48,21 +68,30 @@
 // components
 import SearchInput from "@/components/search/SearchInput.vue";
 import Suggest from "@/components/search/Suggest.vue";
+import SearchHistoryList from "@/components/search/SearchHistoryList.vue";
+import Confirm from "@/components/base/confirm/Confirm.vue";
 // api
 import { getHotKeys } from "@/api/search";
-import { Ref, ref, watch } from "vue";
-// types
-import { IHotKey, ISingerDetailsInfo, ISingerInfo } from "@/types/index";
+// utils
+import { computed, Ref, ref } from "vue";
 import { useStore } from "@/store";
 import { useRouter } from "vue-router";
+// types
+import { IHotKey, ISingerDetailsInfo, ISingerInfo } from "@/types/index";
 import { CACHE_SINGER_INFO } from "@/helpers/constant";
+// hooks
+import useSearchHistory from "@/hooks/useSearchHistory";
 export interface ISearch {
   query: Ref<string>;
   hotKeys: Ref<IHotKey[]>;
+  searchHistory: Ref<string[]>;
   addQuery: (key: string) => void;
   selectSong: (song: ISingerDetailsInfo) => void;
   selectSinger: (singer: ISingerInfo) => void;
   selectedSinger: Ref<ISingerInfo | null>;
+  clearSearch: () => void;
+  deleteSearchHistory: (params: string) => void;
+  showConfirm: () => void;
 }
 
 export default {
@@ -70,6 +99,8 @@ export default {
   components: {
     "search-input": SearchInput,
     suggest: Suggest,
+    "search-history-list": SearchHistoryList,
+    confirm: Confirm,
   },
   setup(): ISearch {
     const store = useStore();
@@ -78,23 +109,35 @@ export default {
     const hotKeys = ref<IHotKey[]>([]);
     let selectedSinger = ref<ISingerInfo | null>(null);
 
+    const searchHistory = computed(() => store.state.music.searchHistory);
+
     getHotKeys<{ hotKeys: IHotKey[] }>().then((res) => {
       hotKeys.value = res.hotKeys;
     });
 
+    const { saveSearchHistory, deleteSearchHistory } = useSearchHistory();
+
     const addQuery = (key: string) => {
       query.value = key;
+    };
+    const clearSearch = () => {
+      //
+    };
+    const showConfirm = () => {
+      //
     };
     /**
      * 添加播放歌曲
      */
     const selectSong = (song: ISingerDetailsInfo) => {
+      saveSearchHistory(query.value);
       store.dispatch("addSong", song);
     };
     /**
      * 选择歌手
      */
     const selectSinger = (singer: ISingerInfo) => {
+      saveSearchHistory(query.value);
       selectedSinger.value = singer;
       store.commit(CACHE_SINGER_INFO, singer);
       router.push({
@@ -109,9 +152,13 @@ export default {
       query,
       hotKeys,
       selectedSinger,
+      searchHistory,
       addQuery,
       selectSong,
       selectSinger,
+      clearSearch,
+      deleteSearchHistory,
+      showConfirm,
     };
   },
 };

@@ -1,13 +1,13 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-22 10:02:28
- * @LastEditTime: 2021-06-22 21:30:30
+ * @LastEditTime: 2021-08-17 22:46:50
  * @LastEditors: Please set LastEditors
  * @Description: storage 关于本地storage的操作
  * @FilePath: \study-vue3\src\helpers\storage.ts
  */
 
-type Compare<T> = (value: T, index?: number, obj?: T[]) => boolean;
+type Compare<T> = (value: T, index?: number, arr?: T[]) => boolean;
 
 /**
  * 保存收藏歌曲到本地

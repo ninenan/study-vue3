@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-08-05 23:01:38
+ * @LastEditTime: 2021-08-17 23:11:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -15,6 +15,7 @@ import {
   SET_CURRENT_INDEX,
   SET_FULL_SCREEN,
   SET_FAVORITES_LIST,
+  SET_SEARCH_HISTORY,
   STORAGE,
   ADD_SONG_LYRIC,
 } from "@/helpers/constant";
@@ -30,6 +31,7 @@ const state: IMusicStore = {
   currentIndex: 0,
   isFullScreen: false,
   favoritesList: load(STORAGE.favorites),
+  searchHistory: load(STORAGE.searchHistory),
 };
 
 const getters = {
@@ -100,6 +102,14 @@ const mutations = {
     favoritesList: ISingerDetailsInfo[]
   ): void => {
     state.favoritesList = favoritesList;
+  },
+  /**
+   * 设置搜索记录
+   * @param state IMusicStore
+   * @param searchHistory string[]
+   */
+  [SET_SEARCH_HISTORY]: (state: IMusicStore, searchHistory: string[]): void => {
+    state.searchHistory = searchHistory;
   },
   /**
    * 设置歌曲的歌词
