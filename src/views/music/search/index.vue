@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-05-17 23:00:01
- * @LastEditTime: 2021-08-17 23:38:06
+ * @LastEditTime: 2021-08-18 13:41:23
  * @LastEditors: Please set LastEditors
  * @Description: search
  * @FilePath: /study_vue03/src/views/search/index.vue
@@ -36,7 +36,7 @@
           ref="confirmRef"
           text="是否清空所有搜索历史"
           confirm-btn-text="清空"
-          @confirm="clearSearch"
+          @confirm="clearSearchHistory"
         >
         </confirm>
         <search-history-list
@@ -85,12 +85,13 @@ export interface ISearch {
   query: Ref<string>;
   hotKeys: Ref<IHotKey[]>;
   searchHistory: Ref<string[]>;
+  selectedSinger: Ref<ISingerInfo | null>;
+  confirmRef: Ref<HTMLElement | null>;
   addQuery: (key: string) => void;
   selectSong: (song: ISingerDetailsInfo) => void;
   selectSinger: (singer: ISingerInfo) => void;
-  selectedSinger: Ref<ISingerInfo | null>;
-  clearSearch: () => void;
   deleteSearchHistory: (params: string) => void;
+  clearSearchHistory: () => void;
   showConfirm: () => void;
 }
 
@@ -108,6 +109,7 @@ export default {
     const query = ref("");
     const hotKeys = ref<IHotKey[]>([]);
     let selectedSinger = ref<ISingerInfo | null>(null);
+    const confirmRef = ref<HTMLElement | null>(null);
 
     const searchHistory = computed(() => store.state.music.searchHistory);
 
@@ -115,16 +117,18 @@ export default {
       hotKeys.value = res.hotKeys;
     });
 
-    const { saveSearchHistory, deleteSearchHistory } = useSearchHistory();
+    const {
+      saveSearchHistory,
+      deleteSearchHistory,
+      clearSearchHistory,
+    } = useSearchHistory();
 
     const addQuery = (key: string) => {
       query.value = key;
     };
-    const clearSearch = () => {
-      //
-    };
+
     const showConfirm = () => {
-      //
+      ((confirmRef.value as HTMLElement) as any).show();
     };
     /**
      * 添加播放歌曲
@@ -153,11 +157,12 @@ export default {
       hotKeys,
       selectedSinger,
       searchHistory,
+      confirmRef,
       addQuery,
       selectSong,
       selectSinger,
-      clearSearch,
       deleteSearchHistory,
+      clearSearchHistory,
       showConfirm,
     };
   },

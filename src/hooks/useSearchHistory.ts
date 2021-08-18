@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-08-17 23:14:53
- * @LastEditTime: 2021-08-17 23:33:53
+ * @LastEditTime: 2021-08-18 13:42:02
  * @LastEditors: Please set LastEditors
  * @Description: 搜索历史
  * @FilePath: /study_vue03/src/hooks/useSearchHistory.ts
@@ -13,6 +13,7 @@ import { useStore } from "@/store";
 export interface IUseSearchHistory {
   saveSearchHistory: (params: string) => void;
   deleteSearchHistory: (params: string) => void;
+  clearSearchHistory: () => void;
 }
 
 export default function useSearchHistory(): IUseSearchHistory {
@@ -27,8 +28,6 @@ export default function useSearchHistory(): IUseSearchHistory {
       maxLength
     );
 
-    console.log("searchHistory :>> ", searchHistory);
-
     store.commit(SET_SEARCH_HISTORY, searchHistory);
   }
 
@@ -41,8 +40,14 @@ export default function useSearchHistory(): IUseSearchHistory {
     store.commit(SET_SEARCH_HISTORY, searchHistory);
   }
 
+  function clearSearchHistory() {
+    localStorage.removeItem(STORAGE.searchHistory);
+    store.commit(SET_SEARCH_HISTORY, []);
+  }
+
   return {
     saveSearchHistory,
     deleteSearchHistory,
+    clearSearchHistory,
   };
 }
