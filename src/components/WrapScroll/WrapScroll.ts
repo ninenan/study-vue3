@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-07-17 21:39:03
- * @LastEditTime: 2021-07-17 22:12:07
+ * @LastEditTime: 2021-08-18 21:09:07
  * @LastEditors: Please set LastEditors
  * @Description: WrapScroll scroll 高阶组件简单实现
  * @FilePath: \study-vue3\src\components\WrapScroll\WrapScroll.ts
@@ -18,7 +18,6 @@ import {
   computed,
   watch,
   nextTick,
-  Ref,
 } from "vue";
 import { useStore } from "@/store/index";
 

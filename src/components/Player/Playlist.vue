@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-07-04 22:53:28
- * @LastEditTime: 2021-07-12 23:05:33
+ * @LastEditTime: 2021-08-18 22:25:16
  * @LastEditors: Please set LastEditors
  * @Description: Playlist
  * @FilePath: /study_vue03/src/components/Player/Playlist.vue
@@ -53,12 +53,12 @@
               </li>
             </transition-group>
           </scroll>
-          <!-- <div class="list-add">
+          <div class="list-add">
             <div class="add" @click="showAddSong">
               <i class="icon-add"></i>
               <span class="text">添加歌曲到队列</span>
             </div>
-          </div> -->
+          </div>
           <div class="list-footer" @click.stop="hide">
             <span>关闭</span>
           </div>
@@ -69,6 +69,7 @@
           text="是否清空播放列表？"
           confirm-btn-text="清空"
         ></confirm>
+        <add-song ref="addSongRef" />
       </div>
     </transition>
   </teleport>
@@ -81,7 +82,7 @@ import { SET_CURRENT_INDEX, SET_PLAYING_STATUE } from "@/helpers/constant";
 // components
 import Scroll from "@/components/base/scroll/Scroll.vue";
 import Confirm from "@/components/base/confirm/Confirm.vue";
-
+import AddSong from "@/components/addSong/AddSong.vue";
 // hooks
 import useMode from "@/hooks/useMode";
 import useFavorites from "@/hooks/useFavorites";
@@ -93,6 +94,7 @@ export default defineComponent({
   components: {
     Scroll,
     confirm: Confirm,
+    "add-song": AddSong,
   },
   setup() {
     const store = useStore();
@@ -101,6 +103,8 @@ export default defineComponent({
     const scrollRef = ref<HTMLElement | null>(null);
     const listRef = ref<HTMLElement | null>(null);
     const confirmRef = ref<HTMLElement | null>(null);
+    const addSongRef = ref<HTMLElement | null>(null);
+
     const playlist = computed(() => store.state.music.playList);
     const sequenceList = computed(() => store.state.music.sequenceList);
     const currentSong = computed(() => store.getters.currentSong);
@@ -150,8 +154,11 @@ export default defineComponent({
     const hide = () => {
       visible.value = false;
     };
+    /**
+     * 展示添加歌曲组件
+     */
     const showAddSong = () => {
-      //
+      (addSongRef.value as any).show();
     };
     const getCurrentIcon = (song: ISingerDetailsInfo) => {
       return song.id === currentSong.value.id ? "icon-playing" : "";
@@ -201,6 +208,7 @@ export default defineComponent({
       scrollRef,
       listRef,
       confirmRef,
+      addSongRef,
       show,
       hide,
       showConfirm,

@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-29 21:54:02
- * @LastEditTime: 2021-07-06 22:13:27
+ * @LastEditTime: 2021-08-18 21:19:24
  * @LastEditors: Please set LastEditors
  * @Description: useMiddleSlider
  * @FilePath: /study_vue03/src/hooks/useMiddleSlider.ts
@@ -19,7 +19,7 @@ import { useStore } from "@/store";
 import BScroll from "@better-scroll/core";
 import IBScroll from "@better-scroll/core/dist/types/index";
 import Slide from "@better-scroll/slide";
-import { SET_CURRENT_INDEX, SET_PLAYING_STATUE } from "@/helpers/constant";
+import { SET_CURRENT_INDEX } from "@/helpers/constant";
 
 BScroll.use(Slide);
 
