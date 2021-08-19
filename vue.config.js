@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const registerRouter = require("./backend/router");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV);
 const path = require("path");
 const resolve = (dir) => path.join(__dirname, dir);
+const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 
 module.exports = {
+  productionSourceMap: false,
+
   css: {
     extract: IS_PROD,
     sourceMap: false,
@@ -46,6 +52,24 @@ module.exports = {
       .set("@store", resolve("src/store"))
       .set("@helpers", resolve("src/helpers"))
       .set("@api", resolve("src/api"));
+
+    config.plugin("compression-webpack-plugin").use(BundleAnalyzerPlugin);
+  },
+
+  configureWebpack: (config) => {
+    const plugins = [];
+    if (IS_PROD) {
+      plugins.push(
+        new CompressionWebpackPlugin({
+          filename: "[path].gz[query]",
+          algorithm: "gzip",
+          test: productionGzipExtensions,
+          threshold: 10240,
+          minRatio: 0.8,
+        })
+      );
+    }
+    config.plugins = [...config.plugins, ...plugins];
   },
 
   devServer: {
