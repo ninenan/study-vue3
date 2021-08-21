@@ -53,7 +53,9 @@ module.exports = {
       .set("@helpers", resolve("src/helpers"))
       .set("@api", resolve("src/api"));
 
-    config.plugin("compression-webpack-plugin").use(BundleAnalyzerPlugin);
+    if (IS_PROD) {
+      config.plugin("compression-webpack-plugin").use(BundleAnalyzerPlugin);
+    }
   },
 
   configureWebpack: (config) => {

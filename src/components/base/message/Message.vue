@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-08-18 22:14:59
- * @LastEditTime: 2021-08-18 22:19:41
+ * @LastEditTime: 2021-08-21 23:32:28
  * @LastEditors: Please set LastEditors
  * @Description: message
  * @FilePath: /study_vue03/src/components/base/message/Message.vue
@@ -16,8 +16,13 @@
   </teleport>
 </template>
 
-<script>
-import { ref } from "vue";
+<script lang="ts">
+import { Ref, ref } from "vue";
+interface IMessage {
+  visible: Ref<boolean>;
+  show: () => void;
+  hide: () => void;
+}
 export default {
   name: "message",
   props: {
@@ -26,10 +31,10 @@ export default {
       default: 2000,
     },
   },
-  setup(props) {
+  setup(props: { delay: number }): IMessage {
     const visible = ref(false);
 
-    const timer = setTimeout(() => {
+    let timer = setTimeout(() => {
       hide();
     }, props.delay);
     /**
@@ -38,6 +43,9 @@ export default {
     const show = () => {
       visible.value = true;
       clearTimeout(timer);
+      timer = setTimeout(() => {
+        hide();
+      }, props.delay);
     };
     /**
      * 隐藏当前组件

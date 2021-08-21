@@ -1,7 +1,7 @@
 <!--
  * @Author: NineNan
  * @Date: 2021-08-18 21:52:09
- * @LastEditTime: 2021-08-18 22:43:11
+ * @LastEditTime: 2021-08-21 23:31:46
  * @LastEditors: Please set LastEditors
  * @Description: 添加歌曲
  * @FilePath: /study_vue03/src/components/addSong/AddSong.vue
@@ -24,6 +24,31 @@
             :items="['最近播放', '搜索历史']"
             v-model="currentIndex"
           ></switches>
+          <div class="list-wrapper">
+            <scroll
+              v-if="currentIndex === 0"
+              class="list-scroll"
+              ref="scrollRef"
+            >
+              <div class="list-inner">
+                <song-list :songs="playHistory" @select="selectSongBySongList">
+                </song-list>
+              </div>
+            </scroll>
+            <scroll
+              v-if="currentIndex === 1"
+              class="list-scroll"
+              ref="scrollRef"
+            >
+              <div class="list-inner">
+                <search-history-list
+                  :searches="searchHistory"
+                  :show-delete="false"
+                  @select="addQuery"
+                ></search-history-list>
+              </div>
+            </scroll>
+          </div>
         </div>
         <div class="search-result" v-show="query">
           <suggest
@@ -35,7 +60,7 @@
         </div>
         <message ref="messageRef">
           <div class="message-title">
-            <i class="icon-ok"></i>
+            <base-svg icon-class="icon-success" class="icon-success"></base-svg>
             <span class="text">1首歌曲已经添加到播放列表</span>
           </div>
         </message>
@@ -49,11 +74,22 @@ import SearchInput from "@/components/search/SearchInput.vue"; // 歌曲搜索
 import Suggest from "@/components/search/Suggest.vue";
 import Message from "@/components/base/message/Message.vue";
 import Switches from "@/components/switches/Switches.vue";
+import SearchHistoryList from "@/components/search/SearchHistoryList.vue";
+import Scroll from "@/components/base/scroll/Scroll.vue";
+import SongList from "@/components/songList/SongList.vue";
 // types
 import { ISingerDetailsInfo } from "@/types";
 // utils
-import { defineComponent, ref } from "@vue/runtime-core";
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  ref,
+  watch,
+} from "@vue/runtime-core";
 import { useStore } from "@/store";
+// hooks
+import useSearchHistory from "@/hooks/useSearchHistory";
 
 export default defineComponent({
   name: "addSong",
@@ -62,27 +98,60 @@ export default defineComponent({
     suggest: Suggest,
     message: Message,
     switches: Switches,
+    "search-history-list": SearchHistoryList,
+    scroll: Scroll,
+    "song-list": SongList,
   },
   setup() {
     const store = useStore();
     const visible = ref(false);
     const query = ref("");
     const currentIndex = ref(0);
+    const scrollRef = ref<HTMLElement | null>(null);
+    const messageRef = ref<HTMLElement | null>(null);
+    const searchHistory = computed(() => store.state.music.searchHistory);
+    const playHistory = computed(() => store.state.music.playHistory);
+
+    watch(query, async () => {
+      await nextTick();
+      refreshScroll();
+    });
+
+    const { saveSearchHistory } = useSearchHistory();
+
+    const refreshScroll = () => {
+      (scrollRef.value?.scroll as any).refresh();
+    };
     /**
      * 隐藏当前组件
      */
     const hide = () => {
       visible.value = false;
     };
-
+    /**
+     * 选择歌曲
+     */
     const selectSongBySuggest = (song: ISingerDetailsInfo) => {
       addSong(song);
+      saveSearchHistory(query.value);
     };
     /**
      * 添加播放歌曲
      */
     const addSong = (song: ISingerDetailsInfo) => {
       store.dispatch("addSong", song);
+      showMessage();
+    };
+    /**
+     * 播放历史选择歌曲
+     */
+    const selectSongBySongList = ({
+      song,
+    }: {
+      song: ISingerDetailsInfo;
+      index: number;
+    }) => {
+      addSong(song);
     };
     /**
      * 显示当前组件
@@ -90,14 +159,29 @@ export default defineComponent({
     const show = () => {
       visible.value = true;
     };
+    /**
+     * 搜索历史点击
+     */
+    const addQuery = (song: string) => {
+      query.value = song;
+    };
+    const showMessage = () => {
+      (messageRef.value as any).show();
+    };
 
     return {
       visible,
       query,
       currentIndex,
+      searchHistory,
+      playHistory,
+      scrollRef,
+      messageRef,
       hide,
       selectSongBySuggest,
+      selectSongBySongList,
       show,
+      addQuery,
     };
   },
 });
@@ -157,12 +241,14 @@ export default defineComponent({
 
 .message-title {
   text-align: center;
-  padding: 18px 0;
-  font-size: 0;
-  .icon-ok {
-    font-size: $font-size-medium;
+  height: 40px;
+  box-sizing: border-box;
+  @include FlexCenter();
+  .icon-success {
+    width: 20px;
+    height: 20px;
     color: $color-theme;
-    margin-right: 4px;
+    margin-right: 5px;
   }
   .text {
     font-size: $font-size-medium;

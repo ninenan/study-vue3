@@ -153,6 +153,7 @@ import useMiddleInteractive, {
   IUseMiddleInteractive,
 } from "@/hooks/useMiddleInteractive";
 import useAnimation, { IUseAnimation } from "@/hooks/useAnimation";
+import usePlayHistory from "@/hooks/usePlayHistory";
 // utils
 import { formatTime } from "@/helpers/utils";
 
@@ -288,6 +289,7 @@ export default {
       leave,
       afterLeave,
     } = useAnimation();
+    const { savePlayHistory } = usePlayHistory();
     /**
      * 返回
      */
@@ -367,6 +369,7 @@ export default {
       }
       isSongReady.value = true;
       playLyric();
+      savePlayHistory(currentSong.value);
     };
     /**
      * 歌曲播放失败

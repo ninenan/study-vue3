@@ -1,7 +1,7 @@
 /*
  * @Author: NineNan
  * @Date: 2021-06-06 17:53:36
- * @LastEditTime: 2021-08-17 23:11:39
+ * @LastEditTime: 2021-08-21 21:56:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /study_vue03/src/store/modules/music.ts
@@ -18,6 +18,7 @@ import {
   SET_SEARCH_HISTORY,
   STORAGE,
   ADD_SONG_LYRIC,
+  SET_PLAY_HISTORY,
 } from "@/helpers/constant";
 import { ActionContext } from "vuex";
 import { shuffle } from "@/helpers/utils";
@@ -32,6 +33,7 @@ const state: IMusicStore = {
   isFullScreen: false,
   favoritesList: load(STORAGE.favorites),
   searchHistory: load(STORAGE.searchHistory),
+  playHistory: load(STORAGE.playHistory),
 };
 
 const getters = {
@@ -67,6 +69,17 @@ const mutations = {
    */
   [SET_PLAYLIST]: (state: IMusicStore, list: ISingerDetailsInfo[]): void => {
     state.playList = list;
+  },
+  /**
+   * 设置播放历史
+   * @param { IMusicStore } state
+   * @param { ISingerDetailsInfo[] }list
+   */
+  [SET_PLAY_HISTORY]: (
+    state: IMusicStore,
+    list: ISingerDetailsInfo[]
+  ): void => {
+    state.playHistory = list;
   },
   /**
    * 设置播放模式
