@@ -94,6 +94,14 @@ const study: RouteRecordRaw = {
         title: "学习slot",
       },
     },
+    {
+      path: "study-css",
+      name: "studyCss",
+      component: () => import("@views/study/study-css.vue"),
+      meta: {
+        title: "学习slot",
+      },
+    },
   ],
 };
 

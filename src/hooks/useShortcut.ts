@@ -12,7 +12,7 @@ import { ISingerList } from "@/types";
 // import Scroller from "@better-scroll/core";
 
 interface IUseShortcut {
-  shortcutList: ComputedRef<string>;
+  shortcutList: ComputedRef<string[]>;
   onShortcutTouchStart: (e: any) => void;
   scrollRef: Ref<HTMLElement | null>;
   onShortcutTouchMove: (e: any) => void;
