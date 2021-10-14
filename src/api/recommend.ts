@@ -7,7 +7,7 @@
  * @FilePath: /study_vue03/src/api/rcommend.ts
  */
 import { get } from "@/service/http";
-import { IRecommendAlbums } from "@/types/index";
+
 /**
  * @description 获取轮播图
  * @returns
@@ -18,7 +18,6 @@ export const getRecommend = <T>(): Promise<T> => {
 
 /**
  * 获取专辑详情
- * @param {IRecommendAlbums} album
  */
 export const getAlbumDetail = <T>(album: { id: string }): Promise<T> => {
   return get("/api/getAlbum", {
