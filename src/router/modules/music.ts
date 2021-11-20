@@ -7,16 +7,29 @@
  * @FilePath: /study_vue03/src/router/modules/music.ts
  */
 import { RouteRecordRaw } from "vue-router";
+
+export enum MusicRouteNames {
+  music = "music",
+  recommend = "recommend",
+  albumDetail = "albumDetail",
+  search = "search",
+  searchSingerDetails = "SearchSingerDetails",
+  rankingList = "rankingList",
+  rankingDetail = "rankingDetail",
+  singer = "singer",
+  singerDetails = "SingerDetails",
+}
+
 const music: RouteRecordRaw = {
   path: "/music",
-  name: "music",
+  name: MusicRouteNames.music,
   redirect: "/music/recommend",
   component: () =>
     import("@/components/Layout.vue" /*webpackChunkName: "Layout"*/),
   children: [
     {
       path: "recommend",
-      name: "recommend",
+      name: MusicRouteNames.recommend,
       component: () =>
         import(
           "@/views/music/recommend/index.vue" /*webpackChunkName: "recommend"*/
@@ -24,7 +37,7 @@ const music: RouteRecordRaw = {
       children: [
         {
           path: ":id",
-          name: "albumDetail",
+          name: MusicRouteNames.albumDetail,
           component: () =>
             import(
               "@views/music/album-detail/index.vue" /*webpackChunkName: "albumDetail"*/
@@ -37,13 +50,13 @@ const music: RouteRecordRaw = {
     },
     {
       path: "search",
-      name: "search",
+      name: MusicRouteNames.search,
       component: () =>
         import("@/views/music/search/index.vue" /*webpackChunkName: "search"*/),
       children: [
         {
           path: ":mid",
-          name: "SearchSingerDetails",
+          name: MusicRouteNames.searchSingerDetails,
           component: () =>
             import(
               "@/views/singer-details/index.vue" /*webpackChunkName: "SearchSingerDetails"*/
@@ -56,7 +69,7 @@ const music: RouteRecordRaw = {
     },
     {
       path: "ranking-list",
-      name: "rankingList",
+      name: MusicRouteNames.rankingList,
       component: () =>
         import(
           "@/views/music/ranking-list/index.vue" /*webpackChunkName: "rankingList"*/
@@ -67,7 +80,7 @@ const music: RouteRecordRaw = {
       children: [
         {
           path: ":id",
-          name: "rankingDetail",
+          name: MusicRouteNames.rankingDetail,
           component: () =>
             import(
               "@/views/music/ranking-detail/index.vue" /*webpackChunkName: "rankingDetail"*/
@@ -80,13 +93,13 @@ const music: RouteRecordRaw = {
     },
     {
       path: "singer",
-      name: "singer",
+      name: MusicRouteNames.singer,
       component: () =>
         import("@/views/singer/index.vue" /*webpackChunkName: "singer"*/),
       children: [
         {
           path: ":mid",
-          name: "SingerDetails",
+          name: MusicRouteNames.singerDetails,
           component: () =>
             import(
               "@/views/singer-details/index.vue" /*webpackChunkName: "SingerDetails"*/
