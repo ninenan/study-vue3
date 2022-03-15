@@ -102,6 +102,14 @@ const study: RouteRecordRaw = {
         title: "学习slot",
       },
     },
+    {
+      path: "virtual-list",
+      name: "studyVirtualList",
+      component: () => import("@views/study/virtual-list.vue"),
+      meta: {
+        title: "学习virtual-list",
+      },
+    },
   ],
 };
 
