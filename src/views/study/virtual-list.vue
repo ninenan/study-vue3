@@ -11,6 +11,7 @@
         class="virtual-list__item"
         v-for="item in visibleData"
         :key="item.id"
+        @click="test(item)"
       >
         {{ item.value }}
       </div>
@@ -39,6 +40,7 @@ interface IVirtualList {
   scrollEvent: () => void;
   listRef: Ref<HTMLElement | null>;
   shadeStyle: Ref<{ transform: string }>;
+  test: (item: IListData) => void;
 }
 
 export default {
@@ -86,6 +88,9 @@ export default {
         startOffset.value = scrollTop - (scrollTop % 100);
       }
     };
+    const test = (item: IListData) => {
+      console.log("item :>> ", item.value);
+    };
     return {
       listData,
       visibleData,
@@ -93,6 +98,7 @@ export default {
       listRef,
       shadeStyle,
       scrollEvent,
+      test,
     };
   },
 };
