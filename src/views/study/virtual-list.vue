@@ -19,7 +19,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, onMounted, Ref, ref } from "vue";
+import { computed, onMounted, Ref, ref, defineComponent } from "vue";
 const data: IListData[] = [];
 for (let index = 0; index < 10_000; index++) {
   data.push({
@@ -43,7 +43,7 @@ interface IVirtualList {
   test: (item: IListData) => void;
 }
 
-export default {
+export default defineComponent({
   setup(): IVirtualList {
     const listData = ref<IListData[]>(data); // 列表总高度
     const start = ref<number>(0); // 开始下标
@@ -101,7 +101,7 @@ export default {
       test,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 .virtual-list__container {
