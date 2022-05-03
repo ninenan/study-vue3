@@ -33,6 +33,6 @@ app
   })
   .component("BaseSvg", BaseSvg)
   .directive("loading", loadingDirective)
-  .directive("moneyFormat", moneyFormat)
+  .directive("money-format", moneyFormat)
   .directive("no-result", noResultDirective)
   .mount("#app");

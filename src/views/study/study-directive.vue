@@ -9,7 +9,7 @@
 <template>
   <div class="study-directive">
     <h1>Study Directive</h1>
-    <p v-moneyFormat>{{ myNumber }}</p>
+    <p v-money-format>{{ myNumber }}</p>
   </div>
 </template>
 <script lang="ts">
