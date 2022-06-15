@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { Ref, ref } from "vue";
+import { Ref, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 // types
 import { IRankList } from "@/types/index";
@@ -71,13 +71,15 @@ export default {
     const router = useRouter();
     const store = useStore();
     const topList = ref<IRankList[]>([]);
-    const isLoading = ref(false);
+    const isLoading = computed(() => {
+      return !topList.value?.length;
+    });
     const selectedTop = ref<IRankList | null>(null);
 
-    isLoading.value = true;
-    const result = await getTopList<{ topList: IRankList[] }>();
-    topList.value = result.topList;
-    isLoading.value = false;
+    setTimeout(async () => {
+      const result = await getTopList<{ topList: IRankList[] }>();
+      topList.value = result.topList;
+    }, 12000);
 
     const selectItem = (item: IRankList) => {
       selectedTop.value = item;
