@@ -57,7 +57,7 @@ import { IRecommend, IRecommendSliders, IRecommendAlbums } from "@/types/index";
 import Slider from "@/components/base/slider/index.vue";
 import { Ref, ref, computed, ComputedRef } from "vue";
 import Scroll from "@/components/base/scroll/Scroll.vue";
-import router from "@/router";
+import { useRouter } from "vue-router";
 import { CACHE_ALBUM_INFO } from "@/helpers/constant";
 import { useStore } from "@/store";
 
@@ -83,6 +83,7 @@ export default {
     const loadingTitle = ref("加载中...");
     const selectedAlbum = ref<IRecommendAlbums | null>(null);
     const store = useStore();
+    const router = useRouter();
     const isShowLoading = computed(() => {
       return !sliders.value.length && !albums.value.length;
     });
