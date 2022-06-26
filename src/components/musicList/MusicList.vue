@@ -106,7 +106,7 @@ export default defineComponent({
     const bgImageStyle = computed(() => {
       let zIndex = 0;
       let paddingTop: string | number = "70%";
-      let height = `0px`;
+      let height = "0px";
       let translateZ = 0; // 兼容ios
       let scale = 1;
       if (scrollY.value > maxTranslateY.value) {
@@ -118,6 +118,7 @@ export default defineComponent({
       if (scrollY.value < 0) {
         scale = scale + Math.abs(scrollY.value / maxTranslateY.value);
       }
+
       return {
         zIndex,
         height,
