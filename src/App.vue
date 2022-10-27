@@ -14,7 +14,6 @@
 </template>
 <script lang="ts">
 import Tab from "@components/tab/index.vue";
-
 export default {
   components: {
     Tab,
